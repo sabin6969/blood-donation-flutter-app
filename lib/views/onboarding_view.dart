@@ -1,7 +1,8 @@
-import 'package:blood_donation_flutter_app/constants/app_strings.dart';
-import 'package:blood_donation_flutter_app/constants/image_path.dart';
-import 'package:blood_donation_flutter_app/models/onboarding_content_model.dart';
+import 'package:blood_donation_flutter_app/constants/app_routes.dart';
+import 'package:blood_donation_flutter_app/controllers/onboarding_controller.dart';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingView extends StatefulWidget {
@@ -12,19 +13,16 @@ class OnboardingView extends StatefulWidget {
 }
 
 class OnboardingViewState extends State<OnboardingView> {
-  List<OnboardingContent> onboadingContents = [
-    OnboardingContent(
-        imagePath: ImagePath.onboardingFirstImagePath,
-        mainTitle: AppStrings.onboardingFirstTitle,
-        subTitile: AppStrings.onboardingFirstSubtitle),
-    OnboardingContent(
-      imagePath: ImagePath.onboardingSecondImagePath,
-      mainTitle: AppStrings.onboardingSecondTitle,
-      subTitile: AppStrings.onboardingSecondSubtitle,
-    ),
-  ];
+  OnboardingController onboardingController = Get.find<OnboardingController>();
 
-  PageController pageController = PageController();
+  @override
+  void initState() {
+    onboardingController.pageController.addListener(() {
+      onboardingController.currentIndex.value =
+          onboardingController.pageController.page?.round() ?? 0;
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,21 +33,21 @@ class OnboardingViewState extends State<OnboardingView> {
             flex: 2,
             child: PageView.builder(
               physics: const AlwaysScrollableScrollPhysics(),
-              controller: pageController,
-              itemCount: onboadingContents.length,
+              controller: onboardingController.pageController,
+              itemCount: onboardingController.onboadingContents.length,
               itemBuilder: (context, index) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     const Spacer(),
                     Image.asset(
-                      onboadingContents[index].imagePath,
+                      onboardingController.onboadingContents[index].imagePath,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     Text(
-                      onboadingContents[index].mainTitle,
+                      onboardingController.onboadingContents[index].mainTitle,
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -59,7 +57,7 @@ class OnboardingViewState extends State<OnboardingView> {
                       height: 20,
                     ),
                     Text(
-                      onboadingContents[index].subTitile,
+                      onboardingController.onboadingContents[index].subTitile,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontSize: 18,
@@ -70,9 +68,9 @@ class OnboardingViewState extends State<OnboardingView> {
                       height: 20,
                     ),
                     SmoothPageIndicator(
-                      controller: pageController,
+                      controller: onboardingController.pageController,
                       onDotClicked: (index) {
-                        pageController.animateToPage(
+                        onboardingController.pageController.animateToPage(
                           index,
                           duration: const Duration(milliseconds: 200),
                           curve: Curves.easeIn,
@@ -89,27 +87,52 @@ class OnboardingViewState extends State<OnboardingView> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    "Skip",
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    pageController.nextPage(
-                      duration: const Duration(milliseconds: 200),
-                      curve: Curves.easeIn,
-                    );
-                  },
-                  child: const Text(
-                    "Next",
-                  ),
-                )
-              ],
+            child: GetX<OnboardingController>(
+              builder: (controller) {
+                // Displaying Get Started button on the last onboarding page
+                if (controller.currentIndex.value ==
+                    onboardingController.onboadingContents.length - 1) {
+                  return TextButton(
+                    onPressed: () {
+                      Get.offNamed(AppRoutes.loginSignupView);
+                    },
+                    child: const Text(
+                      "Get Started",
+                    ),
+                  );
+                } else {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          onboardingController.pageController.animateToPage(
+                            onboardingController.onboadingContents.length - 1,
+                            duration: const Duration(
+                              milliseconds: 200,
+                            ),
+                            curve: Curves.easeIn,
+                          );
+                        },
+                        child: const Text(
+                          "Skip",
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          onboardingController.pageController.nextPage(
+                            duration: const Duration(milliseconds: 200),
+                            curve: Curves.easeIn,
+                          );
+                        },
+                        child: const Text(
+                          "Next",
+                        ),
+                      )
+                    ],
+                  );
+                }
+              },
             ),
           )
         ],
