@@ -1,5 +1,7 @@
 import 'package:blood_donation_flutter_app/constants/app_routes.dart';
+import 'package:blood_donation_flutter_app/controllers/login_controller.dart';
 import 'package:blood_donation_flutter_app/controllers/onboarding_controller.dart';
+import 'package:blood_donation_flutter_app/views/home_view.dart';
 import 'package:blood_donation_flutter_app/views/login_signup_view.dart';
 import 'package:blood_donation_flutter_app/views/login_view.dart';
 import 'package:blood_donation_flutter_app/views/onboarding_view.dart';
@@ -39,10 +41,19 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: AppRoutes.loginView,
           page: () => const LoginView(),
+          binding: BindingsBuilder(
+            () {
+              Get.lazyPut(() => LoginController());
+            },
+          ),
         ),
         GetPage(
           name: AppRoutes.signupView,
           page: () => const SignupView(),
+        ),
+        GetPage(
+          name: AppRoutes.homeView,
+          page: () => const HomeView(),
         ),
       ],
       debugShowCheckedModeBanner: false,

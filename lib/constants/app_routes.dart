@@ -3,4 +3,5 @@ class AppRoutes {
   static const String loginSignupView = "/loginSignupView";
   static const String loginView = "/loginView";
   static const String signupView = "/signupView";
+  static const String homeView = "/homeView";
 }

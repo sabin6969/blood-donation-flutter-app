@@ -66,9 +66,14 @@ class _LoginSignupViewState extends State<LoginSignupView> {
               child: Column(
                 children: [
                   CustomAuthButton(
-                    buttonName: "Log In",
-                    textColor: Colors.black,
                     buttonColor: Colors.red.shade100,
+                    child: const Text(
+                      "Log In",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                      ),
+                    ),
                     onPressed: () {
                       Get.offNamed(AppRoutes.loginView);
                     },
@@ -77,9 +82,14 @@ class _LoginSignupViewState extends State<LoginSignupView> {
                     height: size.height * 0.02,
                   ),
                   CustomAuthButton(
-                    buttonName: "Register",
                     buttonColor: Colors.red,
-                    textColor: Colors.white,
+                    child: const Text(
+                      "Register",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                    ),
                     onPressed: () {
                       Get.offNamed(AppRoutes.signupView);
                     },
