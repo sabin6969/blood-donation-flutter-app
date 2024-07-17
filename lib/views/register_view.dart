@@ -1,11 +1,14 @@
+import 'dart:io';
+
 import 'package:blood_donation_flutter_app/constants/app_routes.dart';
+import 'package:blood_donation_flutter_app/constants/image_path.dart';
 import 'package:blood_donation_flutter_app/controllers/register_controller.dart';
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:blood_donation_flutter_app/utils/custom_auth_button.dart';
 import 'package:blood_donation_flutter_app/utils/custom_text_field.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:blood_donation_flutter_app/utils/image_picker_utility.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:get/get.dart';
 
 class SignupView extends StatefulWidget {
@@ -35,8 +38,40 @@ class _SignupViewState extends State<SignupView> {
           ),
           child: Column(
             children: [
-              CircleAvatar(
-                radius: size.width * 0.15,
+              GetX<RegisterController>(
+                builder: (controller) {
+                  return Stack(
+                    children: [
+                      CircleAvatar(
+                        radius: size.width * 0.15,
+                        backgroundImage: controller.imageFile.value == null
+                            ? AssetImage(ImagePath.profileAvatarPath)
+                                as ImageProvider
+                            : FileImage(
+                                File(
+                                  controller.imageFile.value!.path,
+                                ),
+                              ) as ImageProvider,
+                      ),
+                      Positioned(
+                        right: 0,
+                        bottom: 0,
+                        child: CircleAvatar(
+                          radius: size.width * 0.05,
+                          backgroundColor: Colors.blue.shade200,
+                          child: IconButton(
+                            onPressed: () async {
+                              registerController.imageFile.value =
+                                  await ImagePickerUtility
+                                      .pickImageFromGallery();
+                            },
+                            icon: const Icon(Icons.edit),
+                          ),
+                        ),
+                      )
+                    ],
+                  );
+                },
               ),
               SizedBox(
                 height: size.height * 0.015,
