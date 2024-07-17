@@ -41,6 +41,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   CustomTextField(
                     controller: loginController.emailController,
+                    textInputType: TextInputType.emailAddress,
                     hintText: "Email",
                     prefixIcon: const Icon(
                       Icons.email,
@@ -49,13 +50,28 @@ class _LoginViewState extends State<LoginView> {
                   SizedBox(
                     height: size.height * 0.05,
                   ),
-                  CustomTextField(
-                    controller: loginController.passwordController,
-                    hintText: "Password",
-                    prefixIcon: const Icon(
-                      Icons.lock,
-                    ),
-                  ),
+                  GetX<LoginController>(builder: (controller) {
+                    return CustomTextField(
+                      controller: loginController.passwordController,
+                      textInputType: TextInputType.visiblePassword,
+                      hintText: "Password",
+                      prefixIcon: const Icon(
+                        Icons.lock,
+                      ),
+                      isObsecure: controller.isPasswordVisible.value,
+                      suffixIconButton: IconButton(
+                        onPressed: () {
+                          controller.isPasswordVisible.value =
+                              !controller.isPasswordVisible.value;
+                        },
+                        icon: Icon(
+                          controller.isPasswordVisible.value
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                        ),
+                      ),
+                    );
+                  }),
                   SizedBox(
                     height: size.height * 0.05,
                   ),
@@ -63,7 +79,9 @@ class _LoginViewState extends State<LoginView> {
                     return CustomAuthButton(
                       buttonColor: Colors.red,
                       child: controller.isLoading.value
-                          ? const CircularProgressIndicator()
+                          ? const CircularProgressIndicator(
+                              color: Colors.white,
+                            )
                           : const Text(
                               "Log In",
                               style: TextStyle(
