@@ -1,3 +1,4 @@
+import 'package:blood_donation_flutter_app/constants/app_routes.dart';
 import 'package:blood_donation_flutter_app/constants/image_path.dart';
 import 'package:blood_donation_flutter_app/controllers/login_controller.dart';
 import 'package:blood_donation_flutter_app/main.dart';
@@ -104,7 +105,9 @@ class _LoginViewState extends State<LoginView> {
                         "Don't have an account?",
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.toNamed(AppRoutes.signupView);
+                        },
                         child: const Text(
                           "Register now",
                         ),
