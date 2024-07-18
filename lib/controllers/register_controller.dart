@@ -1,6 +1,9 @@
 import 'package:app_settings/app_settings.dart';
+import 'package:blood_donation_flutter_app/constants/app_routes.dart';
+import 'package:blood_donation_flutter_app/data/services/user_api_service.dart';
 import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
 import 'package:blood_donation_flutter_app/utils/determine_user_location.dart';
+import 'package:blood_donation_flutter_app/utils/get_fcm_token.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
@@ -28,6 +31,7 @@ class RegisterController extends GetxController {
     "O+",
     "O-",
   ];
+  RxBool isLoading = RxBool(false);
 
   void registerUser() async {
     if (formKey.currentState!.validate()) {
@@ -38,14 +42,31 @@ class RegisterController extends GetxController {
         Get.snackbar("Error", "Please select your profile image");
       } else {
         try {
+          isLoading.value = true;
           Position position = await DetermineLocaltion.determineUserLocation();
-          debugPrint(position.latitude.toString());
-          debugPrint(position.longitude.toString());
+          String fcmToken = await getFcmToken() ?? "";
+          String message = await UserApiService.registerUser(
+            fullName: fullNameController.text,
+            email: emailController.text,
+            password: passwordController.text,
+            phoneNumber: phoneNumberController.text,
+            bloodGroup: selectedBloodGroup ?? "A+",
+            isAvailableForDonation: isAvailableForDonation.value,
+            fcmToken: fcmToken,
+            role: "USER",
+            position: position,
+            profileImage: imageFile.value!,
+          );
+          Get.snackbar("Sucess", message);
+          Get.offNamed(AppRoutes.loginView);
         } on AppException catch (e) {
           Get.snackbar("Error", e.errorMessage);
-          AppSettings.openAppSettings(type: AppSettingsType.location);
+          // AppSettings.openAppSettings(type: AppSettingsType.location);
+          debugPrint(e.errorMessage);
         } catch (e) {
           Get.snackbar("Error", "Something went wrong");
+        } finally {
+          isLoading.value = false;
         }
       }
     }
