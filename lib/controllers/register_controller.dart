@@ -1,7 +1,12 @@
+import 'package:app_settings/app_settings.dart';
+import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
+import 'package:blood_donation_flutter_app/utils/determine_user_location.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class RegisterController extends GetxController {
   TextEditingController fullNameController = TextEditingController();
@@ -24,7 +29,7 @@ class RegisterController extends GetxController {
     "O-",
   ];
 
-  void registerUser() {
+  void registerUser() async {
     if (formKey.currentState!.validate()) {
       if (selectedBloodGroup == null) {
         Get.snackbar("Error", "Please select your blood group");
@@ -32,8 +37,16 @@ class RegisterController extends GetxController {
       } else if (imageFile.value == null) {
         Get.snackbar("Error", "Please select your profile image");
       } else {
-        // TODO Call API
-        debugPrint(selectedBloodGroup);
+        try {
+          Position position = await DetermineLocaltion.determineUserLocation();
+          debugPrint(position.latitude.toString());
+          debugPrint(position.longitude.toString());
+        } on AppException catch (e) {
+          Get.snackbar("Error", e.errorMessage);
+          AppSettings.openAppSettings(type: AppSettingsType.location);
+        } catch (e) {
+          Get.snackbar("Error", "Something went wrong");
+        }
       }
     }
   }
