@@ -8,6 +8,8 @@ class CustomTextField extends StatelessWidget {
   final TextInputType textInputType;
   final bool? isObsecure;
   final Widget? suffixIconButton;
+  final String? Function(String?)? validator;
+  final TextCapitalization? textCapitalization;
   const CustomTextField({
     super.key,
     required this.hintText,
@@ -16,12 +18,16 @@ class CustomTextField extends StatelessWidget {
     required this.textInputType,
     this.isObsecure,
     this.suffixIconButton,
+    this.textCapitalization,
+    required this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
     return TextFormField(
+      textCapitalization: textCapitalization ?? TextCapitalization.none,
+      validator: validator,
       obscureText: isObsecure ?? false,
       keyboardType: textInputType,
       controller: controller,

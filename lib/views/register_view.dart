@@ -1,14 +1,11 @@
 import 'dart:io';
-
 import 'package:blood_donation_flutter_app/constants/app_routes.dart';
 import 'package:blood_donation_flutter_app/constants/image_path.dart';
 import 'package:blood_donation_flutter_app/controllers/register_controller.dart';
-import 'package:blood_donation_flutter_app/main.dart';
 import 'package:blood_donation_flutter_app/utils/custom_auth_button.dart';
 import 'package:blood_donation_flutter_app/utils/custom_text_field.dart';
 import 'package:blood_donation_flutter_app/utils/image_picker_utility.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
 class SignupView extends StatefulWidget {
@@ -19,140 +16,176 @@ class SignupView extends StatefulWidget {
 }
 
 class _SignupViewState extends State<SignupView> {
-  RegisterController registerController = Get.find<RegisterController>();
+  late RegisterController registerController;
+
+  @override
+  void initState() {
+    super.initState();
+    registerController = Get.put(RegisterController());
+  }
 
   @override
   Widget build(BuildContext context) {
-    size = MediaQuery.sizeOf(context);
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
-          "Register",
-        ),
+        title: const Text("Register"),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: size.width * 0.05,
-          ),
-          child: Column(
-            children: [
-              GetX<RegisterController>(
-                builder: (controller) {
-                  return Stack(
-                    children: [
-                      CircleAvatar(
-                        radius: size.width * 0.15,
-                        backgroundImage: controller.imageFile.value == null
-                            ? AssetImage(ImagePath.profileAvatarPath)
-                                as ImageProvider
-                            : FileImage(
-                                File(
-                                  controller.imageFile.value!.path,
+          padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
+          child: Form(
+            key: registerController.formKey,
+            child: Column(
+              children: [
+                GetX<RegisterController>(
+                  builder: (controller) {
+                    return Stack(
+                      children: [
+                        CircleAvatar(
+                          radius: size.width * 0.15,
+                          backgroundImage: controller.imageFile.value == null
+                              ? AssetImage(ImagePath.profileAvatarPath)
+                                  as ImageProvider
+                              : FileImage(
+                                  File(
+                                    controller.imageFile.value!.path,
+                                  ),
                                 ),
-                              ) as ImageProvider,
-                      ),
-                      Positioned(
-                        right: 0,
-                        bottom: 0,
-                        child: CircleAvatar(
-                          radius: size.width * 0.05,
-                          backgroundColor: Colors.blue.shade200,
-                          child: IconButton(
-                            onPressed: () async {
-                              registerController.imageFile.value =
-                                  await ImagePickerUtility
-                                      .pickImageFromGallery();
-                            },
-                            icon: const Icon(Icons.edit),
-                          ),
                         ),
-                      )
-                    ],
-                  );
-                },
-              ),
-              SizedBox(
-                height: size.height * 0.015,
-              ),
-              CustomTextField(
-                hintText: "Full Name",
-                prefixIcon: const Icon(
-                  Icons.person,
+                        Positioned(
+                          right: 0,
+                          bottom: 0,
+                          child: CircleAvatar(
+                            radius: size.width * 0.05,
+                            backgroundColor: Colors.blue.shade200,
+                            child: IconButton(
+                              onPressed: () async {
+                                registerController.imageFile.value =
+                                    await ImagePickerUtility
+                                        .pickImageFromGallery();
+                              },
+                              icon: const Icon(Icons.edit),
+                            ),
+                          ),
+                        )
+                      ],
+                    );
+                  },
                 ),
-                controller: registerController.fullNameController,
-                textInputType: TextInputType.name,
-              ),
-              SizedBox(
-                height: size.height * 0.015,
-              ),
-              CustomTextField(
-                hintText: "Email",
-                prefixIcon: const Icon(Icons.email),
-                controller: registerController.emailController,
-                textInputType: TextInputType.emailAddress,
-              ),
-              SizedBox(
-                height: size.height * 0.015,
-              ),
-              CustomTextField(
-                hintText: "Password",
-                prefixIcon: const Icon(Icons.lock),
-                controller: registerController.emailController,
-                textInputType: TextInputType.emailAddress,
-              ),
-              SizedBox(
-                height: size.height * 0.015,
-              ),
-              CustomTextField(
-                hintText: "Phone Number",
-                prefixIcon: const Icon(Icons.phone),
-                controller: registerController.emailController,
-                textInputType: TextInputType.emailAddress,
-              ),
-              SizedBox(
-                height: size.height * 0.015,
-              ),
-              DropdownMenu(
-                width: size.width * 0.9,
-                label: const Text("Select your Blood Group"),
-                leadingIcon: const Icon(
-                  Icons.bloodtype,
+                SizedBox(height: size.height * 0.015),
+                CustomTextField(
+                  hintText: "Full Name",
+                  textCapitalization: TextCapitalization.words,
+                  prefixIcon: const Icon(Icons.person),
+                  controller: registerController.fullNameController,
+                  textInputType: TextInputType.name,
+                  validator: (value) => value == null || value.isEmpty
+                      ? "Full Name is required"
+                      : null,
                 ),
-                dropdownMenuEntries: registerController.bloodGroups.map((e) {
-                  return DropdownMenuEntry(value: e, label: e);
-                }).toList(),
-                onSelected: (value) =>
-                    registerController.selectedBloodGroup = value,
-              ),
-              SizedBox(
-                height: size.height * 0.015,
-              ),
-              CustomAuthButton(
-                onPressed: () {},
-                buttonColor: Colors.red,
-                child: const Text(
-                  "Register",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
+                SizedBox(height: size.height * 0.015),
+                CustomTextField(
+                  hintText: "Email",
+                  prefixIcon: const Icon(Icons.email),
+                  controller: registerController.emailController,
+                  textInputType: TextInputType.emailAddress,
+                  validator: (value) => value == null || value.isEmpty
+                      ? "Email is required"
+                      : value.isEmail
+                          ? null
+                          : "Please enter a valid email address",
+                ),
+                SizedBox(height: size.height * 0.015),
+                GetX<RegisterController>(
+                  builder: (controller) {
+                    return CustomTextField(
+                      hintText: "Password",
+                      isObsecure: registerController.isPasswordVisible.value,
+                      suffixIconButton: IconButton(
+                        onPressed: () {
+                          registerController.isPasswordVisible.value =
+                              !registerController.isPasswordVisible.value;
+                        },
+                        icon: Icon(
+                          registerController.isPasswordVisible.value
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                        ),
+                      ),
+                      prefixIcon: const Icon(Icons.lock),
+                      controller: registerController.passwordController,
+                      textInputType: TextInputType.visiblePassword,
+                      validator: (value) => value == null || value.isEmpty
+                          ? "Password is required"
+                          : value.length < 5
+                              ? "Enter a Strong password"
+                              : null,
+                    );
+                  },
+                ),
+                SizedBox(height: size.height * 0.015),
+                CustomTextField(
+                  hintText: "Phone Number",
+                  prefixIcon: const Icon(Icons.phone),
+                  controller: registerController.phoneNumberController,
+                  textInputType: TextInputType.phone,
+                  validator: (value) => value == null || value.isEmpty
+                      ? "Phone Number is required"
+                      : value.isPhoneNumber
+                          ? null
+                          : "Enter a valid phone number",
+                ),
+                SizedBox(height: size.height * 0.015),
+                DropdownMenu(
+                  width: size.width * 0.9,
+                  label: const Text("Select your Blood Group"),
+                  leadingIcon: const Icon(Icons.bloodtype),
+                  dropdownMenuEntries: registerController.bloodGroups.map((e) {
+                    return DropdownMenuEntry(value: e, label: e);
+                  }).toList(),
+                  onSelected: (value) =>
+                      registerController.selectedBloodGroup = value,
+                ),
+                SizedBox(height: size.height * 0.015),
+                GetX<RegisterController>(
+                  builder: (controller) {
+                    return CheckboxListTile(
+                      value: controller.isAvailableForDonation.value,
+                      onChanged: (value) {
+                        controller.isAvailableForDonation.value = value!;
+                      },
+                      title: const Text(
+                        "Are you currently available for donation?",
+                      ),
+                    );
+                  },
+                ),
+                CustomAuthButton(
+                  onPressed: () {
+                    registerController.registerUser();
+                  },
+                  buttonColor: Colors.red,
+                  child: const Text(
+                    "Register",
+                    style: TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("Already have an account?"),
-                  TextButton(
-                    onPressed: () {
-                      Get.offAllNamed(AppRoutes.loginView);
-                    },
-                    child: const Text("Login"),
-                  ),
-                ],
-              )
-            ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Already have an account?"),
+                    TextButton(
+                      onPressed: () {
+                        Get.offAllNamed(AppRoutes.loginView);
+                      },
+                      child: const Text("Login"),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -28,93 +28,104 @@ class _LoginViewState extends State<LoginView> {
               padding: EdgeInsets.symmetric(
                 horizontal: size.width * 0.05,
               ),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: size.height * 0.05,
-                  ),
-                  Image.asset(
-                    ImagePath.bloodImagePath,
-                    height: size.height * 0.2,
-                  ),
-                  SizedBox(
-                    height: size.height * 0.05,
-                  ),
-                  CustomTextField(
-                    controller: loginController.emailController,
-                    textInputType: TextInputType.emailAddress,
-                    hintText: "Email",
-                    prefixIcon: const Icon(
-                      Icons.email,
+              child: Form(
+                key: loginController.formKey,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: size.height * 0.05,
                     ),
-                  ),
-                  SizedBox(
-                    height: size.height * 0.05,
-                  ),
-                  GetX<LoginController>(builder: (controller) {
-                    return CustomTextField(
-                      controller: loginController.passwordController,
-                      textInputType: TextInputType.visiblePassword,
-                      hintText: "Password",
+                    Image.asset(
+                      ImagePath.bloodImagePath,
+                      height: size.height * 0.2,
+                    ),
+                    SizedBox(
+                      height: size.height * 0.05,
+                    ),
+                    CustomTextField(
+                      controller: loginController.emailController,
+                      textInputType: TextInputType.emailAddress,
+                      hintText: "Email",
                       prefixIcon: const Icon(
-                        Icons.lock,
+                        Icons.email,
                       ),
-                      isObsecure: controller.isPasswordVisible.value,
-                      suffixIconButton: IconButton(
-                        onPressed: () {
-                          controller.isPasswordVisible.value =
-                              !controller.isPasswordVisible.value;
-                        },
-                        icon: Icon(
-                          controller.isPasswordVisible.value
-                              ? Icons.visibility_off
-                              : Icons.visibility,
+                      validator: (value) => value == null || value.isEmpty
+                          ? "Email is required"
+                          : value.isEmail
+                              ? null
+                              : "Please enter a valid email",
+                    ),
+                    SizedBox(
+                      height: size.height * 0.05,
+                    ),
+                    GetX<LoginController>(builder: (controller) {
+                      return CustomTextField(
+                        controller: loginController.passwordController,
+                        validator: (value) => value == null || value.isEmpty
+                            ? "Password is required"
+                            : null,
+                        textInputType: TextInputType.visiblePassword,
+                        hintText: "Password",
+                        prefixIcon: const Icon(
+                          Icons.lock,
                         ),
-                      ),
-                    );
-                  }),
-                  SizedBox(
-                    height: size.height * 0.05,
-                  ),
-                  GetX<LoginController>(builder: (controller) {
-                    return CustomAuthButton(
-                      buttonColor: Colors.red,
-                      child: controller.isLoading.value
-                          ? const CircularProgressIndicator(
-                              color: Colors.white,
-                            )
-                          : const Text(
-                              "Log In",
-                              style: TextStyle(
-                                fontSize: 16,
+                        isObsecure: controller.isPasswordVisible.value,
+                        suffixIconButton: IconButton(
+                          onPressed: () {
+                            controller.isPasswordVisible.value =
+                                !controller.isPasswordVisible.value;
+                          },
+                          icon: Icon(
+                            controller.isPasswordVisible.value
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                          ),
+                        ),
+                      );
+                    }),
+                    SizedBox(
+                      height: size.height * 0.05,
+                    ),
+                    GetX<LoginController>(builder: (controller) {
+                      return CustomAuthButton(
+                        buttonColor: Colors.red,
+                        child: controller.isLoading.value
+                            ? const CircularProgressIndicator(
                                 color: Colors.white,
+                              )
+                            : const Text(
+                                "Log In",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                ),
                               ),
-                            ),
-                      onPressed: () {
-                        loginController.login(
-                          email: loginController.emailController.text,
-                          password: loginController.passwordController.text,
-                        );
-                      },
-                    );
-                  }),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "Don't have an account?",
-                      ),
-                      TextButton(
                         onPressed: () {
-                          Get.toNamed(AppRoutes.signupView);
+                          loginController.login(
+                            email: loginController.emailController.text,
+                            password: loginController.passwordController.text,
+                          );
                         },
-                        child: const Text(
-                          "Register now",
+                      );
+                    }),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Don't have an account?",
                         ),
-                      )
-                    ],
-                  )
-                ],
+                        TextButton(
+                          onPressed: () {
+                            Get.toNamed(AppRoutes.signupView);
+                          },
+                          child: const Text(
+                            "Register now",
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ],

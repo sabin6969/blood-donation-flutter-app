@@ -9,15 +9,12 @@ class LoginController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   RxBool isPasswordVisible = RxBool(true);
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   void login({required String email, required String password}) async {
-    if (email.isEmpty || password.isEmpty) {
-      Get.snackbar("Error", "Both Email and Password are required");
+    if (!formKey.currentState!.validate()) {
+      return;
     } else {
-      if (!email.isEmail) {
-        Get.snackbar("Error", "Please enter a valid Email");
-        return;
-      }
       try {
         isLoading.value = true;
         String message =
