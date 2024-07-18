@@ -162,15 +162,24 @@ class _SignupViewState extends State<SignupView> {
                     );
                   },
                 ),
-                CustomAuthButton(
-                  onPressed: () {
-                    registerController.registerUser();
+                GetX<RegisterController>(
+                  builder: (controller) {
+                    return CustomAuthButton(
+                      onPressed: () {
+                        registerController.registerUser();
+                      },
+                      buttonColor: Colors.red,
+                      child: controller.isLoading.value
+                          ? const CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : const Text(
+                              "Register",
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.white),
+                            ),
+                    );
                   },
-                  buttonColor: Colors.red,
-                  child: const Text(
-                    "Register",
-                    style: TextStyle(fontSize: 16, color: Colors.white),
-                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

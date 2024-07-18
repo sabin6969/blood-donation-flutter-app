@@ -64,6 +64,7 @@ class RegisterController extends GetxController {
           // AppSettings.openAppSettings(type: AppSettingsType.location);
           debugPrint(e.errorMessage);
         } catch (e) {
+          print(e);
           Get.snackbar("Error", "Something went wrong");
         } finally {
           isLoading.value = false;

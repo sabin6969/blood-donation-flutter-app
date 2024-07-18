@@ -62,8 +62,11 @@ class UserApiService {
       ));
       request.fields["role"] = role;
       request.fields["location[type]"] = "Point";
-      request.fields["location[coordinates][]"] = position.latitude.toString();
-      request.fields["location[coordinates][]"] = position.longitude.toString();
+      List<String> coordinates = [
+        position.latitude.toString(),
+        position.longitude.toString()
+      ];
+      request.fields["location[coordinates]"] = jsonEncode(coordinates);
       _response = await Response.fromStream(await request.send());
       return getJsonResponse(response: _response);
     } catch (e) {
@@ -81,6 +84,9 @@ class UserApiService {
         throw BadRequestException(
             errorMessage:
                 jsonDecode(response.body)["message"] ?? "Bad request");
+      case 409:
+        throw ResourceConflictException(
+            errorMessage: jsonDecode(response.body)["message"]);
       case 500:
         throw InternalServerException(
             errorMessage: jsonDecode(response.body)["message"] ??

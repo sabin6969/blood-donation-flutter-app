@@ -28,3 +28,8 @@ class ConflictException extends AppException {
 class UnauthorizedException extends AppException {
   UnauthorizedException({required super.errorMessage});
 }
+
+/// [ResourceConflictException] is thrown for status code 409
+class ResourceConflictException extends AppException {
+  ResourceConflictException({required super.errorMessage});
+}
