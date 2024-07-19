@@ -48,25 +48,24 @@ class UserApiService {
     try {
       MultipartRequest request = MultipartRequest(
           "POST", Uri.parse("$baseUrl/$userRoute/createAccount"));
-      request.fields["fullName"] = fullName;
-      request.fields["email"] = email;
-      request.fields["password"] = password;
-      request.fields["phoneNumber"] = phoneNumber;
-      request.fields["bloodGroup"] = bloodGroup;
-      request.fields["isAvailableForDonation"] =
-          isAvailableForDonation.toString();
-      request.fields["fcmToken"] = fcmToken;
+      request.fields.addAll({
+        'email': email,
+        'password': password,
+        'phoneNumber': phoneNumber,
+        'bloodGroup': bloodGroup,
+        'location[type]': 'Point',
+        'role': role,
+        'fcmToken': fcmToken,
+        'isAvailableForDonation': isAvailableForDonation.toString(),
+        'fullName': fullName,
+        'location[coordinates][0]': position.latitude.toString(),
+        'location[coordinates][1]': position.longitude.toString(),
+      });
+
       request.files.add(await MultipartFile.fromPath(
         "profileImage",
         profileImage.path,
       ));
-      request.fields["role"] = role;
-      request.fields["location[type]"] = "Point";
-      List<String> coordinates = [
-        position.latitude.toString(),
-        position.longitude.toString()
-      ];
-      request.fields["location[coordinates]"] = jsonEncode(coordinates);
       _response = await Response.fromStream(await request.send());
       return getJsonResponse(response: _response);
     } catch (e) {

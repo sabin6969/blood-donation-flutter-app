@@ -1,5 +1,5 @@
-import 'package:app_settings/app_settings.dart';
 import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
+import 'package:blood_donation_flutter_app/utils/toast_message.dart';
 import 'package:geolocator/geolocator.dart';
 
 class DetermineLocaltion {
@@ -18,6 +18,10 @@ class DetermineLocaltion {
             errorMessage: "Location Permissions are denied");
       }
       if (permission == LocationPermission.deniedForever) {
+        showToastMessage(
+          message:
+              "Location permissions are permanently denied, we cannot request permissions. Please enable it manually",
+        );
         throw const AppException(
           errorMessage:
               "Location permissions are permanently denied, we cannot request permissions. Please enable it manually",
