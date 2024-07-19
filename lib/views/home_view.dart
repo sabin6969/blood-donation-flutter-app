@@ -4,17 +4,30 @@ class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
   @override
-  State<HomeView> createState() => HomeViewState();
+  State<HomeView> createState() => _HomePageState();
 }
 
-class HomeViewState extends State<HomeView> {
+class _HomePageState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text("Home"),
-      ),
+    return Column(
+      children: [
+        Expanded(
+          child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+            ),
+            itemCount: 6,
+            itemBuilder: (context, index) {
+              return Center(
+                child: Text(
+                  index.toString(),
+                ),
+              );
+            },
+          ),
+        )
+      ],
     );
   }
 }

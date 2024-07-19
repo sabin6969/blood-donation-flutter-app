@@ -1,9 +1,8 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:blood_donation_flutter_app/constants/api_endpoint_constants.dart';
 import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
-import 'package:flutter/material.dart';
+
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';

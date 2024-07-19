@@ -3,7 +3,7 @@ import 'package:blood_donation_flutter_app/controllers/login_controller.dart';
 import 'package:blood_donation_flutter_app/controllers/onboarding_controller.dart';
 import 'package:blood_donation_flutter_app/controllers/register_controller.dart';
 import 'package:blood_donation_flutter_app/firebase_options.dart';
-import 'package:blood_donation_flutter_app/views/home_view.dart';
+import 'package:blood_donation_flutter_app/views/landing_view.dart';
 import 'package:blood_donation_flutter_app/views/login_signup_view.dart';
 import 'package:blood_donation_flutter_app/views/login_view.dart';
 import 'package:blood_donation_flutter_app/views/onboarding_view.dart';
@@ -64,8 +64,8 @@ class MyApp extends StatelessWidget {
           ),
         ),
         GetPage(
-          name: AppRoutes.homeView,
-          page: () => const HomeView(),
+          name: AppRoutes.landingView,
+          page: () => const LandingView(),
         ),
       ],
       debugShowCheckedModeBanner: false,

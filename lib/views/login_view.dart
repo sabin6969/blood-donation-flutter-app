@@ -56,7 +56,7 @@ class _LoginViewState extends State<LoginView> {
                               : "Please enter a valid email",
                     ),
                     SizedBox(
-                      height: size.height * 0.05,
+                      height: size.height * 0.02,
                     ),
                     GetX<LoginController>(builder: (controller) {
                       return CustomTextField(
@@ -84,7 +84,7 @@ class _LoginViewState extends State<LoginView> {
                       );
                     }),
                     SizedBox(
-                      height: size.height * 0.05,
+                      height: size.height * 0.02,
                     ),
                     GetX<LoginController>(builder: (controller) {
                       return CustomAuthButton(

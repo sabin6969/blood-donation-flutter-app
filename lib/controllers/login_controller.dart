@@ -20,7 +20,7 @@ class LoginController extends GetxController {
         String message =
             await UserApiService.login(email: email, password: password);
         Get.snackbar("Sucess", message);
-        Get.offNamed(AppRoutes.homeView);
+        Get.offNamed(AppRoutes.landingView);
       } on AppException catch (e) {
         Get.snackbar("Error", e.errorMessage);
       } catch (e) {

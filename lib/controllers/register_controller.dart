@@ -1,4 +1,3 @@
-import 'package:app_settings/app_settings.dart';
 import 'package:blood_donation_flutter_app/constants/app_routes.dart';
 import 'package:blood_donation_flutter_app/data/services/user_api_service.dart';
 import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
@@ -9,7 +8,6 @@ import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class RegisterController extends GetxController {
   TextEditingController fullNameController = TextEditingController();
