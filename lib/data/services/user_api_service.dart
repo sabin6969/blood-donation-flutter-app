@@ -32,7 +32,7 @@ class UserApiService {
     }
   }
 
-  static Future<String> registerUser({
+  static Future registerUser({
     required String fullName,
     required String email,
     required String password,
@@ -75,7 +75,7 @@ class UserApiService {
   static dynamic getJsonResponse({required Response response}) {
     switch (response.statusCode) {
       case 200:
-        return jsonDecode(response.body)["message"] ?? "Login Sucessfull";
+        return jsonDecode(response.body);
       case 201:
         return jsonDecode(response.body)["message"];
       case 400:

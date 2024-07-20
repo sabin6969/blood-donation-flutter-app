@@ -1,4 +1,5 @@
 import 'package:blood_donation_flutter_app/constants/app_routes.dart';
+import 'package:blood_donation_flutter_app/data/services/get_storage_service.dart';
 import 'package:blood_donation_flutter_app/data/services/user_api_service.dart';
 import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +18,11 @@ class LoginController extends GetxController {
     } else {
       try {
         isLoading.value = true;
-        String message =
-            await UserApiService.login(email: email, password: password);
-        Get.snackbar("Sucess", message);
+        var data = await UserApiService.login(email: email, password: password);
+        Get.snackbar("Sucess", data["message"]);
+        // storing access token of a user once logged in
+        GetStorageService.setAccessToken(
+            accessToken: data["data"]["accessToken"]);
         Get.offNamed(AppRoutes.landingView);
       } on AppException catch (e) {
         Get.snackbar("Error", e.errorMessage);
