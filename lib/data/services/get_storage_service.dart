@@ -6,4 +6,8 @@ class GetStorageService {
   static void setAccessToken({required String accessToken}) async {
     await box.write(accessTokenKey, accessToken);
   }
+
+  static String? getAccessToken() {
+    return box.read(accessTokenKey);
+  }
 }
