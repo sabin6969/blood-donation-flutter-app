@@ -43,7 +43,7 @@ class RegisterController extends GetxController {
           isLoading.value = true;
           Position position = await DetermineLocaltion.determineUserLocation();
           String fcmToken = await getFcmToken() ?? "";
-          var data = await UserApiService.registerUser(
+          String message = await UserApiService.registerUser(
             fullName: fullNameController.text,
             email: emailController.text,
             password: passwordController.text,
@@ -55,7 +55,7 @@ class RegisterController extends GetxController {
             position: position,
             profileImage: imageFile.value!,
           );
-          Get.snackbar("Sucess", data["message"]);
+          Get.snackbar("Sucess", message);
           Get.offNamed(AppRoutes.loginView);
         } on AppException catch (e) {
           Get.snackbar("Error", e.errorMessage);

@@ -35,4 +35,21 @@ class ProfileController extends GetxService {
       isLoading.value = false;
     }
   }
+
+  void logout() async {
+    try {
+      String accessToken = GetStorageService.getAccessToken() ?? "";
+      String message = await UserApiService.logout(accessToken: accessToken);
+      await GetStorageService.clearAccessToken();
+      Get.offAllNamed(AppRoutes.loginView);
+      Get.snackbar("Sucess", message);
+    } on UnauthorizedException catch (e) {
+      Get.snackbar("Unauthorized", e.errorMessage);
+      Get.offAllNamed(AppRoutes.loginView);
+    } on AppException catch (e) {
+      Get.snackbar("Error", e.errorMessage);
+    } catch (e) {
+      Get.snackbar("Error", "Something went wrong");
+    }
+  }
 }

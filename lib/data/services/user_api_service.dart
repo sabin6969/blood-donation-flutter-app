@@ -89,6 +89,23 @@ class UserApiService {
     }
   }
 
+  static Future<String> logout({required String accessToken}) async {
+    try {
+      _response = await post(
+        Uri.parse(
+          "$baseUrl/$userRoute/logout",
+        ),
+        headers: {
+          "Authorization": "Bearer $accessToken",
+        },
+      );
+      var jsonResponse = getJsonResponse(response: _response);
+      return jsonResponse["message"];
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
   static dynamic getJsonResponse({required Response response}) {
     switch (response.statusCode) {
       case 200:

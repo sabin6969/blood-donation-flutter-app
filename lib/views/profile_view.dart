@@ -42,14 +42,9 @@ class _ProfilePageState extends State<ProfileView> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     CircleAvatar(
-                      radius: size.width * 0.2,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(
-                          size.width * 0.5,
-                        ),
-                        child: CachedNetworkImage(
-                          imageUrl: controller.response.data!.imageUrl!,
-                        ),
+                      radius: size.width * 0.18,
+                      backgroundImage: CachedNetworkImageProvider(
+                        controller.response.data!.imageUrl!,
                       ),
                     ),
                     SizedBox(
@@ -115,7 +110,32 @@ class _ProfilePageState extends State<ProfileView> {
                     ),
                     const Divider(),
                     ListTile(
-                      onTap: () {},
+                      onTap: () {
+                        Get.dialog(AlertDialog(
+                          title: const Text(
+                            "Logout?",
+                          ),
+                          content:
+                              const Text("Are you sure you want to logout?"),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              child: const Text("No"),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Get.back();
+                                controller.logout();
+                              },
+                              child: const Text(
+                                "Yes",
+                              ),
+                            ),
+                          ],
+                        ));
+                      },
                       leading: const Icon(
                         Icons.logout,
                       ),
