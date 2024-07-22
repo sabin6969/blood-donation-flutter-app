@@ -1,3 +1,4 @@
+/// [AppException] is a custom exception which implements [Exception] abstract class
 class AppException implements Exception {
   final String errorMessage;
   const AppException({required this.errorMessage});

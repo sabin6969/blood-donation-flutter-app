@@ -61,7 +61,9 @@ class MyApp extends StatelessWidget {
           page: () => const SignupView(),
           binding: BindingsBuilder(
             () {
-              Get.lazyPut(() => RegisterController());
+              Get.lazyPut(
+                () => RegisterController(),
+              );
             },
           ),
         ),
