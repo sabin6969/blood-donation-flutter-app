@@ -19,6 +19,7 @@ class CustomCard extends StatelessWidget {
       onTap: onTap,
       child: Ink(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(imageIconPath),
             const SizedBox(

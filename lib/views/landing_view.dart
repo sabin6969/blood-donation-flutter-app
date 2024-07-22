@@ -1,6 +1,6 @@
 import 'package:blood_donation_flutter_app/views/home_view.dart';
 import 'package:blood_donation_flutter_app/views/profile_view.dart';
-import 'package:blood_donation_flutter_app/views/search_view.dart';
+import 'package:blood_donation_flutter_app/views/admins_view.dart';
 import 'package:flutter/material.dart';
 
 class LandingView extends StatefulWidget {
@@ -14,7 +14,7 @@ class HomeViewState extends State<LandingView> {
   int currentIndex = 0;
   List<Widget> pages = [
     const HomeView(),
-    const SearchView(),
+    const AdminsView(),
     const ProfileView(),
   ];
 
@@ -37,8 +37,8 @@ class HomeViewState extends State<LandingView> {
             label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search_outlined),
-            label: "Search",
+            icon: Icon(Icons.shield),
+            label: "Admins",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_2_outlined),

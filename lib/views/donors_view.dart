@@ -1,9 +1,7 @@
 import 'package:blood_donation_flutter_app/controllers/search_donor_controller.dart';
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -67,15 +65,15 @@ class _DonorsViewState extends State<DonorsView> {
                                 children: [
                                   Container(
                                     color: Colors.grey.shade200,
-                                    height: size.height * 0.05,
+                                    height: size.height * 0.02,
                                   ),
                                   Container(
                                     color: Colors.grey.shade200,
-                                    height: size.height * 0.05,
+                                    height: size.height * 0.02,
                                   ),
                                   Container(
                                     color: Colors.grey.shade200,
-                                    height: size.height * 0.05,
+                                    height: size.height * 0.02,
                                   ),
                                 ],
                               ),
@@ -85,11 +83,9 @@ class _DonorsViewState extends State<DonorsView> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Container(
-                                    color: Colors.grey.shade300,
-                                    height: size.height * 0.2,
-                                    width: size.width * 0.15,
-                                  )
+                                  CircleAvatar(
+                                    backgroundColor: Colors.grey.shade200,
+                                  ),
                                 ],
                               ),
                             )
@@ -116,7 +112,7 @@ class _DonorsViewState extends State<DonorsView> {
                     ),
                     child: Card(
                       child: SizedBox(
-                        height: size.height * 0.2,
+                        height: size.height * 0.20,
                         width: size.width,
                         child: Row(
                           children: [
@@ -161,6 +157,7 @@ class _DonorsViewState extends State<DonorsView> {
                                       fontSize: 16,
                                     ),
                                     maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.center,
                                   ),
                                   Text(
