@@ -1,8 +1,10 @@
+import 'package:blood_donation_flutter_app/constants/app_lottie_animations.dart';
 import 'package:blood_donation_flutter_app/controllers/profile_controller.dart';
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class ProfileView extends StatefulWidget {
@@ -26,6 +28,28 @@ class _ProfilePageState extends State<ProfileView> {
       builder: (controller) {
         if (controller.isLoading.value) {
           return buildLoadingProfile();
+        } else if (controller.hasError.value) {
+          return RefreshIndicator(
+            onRefresh: () async {
+              controller.fetchProfile();
+            },
+            child: ListView(
+              children: [
+                LottieBuilder.asset(
+                  AppLottieAnimations.errorLottieAnimationPath,
+                ),
+                Center(
+                  child: Text(
+                    controller.errorMessage ?? "An unknown error occured",
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
         } else {
           return buildProfile(controller: controller);
         }

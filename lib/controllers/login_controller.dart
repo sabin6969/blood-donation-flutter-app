@@ -21,7 +21,7 @@ class LoginController extends GetxController {
         var data = await UserApiService.login(email: email, password: password);
         Get.snackbar("Sucess", data["message"]);
         // storing access token of a user once logged in
-        GetStorageService.setAccessToken(
+        await GetStorageService.setAccessToken(
             accessToken: data["data"]["accessToken"]);
         Get.offNamed(AppRoutes.landingView);
       } on AppException catch (e) {

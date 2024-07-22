@@ -3,7 +3,7 @@ import 'package:get_storage/get_storage.dart';
 class GetStorageService {
   static final _box = GetStorage();
   static const String _accessTokenKey = "accessToken";
-  static void setAccessToken({required String accessToken}) async {
+  static Future<void> setAccessToken({required String accessToken}) async {
     await _box.write(_accessTokenKey, accessToken);
   }
 
@@ -12,6 +12,6 @@ class GetStorageService {
   }
 
   static Future<void> clearAccessToken() async {
-    await _box.remove(_accessTokenKey);
+    return await _box.remove(_accessTokenKey);
   }
 }
