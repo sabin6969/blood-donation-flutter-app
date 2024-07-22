@@ -1,3 +1,4 @@
+import 'package:blood_donation_flutter_app/constants/app_routes.dart';
 import 'package:blood_donation_flutter_app/constants/image_path.dart';
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:blood_donation_flutter_app/utils/custom_card_widget.dart';
@@ -27,7 +28,9 @@ class _HomePageState extends State<HomeView> {
               CustomCard(
                 title: "Find Donors",
                 imageIconPath: ImagePath.searchBloodIcon,
-                onTap: () {},
+                onTap: () {
+                  Get.toNamed(AppRoutes.donorsView);
+                },
               ),
               CustomCard(
                 title: "Donates",

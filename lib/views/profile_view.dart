@@ -160,9 +160,9 @@ class _ProfilePageState extends State<ProfileView> {
                   onTap: () {
                     Get.dialog(AlertDialog(
                       title: const Text(
-                        "Logout?",
+                        "Logout Confirmation",
                       ),
-                      content: const Text("Are you sure you want to logout?"),
+                      content: const Text("Are you sure you want to log out?"),
                       actions: [
                         TextButton(
                           onPressed: () {
