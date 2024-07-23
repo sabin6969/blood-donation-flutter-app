@@ -9,16 +9,14 @@ class DonorsResponse {
   final int? statusCode;
   final String? message;
   final bool? sucess;
-  final List<Datum> data;
+  final Data? data;
 
   factory DonorsResponse.fromJson(Map<String, dynamic> json) {
     return DonorsResponse(
       statusCode: json["statusCode"],
       message: json["message"],
       sucess: json["sucess"],
-      data: json["data"] == null
-          ? []
-          : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+      data: json["data"] == null ? null : Data.fromJson(json["data"]),
     );
   }
 
@@ -26,39 +24,95 @@ class DonorsResponse {
         "statusCode": statusCode,
         "message": message,
         "sucess": sucess,
-        "data": data.map((x) => x.toJson()).toList(),
+        "data": data?.toJson(),
       };
 }
 
-class Datum {
-  Datum({
+class Data {
+  Data({
+    required this.docs,
+    required this.totalDocs,
+    required this.limit,
+    required this.totalPages,
+    required this.page,
+    required this.pagingCounter,
+    required this.hasPrevPage,
+    required this.hasNextPage,
+    required this.prevPage,
+    required this.nextPage,
+  });
+
+  final List<Doc> docs;
+  final int? totalDocs;
+  final int? limit;
+  final int? totalPages;
+  final int? page;
+  final int? pagingCounter;
+  final bool? hasPrevPage;
+  final bool? hasNextPage;
+  final dynamic prevPage;
+  final dynamic nextPage;
+
+  factory Data.fromJson(Map<String, dynamic> json) {
+    return Data(
+      docs: json["docs"] == null
+          ? []
+          : List<Doc>.from(json["docs"]!.map((x) => Doc.fromJson(x))),
+      totalDocs: json["totalDocs"],
+      limit: json["limit"],
+      totalPages: json["totalPages"],
+      page: json["page"],
+      pagingCounter: json["pagingCounter"],
+      hasPrevPage: json["hasPrevPage"],
+      hasNextPage: json["hasNextPage"],
+      prevPage: json["prevPage"],
+      nextPage: json["nextPage"],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        "docs": docs.map((x) => x.toJson()).toList(),
+        "totalDocs": totalDocs,
+        "limit": limit,
+        "totalPages": totalPages,
+        "page": page,
+        "pagingCounter": pagingCounter,
+        "hasPrevPage": hasPrevPage,
+        "hasNextPage": hasNextPage,
+        "prevPage": prevPage,
+        "nextPage": nextPage,
+      };
+}
+
+class Doc {
+  Doc({
+    required this.location,
     required this.fullName,
     required this.email,
     required this.phoneNumber,
     required this.bloodGroup,
-    required this.location,
     required this.imageUrl,
     required this.isAvailableForDonation,
     required this.v,
   });
 
+  final Location? location;
   final String? fullName;
   final String? email;
   final String? phoneNumber;
   final String? bloodGroup;
-  final Location? location;
   final String? imageUrl;
   final bool? isAvailableForDonation;
   final int? v;
 
-  factory Datum.fromJson(Map<String, dynamic> json) {
-    return Datum(
+  factory Doc.fromJson(Map<String, dynamic> json) {
+    return Doc(
+      location:
+          json["location"] == null ? null : Location.fromJson(json["location"]),
       fullName: json["fullName"],
       email: json["email"],
       phoneNumber: json["phoneNumber"],
       bloodGroup: json["bloodGroup"],
-      location:
-          json["location"] == null ? null : Location.fromJson(json["location"]),
       imageUrl: json["imageUrl"],
       isAvailableForDonation: json["isAvailableForDonation"],
       v: json["__v"],
@@ -66,11 +120,11 @@ class Datum {
   }
 
   Map<String, dynamic> toJson() => {
+        "location": location?.toJson(),
         "fullName": fullName,
         "email": email,
         "phoneNumber": phoneNumber,
         "bloodGroup": bloodGroup,
-        "location": location?.toJson(),
         "imageUrl": imageUrl,
         "isAvailableForDonation": isAvailableForDonation,
         "__v": v,

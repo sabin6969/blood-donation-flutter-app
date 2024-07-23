@@ -127,6 +127,9 @@ class SearchPageState extends State<AdminsView> {
                                   imageUrl: controller
                                       .response!.data[index].imageUrl!,
                                   fit: BoxFit.cover,
+                                  errorWidget: (context, url, error) {
+                                    return const Icon(Icons.error_outline);
+                                  },
                                 ),
                               ),
                             ),

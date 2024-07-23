@@ -136,6 +136,7 @@ class _SignupViewState extends State<SignupView> {
                       : value.isPhoneNumber
                           ? null
                           : "Enter a valid phone number",
+                  maxLength: 10,
                 ),
                 SizedBox(height: size.height * 0.015),
                 DropdownMenu(

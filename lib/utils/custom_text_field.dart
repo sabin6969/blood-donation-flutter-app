@@ -10,23 +10,25 @@ class CustomTextField extends StatelessWidget {
   final Widget? suffixIconButton;
   final String? Function(String?)? validator;
   final TextCapitalization? textCapitalization;
-  const CustomTextField({
-    super.key,
-    required this.hintText,
-    required this.prefixIcon,
-    required this.controller,
-    required this.textInputType,
-    this.isObsecure,
-    this.suffixIconButton,
-    this.textCapitalization,
-    required this.validator,
-  });
+  final int? maxLength;
+  const CustomTextField(
+      {super.key,
+      required this.hintText,
+      required this.prefixIcon,
+      required this.controller,
+      required this.textInputType,
+      this.isObsecure,
+      this.suffixIconButton,
+      this.textCapitalization,
+      required this.validator,
+      this.maxLength});
 
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
     return TextFormField(
       textCapitalization: textCapitalization ?? TextCapitalization.none,
+      maxLength: maxLength,
       validator: validator,
       obscureText: isObsecure ?? false,
       keyboardType: textInputType,

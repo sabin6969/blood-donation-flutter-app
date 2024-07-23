@@ -15,11 +15,14 @@ class SearchDonorController extends GetxService {
     super.onInit();
   }
 
-  void fetchAllDonors() async {
+  void fetchAllDonors({int? page}) async {
     try {
       isLoading.value = true;
       String accessToken = GetStorageService.getAccessToken() ?? "";
-      response = await UserApiService.getAllDonors(accessToken: accessToken);
+      response = await UserApiService.getAllDonors(
+        accessToken: accessToken,
+        page: page,
+      );
     } on UnauthorizedException catch (e) {
       Get.snackbar("Unauthorized", e.errorMessage);
       Get.offAllNamed(AppRoutes.loginView);

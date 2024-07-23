@@ -108,13 +108,14 @@ class UserApiService {
   }
 
   static Future<DonorsResponse> getAllDonors(
-      {required String accessToken}) async {
+      {required String accessToken, int? page}) async {
     try {
       _response = await get(
-          Uri.parse(
-            "$baseUrl/$userRoute/getAllDonors",
-          ),
-          headers: {"Authorization": "Bearer $accessToken"});
+        Uri.parse(
+          "$baseUrl/$userRoute/getAllDonors?page=$page",
+        ),
+        headers: {"Authorization": "Bearer $accessToken"},
+      );
       return DonorsResponse.fromJson(getJsonResponse(response: _response));
     } catch (e) {
       return Future.error(e);

@@ -103,7 +103,7 @@ class _DonorsViewState extends State<DonorsView> {
                 controller.fetchAllDonors();
               },
               child: ListView.builder(
-                itemCount: controller.response?.data.length,
+                itemCount: controller.response?.data!.docs.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.symmetric(
@@ -125,8 +125,11 @@ class _DonorsViewState extends State<DonorsView> {
                                   aspectRatio: 1,
                                   child: CachedNetworkImage(
                                     imageUrl: controller
-                                        .response!.data[index].imageUrl!,
+                                        .response!.data!.docs[index].imageUrl!,
                                     fit: BoxFit.cover,
+                                    errorWidget: (context, url, error) {
+                                      return const Icon(Icons.error_outline);
+                                    },
                                   ),
                                 ),
                               ),
@@ -142,7 +145,8 @@ class _DonorsViewState extends State<DonorsView> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    controller.response!.data[index].fullName ??
+                                    controller.response!.data!.docs[index]
+                                            .fullName ??
                                         "",
                                     style: const TextStyle(
                                       fontSize: 16,
@@ -151,7 +155,8 @@ class _DonorsViewState extends State<DonorsView> {
                                     maxLines: 1,
                                   ),
                                   Text(
-                                    controller.response!.data[index].email ??
+                                    controller.response!.data!.docs[index]
+                                            .email ??
                                         "",
                                     style: const TextStyle(
                                       fontSize: 16,
@@ -161,17 +166,20 @@ class _DonorsViewState extends State<DonorsView> {
                                     textAlign: TextAlign.center,
                                   ),
                                   Text(
-                                    controller.response!.data[index]
+                                    controller.response!.data!.docs[index]
                                             .phoneNumber ??
                                         "",
                                   ),
                                   Text(
-                                    controller.response!.data[index]
+                                    controller.response!.data!.docs[index]
                                             .isAvailableForDonation!
                                         ? "Available for donation"
                                         : "Not Available for donation",
                                     style: TextStyle(
-                                      color: controller.response!.data[index]
+                                      color: controller
+                                              .response!
+                                              .data!
+                                              .docs[index]
                                               .isAvailableForDonation!
                                           ? Colors.green
                                           : Colors.red,
@@ -186,8 +194,8 @@ class _DonorsViewState extends State<DonorsView> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    controller
-                                            .response!.data[index].bloodGroup ??
+                                    controller.response!.data!.docs[index]
+                                            .bloodGroup ??
                                         "",
                                   )
                                 ],
@@ -204,6 +212,52 @@ class _DonorsViewState extends State<DonorsView> {
           }
         },
       ),
+      persistentFooterAlignment: AlignmentDirectional.topEnd,
+      persistentFooterButtons: [
+        GetX<SearchDonorController>(
+          builder: (controller) {
+            return TextButton(
+              onPressed: controller.isLoading.value
+                  ? null
+                  : controller.response!.data!.hasPrevPage!
+                      ? () {
+                          int currentPage = controller.response!.data!.page!;
+                          controller.fetchAllDonors(
+                            page: --currentPage,
+                          );
+                        }
+                      : null,
+              child: const Text("Previous"),
+            );
+          },
+        ),
+        GetX<SearchDonorController>(builder: (controller) {
+          return controller.isLoading.value
+              ? const SizedBox.shrink()
+              : Text(
+                  "${controller.response!.data!.page!}/${controller.response!.data!.totalPages}",
+                );
+        }),
+        GetX<SearchDonorController>(
+          builder: (controller) {
+            return TextButton(
+              onPressed: controller.isLoading.value
+                  ? null
+                  : controller.response!.data!.hasNextPage!
+                      ? () {
+                          int currentPage = controller.response!.data!.page!;
+                          controller.fetchAllDonors(
+                            page: ++currentPage,
+                          );
+                        }
+                      : null,
+              child: const Text(
+                "Next",
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 }
