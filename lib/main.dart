@@ -1,9 +1,11 @@
 import 'package:blood_donation_flutter_app/constants/app_routes.dart';
+import 'package:blood_donation_flutter_app/controllers/blood_request_controller.dart';
 import 'package:blood_donation_flutter_app/controllers/login_controller.dart';
 import 'package:blood_donation_flutter_app/controllers/onboarding_controller.dart';
 import 'package:blood_donation_flutter_app/controllers/register_controller.dart';
 import 'package:blood_donation_flutter_app/controllers/search_donor_controller.dart';
 import 'package:blood_donation_flutter_app/firebase_options.dart';
+import 'package:blood_donation_flutter_app/views/blood_request_view.dart';
 import 'package:blood_donation_flutter_app/views/donors_view.dart';
 import 'package:blood_donation_flutter_app/views/landing_view.dart';
 import 'package:blood_donation_flutter_app/views/login_signup_view.dart';
@@ -85,6 +87,15 @@ class MyApp extends StatelessWidget {
           binding: BindingsBuilder(
             () {
               Get.lazyPut(() => SearchDonorController());
+            },
+          ),
+        ),
+        GetPage(
+          name: AppRoutes.bloodRequestView,
+          page: () => const BloodRequestView(),
+          binding: BindingsBuilder(
+            () {
+              Get.lazyPut(() => BloodRequestController());
             },
           ),
         )

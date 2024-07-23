@@ -11,17 +11,20 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextCapitalization? textCapitalization;
   final int? maxLength;
-  const CustomTextField(
-      {super.key,
-      required this.hintText,
-      required this.prefixIcon,
-      required this.controller,
-      required this.textInputType,
-      this.isObsecure,
-      this.suffixIconButton,
-      this.textCapitalization,
-      required this.validator,
-      this.maxLength});
+  final int? maxLines;
+  const CustomTextField({
+    super.key,
+    required this.hintText,
+    required this.prefixIcon,
+    required this.controller,
+    required this.textInputType,
+    this.isObsecure,
+    this.suffixIconButton,
+    this.textCapitalization,
+    required this.validator,
+    this.maxLength,
+    this.maxLines,
+  });
 
   @override
   Widget build(BuildContext context) {

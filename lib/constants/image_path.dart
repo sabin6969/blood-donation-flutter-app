@@ -11,4 +11,5 @@ class ImagePath {
   static String reportIcon = "assets/icons/report.png";
   static String donatesIcon = "assets/icons/donates.png";
   static String assistanceIcon = "assets/icons/assistance.png";
+  static String bloodRequestSucess = "assets/images/blood_request_sucess.png";
 }

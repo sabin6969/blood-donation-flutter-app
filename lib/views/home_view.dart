@@ -43,7 +43,9 @@ class _HomePageState extends State<HomeView> {
               CustomCard(
                 title: "Order Blood",
                 imageIconPath: ImagePath.orderBloodIcon,
-                onTap: () {},
+                onTap: () {
+                  Get.toNamed(AppRoutes.bloodRequestView);
+                },
               ),
               CustomCard(
                 title: "Assistance",

@@ -5,4 +5,5 @@ class AppRoutes {
   static const String signupView = "/signupView";
   static const String landingView = "/landingView";
   static const String donorsView = "/donorsView";
+  static const String bloodRequestView = "/requestBloodView";
 }
