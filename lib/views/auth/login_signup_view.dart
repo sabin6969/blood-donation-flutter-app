@@ -1,7 +1,7 @@
 import 'package:blood_donation_flutter_app/constants/app_routes.dart';
 import 'package:blood_donation_flutter_app/constants/image_path.dart';
 import 'package:blood_donation_flutter_app/main.dart';
-import 'package:blood_donation_flutter_app/utils/custom_auth_button.dart';
+import 'package:blood_donation_flutter_app/utils/widgets/custom_auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

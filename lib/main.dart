@@ -6,10 +6,10 @@ import 'package:blood_donation_flutter_app/controllers/search_donor_controller.d
 import 'package:blood_donation_flutter_app/firebase_options.dart';
 import 'package:blood_donation_flutter_app/views/donors_view.dart';
 import 'package:blood_donation_flutter_app/views/landing_view.dart';
-import 'package:blood_donation_flutter_app/views/login_signup_view.dart';
-import 'package:blood_donation_flutter_app/views/login_view.dart';
+import 'package:blood_donation_flutter_app/views/auth/login_signup_view.dart';
+import 'package:blood_donation_flutter_app/views/auth/login_view.dart';
 import 'package:blood_donation_flutter_app/views/onboarding_view.dart';
-import 'package:blood_donation_flutter_app/views/register_view.dart';
+import 'package:blood_donation_flutter_app/views/auth/register_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
