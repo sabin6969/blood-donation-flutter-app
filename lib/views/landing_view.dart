@@ -1,3 +1,4 @@
+import 'package:blood_donation_flutter_app/utils/ask_for_notifications.dart';
 import 'package:blood_donation_flutter_app/views/home_view.dart';
 import 'package:blood_donation_flutter_app/views/profile_view.dart';
 import 'package:blood_donation_flutter_app/views/admins_view.dart';
@@ -17,6 +18,16 @@ class HomeViewState extends State<LandingView> {
     const AdminsView(),
     const ProfileView(),
   ];
+
+  void askPermissionForNotification() {
+    askForNotification();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    askPermissionForNotification();
+  }
 
   @override
   Widget build(BuildContext context) {

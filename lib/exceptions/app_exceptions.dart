@@ -34,3 +34,8 @@ class UnauthorizedException extends AppException {
 class ResourceConflictException extends AppException {
   ResourceConflictException({required super.errorMessage});
 }
+
+/// [ResourceConflictException] is thrown for status code 403
+class ForbiddenException extends AppException {
+  ForbiddenException({required super.errorMessage});
+}

@@ -1,5 +1,4 @@
 import 'package:blood_donation_flutter_app/constants/app_routes.dart';
-import 'package:blood_donation_flutter_app/constants/image_path.dart';
 import 'package:blood_donation_flutter_app/data/services/bloods_api_service.dart';
 import 'package:blood_donation_flutter_app/data/services/get_storage_service.dart';
 import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';

@@ -56,7 +56,7 @@ class _HomePageState extends State<HomeView> {
                 },
               ),
               CustomCard(
-                title: "Report",
+                title: "Status",
                 imageIconPath: ImagePath.reportIcon,
                 onTap: () {
                   Get.snackbar(
@@ -66,7 +66,9 @@ class _HomePageState extends State<HomeView> {
               CustomCard(
                 title: "Campaigns",
                 imageIconPath: ImagePath.campaignIcon,
-                onTap: () {},
+                onTap: () {
+                  Get.toNamed(AppRoutes.campaignsView);
+                },
               ),
             ],
           ),

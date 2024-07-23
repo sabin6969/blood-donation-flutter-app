@@ -6,13 +6,15 @@ import 'package:blood_donation_flutter_app/controllers/register_controller.dart'
 import 'package:blood_donation_flutter_app/controllers/search_donor_controller.dart';
 import 'package:blood_donation_flutter_app/firebase_options.dart';
 import 'package:blood_donation_flutter_app/views/blood_request_view.dart';
+import 'package:blood_donation_flutter_app/views/campaings/campaigns_view.dart';
 import 'package:blood_donation_flutter_app/views/donors_view.dart';
 import 'package:blood_donation_flutter_app/views/landing_view.dart';
-import 'package:blood_donation_flutter_app/views/login_signup_view.dart';
+import 'package:blood_donation_flutter_app/views/auth/login_signup_view.dart';
 import 'package:blood_donation_flutter_app/views/auth/login_view.dart';
 import 'package:blood_donation_flutter_app/views/onboarding_view.dart';
-import 'package:blood_donation_flutter_app/views/register_view.dart';
+import 'package:blood_donation_flutter_app/views/auth/register_view.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -28,6 +30,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onMessage.listen((event) {
+    debugPrint("A remote notification has been received");
+  });
   await GetStorage.init();
   runApp(const MyApp());
 }
@@ -98,10 +104,20 @@ class MyApp extends StatelessWidget {
               Get.lazyPut(() => BloodRequestController());
             },
           ),
+        ),
+        GetPage(
+          name: AppRoutes.campaignsView,
+          page: () => const CampaingsView(),
         )
       ],
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
     );
   }
+}
+
+// listening to a background remote notifications
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
 }

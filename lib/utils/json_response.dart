@@ -25,6 +25,10 @@ dynamic getJsonResponse({required Response response}) {
     case 401:
       throw UnauthorizedException(
           errorMessage: jsonDecode(response.body)["message"]);
+    case 403:
+      throw ForbiddenException(
+          errorMessage:
+              jsonDecode(response.body)["message"] ?? "Forbidden Request");
     default:
       throw const AppException(errorMessage: "Something went wrong");
   }
