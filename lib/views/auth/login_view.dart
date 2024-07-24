@@ -29,7 +29,7 @@ class _LoginViewState extends State<LoginView> {
                 horizontal: size.width * 0.05,
               ),
               child: Form(
-                key: loginController.formKey,
+                key: loginController.formKeyForLogin,
                 child: Column(
                   children: [
                     SizedBox(

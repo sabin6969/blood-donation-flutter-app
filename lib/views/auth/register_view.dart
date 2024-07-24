@@ -36,7 +36,7 @@ class _SignupViewState extends State<SignupView> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
           child: Form(
-            key: registerController.formKey,
+            key: registerController.formKeyForRegistration,
             child: Column(
               children: [
                 GetX<RegisterController>(

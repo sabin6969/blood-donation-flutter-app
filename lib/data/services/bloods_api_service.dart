@@ -28,7 +28,6 @@ class BloodServiceApi {
           "note": note,
         }),
       );
-      print(_response.body);
       return getJsonResponse(response: _response);
     } catch (e) {
       return Future.error(e);

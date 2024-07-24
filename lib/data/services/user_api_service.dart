@@ -84,7 +84,6 @@ class UserApiService {
         },
       );
       var jsonData = getJsonResponse(response: _response);
-      // print(jsonData);
       return ProfileResponse.fromJson(jsonData);
     } catch (e) {
       return Future.error(e);

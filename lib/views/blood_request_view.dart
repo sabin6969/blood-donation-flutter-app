@@ -34,13 +34,14 @@ class _RequestBloodViewState extends State<BloodRequestView> {
               children: [
                 CustomTextField(
                   hintText: "Enter City Name",
+                  textCapitalization: TextCapitalization.sentences,
                   prefixIcon: const Icon(
                     Icons.location_city,
                   ),
                   controller: Get.find<BloodRequestController>().cityController,
                   textInputType: TextInputType.streetAddress,
                   validator: (value) => value == null || value.isEmpty
-                      ? "This field is required"
+                      ? "City field is required"
                       : null,
                 ),
                 SizedBox(
@@ -48,12 +49,13 @@ class _RequestBloodViewState extends State<BloodRequestView> {
                 ),
                 CustomTextField(
                   hintText: "Enter Hospital Name",
+                  textCapitalization: TextCapitalization.sentences,
                   prefixIcon: const Icon(Icons.local_hospital),
                   controller:
                       Get.find<BloodRequestController>().hospitalController,
                   textInputType: TextInputType.name,
                   validator: (value) => value == null || value.isEmpty
-                      ? "This field is required"
+                      ? "Hospital name field is required"
                       : null,
                 ),
                 SizedBox(

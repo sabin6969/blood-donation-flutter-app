@@ -17,7 +17,7 @@ class RegisterController extends GetxController {
   RxBool isPasswordVisible = RxBool(true);
   Rx<XFile?> imageFile = Rx(null);
   RxBool isAvailableForDonation = RxBool(true);
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> formKeyForRegistration = GlobalKey<FormState>();
   String? selectedBloodGroup;
   List<String> bloodGroups = [
     "A+",
@@ -32,7 +32,7 @@ class RegisterController extends GetxController {
   RxBool isLoading = RxBool(false);
 
   void registerUser() async {
-    if (formKey.currentState!.validate()) {
+    if (formKeyForRegistration.currentState!.validate()) {
       if (selectedBloodGroup == null) {
         Get.snackbar("Error", "Please select your blood group");
         return;
@@ -56,6 +56,7 @@ class RegisterController extends GetxController {
             profileImage: imageFile.value!,
           );
           Get.snackbar("Sucess", message);
+          isLoading.value = false;
           Get.offNamed(AppRoutes.loginView);
         } on AppException catch (e) {
           Get.snackbar("Error", e.errorMessage);

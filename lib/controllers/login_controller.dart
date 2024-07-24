@@ -10,10 +10,10 @@ class LoginController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   RxBool isPasswordVisible = RxBool(true);
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> formKeyForLogin = GlobalKey<FormState>();
 
   void login({required String email, required String password}) async {
-    if (!formKey.currentState!.validate()) {
+    if (!formKeyForLogin.currentState!.validate()) {
       return;
     } else {
       try {
