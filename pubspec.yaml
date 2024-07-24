@@ -37,3 +37,9 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/animations/
+flutter_native_splash:
+  color: "#42a5f5"
+  image: "assets/icons/blood_donation_icon.png"
+  android_12:
+    color: "#42a5f5"
+    image: "assets/icons/blood_donation_icon.png"

@@ -4,6 +4,7 @@ import 'package:blood_donation_flutter_app/controllers/login_controller.dart';
 import 'package:blood_donation_flutter_app/controllers/onboarding_controller.dart';
 import 'package:blood_donation_flutter_app/controllers/register_controller.dart';
 import 'package:blood_donation_flutter_app/controllers/search_donor_controller.dart';
+import 'package:blood_donation_flutter_app/controllers/splash_controller.dart';
 import 'package:blood_donation_flutter_app/firebase_options.dart';
 import 'package:blood_donation_flutter_app/views/blood_request_view.dart';
 import 'package:blood_donation_flutter_app/views/campaings/campaigns_view.dart';
@@ -13,15 +14,17 @@ import 'package:blood_donation_flutter_app/views/auth/login_signup_view.dart';
 import 'package:blood_donation_flutter_app/views/auth/login_view.dart';
 import 'package:blood_donation_flutter_app/views/onboarding_view.dart';
 import 'package:blood_donation_flutter_app/views/auth/register_view.dart';
+import 'package:blood_donation_flutter_app/views/splash_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations(
     [
       DeviceOrientation.portraitUp,
@@ -35,6 +38,7 @@ void main() async {
     debugPrint("A remote notification has been received");
   });
   await GetStorage.init();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
 }
 
@@ -47,7 +51,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute: AppRoutes.onboardingView,
+      initialRoute: AppRoutes.splashView,
       defaultTransition: Transition.downToUp,
       getPages: [
         GetPage(
@@ -108,7 +112,16 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: AppRoutes.campaignsView,
           page: () => const CampaingsView(),
-        )
+        ),
+        GetPage(
+          name: AppRoutes.splashView,
+          page: () => const SplashView(),
+          binding: BindingsBuilder(
+            () {
+              Get.lazyPut(() => SplashController());
+            },
+          ),
+        ),
       ],
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),

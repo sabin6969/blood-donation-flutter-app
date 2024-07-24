@@ -20,6 +20,7 @@ class ProfileController extends GetxService {
     try {
       isLoading.value = true;
       String accessToken = GetStorageService.getAccessToken() ?? "";
+      print(accessToken);
       response = await UserApiService.getProfile(accessToken: accessToken);
     } on UnauthorizedException catch (e) {
       Get.snackbar("Unauthorized", e.errorMessage);

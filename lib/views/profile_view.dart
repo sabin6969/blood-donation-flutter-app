@@ -38,15 +38,6 @@ class _ProfilePageState extends State<ProfileView> {
                 LottieBuilder.asset(
                   AppLottieAnimations.errorLottieAnimationPath,
                 ),
-                Center(
-                  child: Text(
-                    controller.errorMessage ?? "An unknown error occured",
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                )
               ],
             ),
           );

@@ -84,6 +84,7 @@ class UserApiService {
         },
       );
       var jsonData = getJsonResponse(response: _response);
+      // print(jsonData);
       return ProfileResponse.fromJson(jsonData);
     } catch (e) {
       return Future.error(e);
@@ -117,6 +118,23 @@ class UserApiService {
         headers: {"Authorization": "Bearer $accessToken"},
       );
       return DonorsResponse.fromJson(getJsonResponse(response: _response));
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  static Future verifyAccessToken({required String accessToken}) async {
+    try {
+      _response = await post(
+        Uri.parse(
+          "$baseUrl/$authRoute/verifyAuth",
+        ),
+        headers: {
+          "Authorization": "Bearer $accessToken",
+        },
+      );
+      String message = getJsonResponse(response: _response)["message"];
+      return message;
     } catch (e) {
       return Future.error(e);
     }
