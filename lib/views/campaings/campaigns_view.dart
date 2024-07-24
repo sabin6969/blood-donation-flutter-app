@@ -1,3 +1,6 @@
+import 'package:blood_donation_flutter_app/views/campaings/active_campaing_view.dart';
+import 'package:blood_donation_flutter_app/views/campaings/campaing_nearme_view.dart';
+import 'package:blood_donation_flutter_app/views/campaings/inactive_campaing_view.dart';
 import 'package:flutter/material.dart';
 
 class CampaingsView extends StatefulWidget {
@@ -29,21 +32,9 @@ class CampaingsViewState extends State<CampaingsView> {
         ),
         body: const TabBarView(
           children: [
-            Scaffold(
-              body: Center(
-                child: Text("Currently active"),
-              ),
-            ),
-            Scaffold(
-              body: Center(
-                child: Text("Near me"),
-              ),
-            ),
-            Scaffold(
-              body: Center(
-                child: Text("Inactive campains"),
-              ),
-            ),
+            ActiveCampaingView(),
+            CampaingNearMeView(),
+            InactiveCampaingView(),
           ],
         ),
       ),
