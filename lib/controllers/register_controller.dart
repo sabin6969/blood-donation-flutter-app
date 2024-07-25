@@ -41,7 +41,7 @@ class RegisterController extends GetxController {
       } else {
         try {
           isLoading.value = true;
-          Position position = await DetermineLocaltion.determineUserLocation();
+          Position position = await DetermineLocation.determineUserLocation();
           String fcmToken = await getFcmToken() ?? "";
           String message = await UserApiService.registerUser(
             fullName: fullNameController.text,

@@ -1,6 +1,6 @@
-import 'package:blood_donation_flutter_app/views/campaings/active_campaing_view.dart';
-import 'package:blood_donation_flutter_app/views/campaings/campaing_nearme_view.dart';
-import 'package:blood_donation_flutter_app/views/campaings/inactive_campaing_view.dart';
+import 'package:blood_donation_flutter_app/views/campaings/active_campaign_view.dart';
+import 'package:blood_donation_flutter_app/views/campaings/campaigns_nearme_view.dart';
+import 'package:blood_donation_flutter_app/views/campaings/inactive_campaigns_view.dart';
 import 'package:flutter/material.dart';
 
 class CampaingsView extends StatefulWidget {
@@ -27,7 +27,7 @@ class CampaingsViewState extends State<CampaingsView> {
               return Opacity(
                 opacity: value,
                 child: const Text(
-                  "Campaings",
+                  "Campaign",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,

@@ -10,12 +10,15 @@ class GoogleMapView extends StatefulWidget {
 }
 
 class GoogleMapViewState extends State<GoogleMapView> {
-  final LatLng _latLng = LatLng(Get.arguments["lat"], Get.arguments["lng"]);
+  final LatLng _latLng = LatLng(
+    Get.arguments["lat"],
+    Get.arguments["lng"],
+  );
 
-  late final GoogleMapController _googleMapController;
+  late final GoogleMapController googleMapController;
 
   void _onMapCreated(GoogleMapController googleMapController) {
-    _googleMapController = googleMapController;
+    googleMapController = googleMapController;
   }
 
   @override
@@ -32,7 +35,7 @@ class GoogleMapViewState extends State<GoogleMapView> {
               child: const Text(
                 "Map View",
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -44,7 +47,7 @@ class GoogleMapViewState extends State<GoogleMapView> {
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(
           target: _latLng,
-          zoom: 11.0,
+          zoom: 13.0,
         ),
         markers: {
           Marker(

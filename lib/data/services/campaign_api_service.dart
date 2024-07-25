@@ -17,4 +17,20 @@ class CampaignApiService {
       return Future.error(e);
     }
   }
+
+  static Future<CampaignResponse> getNearestCampaign(
+      {required double lat, required lng}) async {
+    try {
+      _response = await get(Uri.parse(
+          "$baseUrl/$campaignRoute/getNearestCampaign?lat=$lat&lng=$lng"));
+      print(_response.body);
+      return CampaignResponse.fromJson(
+        getJsonResponse(
+          response: _response,
+        ),
+      );
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
 }

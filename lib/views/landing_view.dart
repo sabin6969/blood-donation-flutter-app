@@ -31,31 +31,38 @@ class HomeViewState extends State<LandingView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: pages[currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
-        currentIndex: currentIndex,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home_outlined,
+    return PopScope(
+      onPopInvoked: (didPop) {
+        if (!didPop) {
+          debugPrint("Inside not did pop");
+        }
+      },
+      child: Scaffold(
+        body: pages[currentIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          onTap: (index) {
+            setState(() {
+              currentIndex = index;
+            });
+          },
+          currentIndex: currentIndex,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home_outlined,
+              ),
+              label: "Home",
             ),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shield),
-            label: "Admins",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_2_outlined),
-            label: "Profile",
-          )
-        ],
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shield),
+              label: "Admins",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_2_outlined),
+              label: "Profile",
+            )
+          ],
+        ),
       ),
     );
   }

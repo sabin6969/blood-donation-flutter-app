@@ -39,3 +39,8 @@ class ResourceConflictException extends AppException {
 class ForbiddenException extends AppException {
   ForbiddenException({required super.errorMessage});
 }
+
+/// [LocationNotEnabledException] is thrown when app's location services are disabled
+class LocationNotEnabledException extends AppException {
+  LocationNotEnabledException({required super.errorMessage});
+}

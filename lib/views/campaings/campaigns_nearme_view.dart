@@ -2,44 +2,43 @@ import 'package:blood_donation_flutter_app/constants/app_lottie_animations.dart'
 import 'package:blood_donation_flutter_app/constants/app_routes.dart';
 import 'package:blood_donation_flutter_app/controllers/campaign_controller.dart';
 import 'package:blood_donation_flutter_app/main.dart';
+import 'package:blood_donation_flutter_app/utils/widgets/custom_auth_button.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
-class ActiveCampaingView extends StatefulWidget {
-  const ActiveCampaingView({super.key});
+class CampaingNearMeView extends StatefulWidget {
+  const CampaingNearMeView({super.key});
 
   @override
-  State<ActiveCampaingView> createState() => _ActiveCampaingViewState();
+  State<CampaingNearMeView> createState() => CampaingNearMeViewState();
 }
 
-class _ActiveCampaingViewState extends State<ActiveCampaingView> {
+class CampaingNearMeViewState extends State<CampaingNearMeView> {
   @override
   void initState() {
-    Get.find<CampaingController>().fetchActiveCampaign();
+    Get.find<CampaingController>().fetchNearestCampaign();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    size = MediaQuery.sizeOf(context);
     return Scaffold(
       body: GetX<CampaingController>(
         builder: (controller) {
-          if (controller.isActiveCampaignLoading.value) {
+          if (controller.isNearestCampaignLoading.value) {
             return Center(
-              child:
-                  Lottie.asset(AppLottieAnimations.loadingLottieAnimationPath),
+              child: Lottie.asset(
+                AppLottieAnimations.loadingLottieAnimationPath,
+              ),
             );
           } else {
             return RefreshIndicator(
               onRefresh: () async {
-                controller.fetchActiveCampaign();
+                controller.fetchNearestCampaign();
               },
-              child: controller.campaignResponse.data!.isEmpty
+              child: controller.nearestCampaignResponse.data!.isEmpty
                   ? ListView(
                       children: [
                         Lottie.asset(
@@ -50,17 +49,19 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                         const Align(
                           alignment: Alignment.center,
                           child: Text(
-                            "There are no active campaings right now",
+                            "There are no active campaings right\nNear your location",
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ],
                     )
                   : ListView.builder(
-                      itemCount: controller.campaignResponse.data!.length,
+                      itemCount:
+                          controller.nearestCampaignResponse.data!.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: EdgeInsets.symmetric(
@@ -71,15 +72,18 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                               title: Row(
                                 children: [
                                   Expanded(
-                                    child: Text(
-                                      controller.campaignResponse.data![index]
-                                              .campaignName ??
-                                          "Campaign Name",
+                                    child: ListTile(
+                                      title: Text(
+                                        controller.nearestCampaignResponse
+                                                .data![index].campaignName ??
+                                            "Campaign Name",
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                  const Icon(
-                                    Icons.verified,
-                                  )
                                 ],
                               ),
                               childrenPadding: EdgeInsets.symmetric(
@@ -95,9 +99,13 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                       Icons.date_range,
                                     ),
                                     Text(
-                                      controller.campaignResponse.data![index]
-                                              .date ??
+                                      controller.nearestCampaignResponse
+                                              .data![index].date ??
                                           "Date",
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -112,9 +120,13 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                       Icons.schedule,
                                     ),
                                     Text(
-                                      controller.campaignResponse.data![index]
-                                              .time ??
+                                      controller.nearestCampaignResponse
+                                              .data![index].time ??
                                           "Date",
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -135,8 +147,11 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                     CircleAvatar(
                                       backgroundImage:
                                           CachedNetworkImageProvider(
-                                        controller.campaignResponse.data![index]
-                                            .campaignOrganizedBy!.imageUrl!,
+                                        controller
+                                            .nearestCampaignResponse
+                                            .data![index]
+                                            .campaignOrganizedBy!
+                                            .imageUrl!,
                                       ),
                                     ),
                                   ],
@@ -150,8 +165,11 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                   children: [
                                     const Icon(Icons.person_outline),
                                     Text(
-                                      controller.campaignResponse.data![index]
-                                              .campaignOrganizedBy!.fullName ??
+                                      controller
+                                              .nearestCampaignResponse
+                                              .data![index]
+                                              .campaignOrganizedBy!
+                                              .fullName ??
                                           "Organizer's Name",
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -168,8 +186,11 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                   children: [
                                     const Icon(Icons.email_outlined),
                                     Text(
-                                      controller.campaignResponse.data![index]
-                                              .campaignOrganizedBy!.email ??
+                                      controller
+                                              .nearestCampaignResponse
+                                              .data![index]
+                                              .campaignOrganizedBy!
+                                              .email ??
                                           "Email address",
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -187,7 +208,7 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                     const Icon(Icons.phone_outlined),
                                     Text(
                                       controller
-                                              .campaignResponse
+                                              .nearestCampaignResponse
                                               .data![index]
                                               .campaignOrganizedBy!
                                               .phoneNumber ??
@@ -201,19 +222,20 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                TextButton(
+                                CustomAuthButton(
+                                  buttonColor: Colors.blue,
                                   onPressed: () {
                                     Get.toNamed(
                                       AppRoutes.gooleMapView,
                                       arguments: {
                                         "lat": controller
-                                            .campaignResponse
+                                            .nearestCampaignResponse
                                             .data![index]
                                             .location!
                                             .coordinates!
                                             .first,
                                         "lng": controller
-                                            .campaignResponse
+                                            .nearestCampaignResponse
                                             .data![index]
                                             .location!
                                             .coordinates![1],
@@ -221,9 +243,17 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                     );
                                   },
                                   child: const Text(
-                                    "View Blood Donation location on Map",
+                                    "View Location on Map",
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                )
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
                               ],
                             ),
                           ),
