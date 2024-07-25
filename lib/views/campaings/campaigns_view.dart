@@ -18,15 +18,32 @@ class CampaingsViewState extends State<CampaingsView> {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text("Campaings"),
+          title: TweenAnimationBuilder(
+            tween: Tween(begin: 0.0, end: 1.0),
+            duration: const Duration(
+              seconds: 2,
+            ),
+            builder: (context, value, child) {
+              return Opacity(
+                opacity: value,
+                child: const Text(
+                  "Campaings",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              );
+            },
+          ),
           bottom: const TabBar(
             labelPadding: EdgeInsets.only(
               bottom: 10,
             ),
             tabs: [
-              Text("Currently Active"),
+              Text("Active"),
               Text("Near me"),
-              Text("Inactive Campaings"),
+              Text("Inactive"),
             ],
           ),
         ),

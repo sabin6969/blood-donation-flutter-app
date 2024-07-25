@@ -19,8 +19,21 @@ class _RequestBloodViewState extends State<BloodRequestView> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
-          "Create a Blood Request",
+        title: TweenAnimationBuilder(
+          tween: Tween(begin: 0.0, end: 1.0),
+          duration: const Duration(seconds: 2),
+          builder: (context, value, child) {
+            return Opacity(
+              opacity: value,
+              child: const Text(
+                "Create a Blood Request",
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            );
+          },
         ),
       ),
       body: SingleChildScrollView(

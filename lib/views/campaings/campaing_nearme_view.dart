@@ -12,7 +12,7 @@ class CampaingNearMeViewState extends State<CampaingNearMeView> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text("Campaing Near Me"),
+        child: Text("Comming Soon"),
       ),
     );
   }

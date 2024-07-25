@@ -13,7 +13,7 @@ class _InactiveCampaingViewState extends State<InactiveCampaingView> {
     return const Scaffold(
       body: Center(
         child: Text(
-          "Inactive Camapaings",
+          "Comming Soon",
         ),
       ),
     );
