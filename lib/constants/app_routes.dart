@@ -8,4 +8,5 @@ class AppRoutes {
   static const String bloodRequestView = "/requestBloodView";
   static const String campaignsView = "/campaignsView";
   static const String splashView = "/splashView";
+  static const String gooleMapView = "/googleMapView";
 }

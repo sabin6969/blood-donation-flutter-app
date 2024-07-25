@@ -44,3 +44,4 @@ app.*.map.json
 
 firebase.json
 firebase_options.dart
+android/app/src/main/AndroidManifest.xml

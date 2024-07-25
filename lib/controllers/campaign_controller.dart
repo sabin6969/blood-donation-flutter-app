@@ -13,7 +13,7 @@ class CampaingController extends GetxService {
     } on AppException catch (e) {
       Get.snackbar("Error", e.errorMessage);
     } catch (e) {
-      Get.snackbar("Eroro", "Something went wrong");
+      Get.snackbar("Error", "Something went wrong");
     } finally {
       isActiveCampaignLoading.value = false;
     }

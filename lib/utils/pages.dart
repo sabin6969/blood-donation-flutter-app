@@ -13,6 +13,7 @@ import 'package:blood_donation_flutter_app/views/blood_request_view.dart';
 import 'package:blood_donation_flutter_app/views/campaings/campaigns_view.dart';
 import 'package:blood_donation_flutter_app/views/donors_view.dart';
 import 'package:blood_donation_flutter_app/views/landing_view.dart';
+import 'package:blood_donation_flutter_app/views/map/google_map_view.dart';
 import 'package:blood_donation_flutter_app/views/onboarding_view.dart';
 import 'package:blood_donation_flutter_app/views/splash_view.dart';
 import 'package:get/get.dart';
@@ -103,4 +104,8 @@ List<GetPage> pages = [
       },
     ),
   ),
+  GetPage(
+    name: AppRoutes.gooleMapView,
+    page: () => const GoogleMapView(),
+  )
 ];

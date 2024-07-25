@@ -1,4 +1,5 @@
 import 'package:blood_donation_flutter_app/constants/app_lottie_animations.dart';
+import 'package:blood_donation_flutter_app/constants/app_routes.dart';
 import 'package:blood_donation_flutter_app/controllers/campaign_controller.dart';
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -200,6 +201,29 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                 const SizedBox(
                                   height: 20,
                                 ),
+                                TextButton(
+                                  onPressed: () {
+                                    Get.toNamed(
+                                      AppRoutes.gooleMapView,
+                                      arguments: {
+                                        "lat": controller
+                                            .campaignResponse
+                                            .data![index]
+                                            .location!
+                                            .coordinates!
+                                            .first,
+                                        "lng": controller
+                                            .campaignResponse
+                                            .data![index]
+                                            .location!
+                                            .coordinates![1],
+                                      },
+                                    );
+                                  },
+                                  child: const Text(
+                                    "View Blood Donation location on Map",
+                                  ),
+                                )
                               ],
                             ),
                           ),

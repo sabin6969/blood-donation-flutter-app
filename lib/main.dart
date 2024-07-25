@@ -50,4 +50,5 @@ class MyApp extends StatelessWidget {
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
+  debugPrint("Notification has been received");
 }
