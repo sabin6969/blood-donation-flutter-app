@@ -34,7 +34,7 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
               child:
                   Lottie.asset(AppLottieAnimations.loadingLottieAnimationPath),
             );
-          } else {
+          } else if (controller.isAllCampaignLoaded.value) {
             return RefreshIndicator(
               onRefresh: () async {
                 controller.fetchActiveCampaign();
@@ -250,6 +250,23 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                         );
                       },
                     ),
+            );
+          } else {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Something went wrong"),
+                  TextButton(
+                    onPressed: () {
+                      controller.fetchActiveCampaign();
+                    },
+                    child: const Text(
+                      "Try Again",
+                    ),
+                  )
+                ],
+              ),
             );
           }
         },

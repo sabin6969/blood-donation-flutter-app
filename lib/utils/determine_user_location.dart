@@ -8,7 +8,8 @@ class DetermineLocation {
     LocationPermission permission;
     isServiceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!isServiceEnabled) {
-      throw const AppException(errorMessage: "Location services are disabled");
+      throw LocationNotEnabledException(
+          errorMessage: "Location services are disabled");
     }
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
@@ -20,8 +21,7 @@ class DetermineLocation {
         throw LocationNotEnabledException(
           errorMessage: "Location Permissions are denied",
         );
-      }
-      if (permission == LocationPermission.deniedForever) {
+      } else if (permission == LocationPermission.deniedForever) {
         showToastMessage(
           message:
               "Location permissions are permanently denied, we cannot request permissions. Please enable it manually",

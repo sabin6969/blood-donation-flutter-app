@@ -27,7 +27,7 @@ class CampaingsViewState extends State<CampaingsView> {
               return Opacity(
                 opacity: value,
                 child: const Text(
-                  "Campaign",
+                  "Campaigns",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,

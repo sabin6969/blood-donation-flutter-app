@@ -4,7 +4,6 @@ import 'package:blood_donation_flutter_app/utils/widgets/user_loading_skeletoniz
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class DonorsView extends StatefulWidget {
   const DonorsView({super.key});

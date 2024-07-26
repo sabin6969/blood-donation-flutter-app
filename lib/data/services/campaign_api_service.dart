@@ -23,7 +23,6 @@ class CampaignApiService {
     try {
       _response = await get(Uri.parse(
           "$baseUrl/$campaignRoute/getNearestCampaign?lat=$lat&lng=$lng"));
-      print(_response.body);
       return CampaignResponse.fromJson(
         getJsonResponse(
           response: _response,

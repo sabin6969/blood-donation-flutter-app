@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:blood_donation_flutter_app/constants/app_lottie_animations.dart';
 import 'package:blood_donation_flutter_app/constants/app_routes.dart';
 import 'package:blood_donation_flutter_app/controllers/campaign_controller.dart';
@@ -33,7 +34,32 @@ class CampaingNearMeViewState extends State<CampaingNearMeView> {
                 AppLottieAnimations.loadingLottieAnimationPath,
               ),
             );
-          } else {
+          } else if (controller.isLocactionDisabled.value) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "Location Services are Disabled please enable it",
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      AppSettings.openAppSettings(
+                              type: AppSettingsType.location)
+                          .then(
+                        (value) {
+                          controller.fetchNearestCampaign();
+                        },
+                      );
+                    },
+                    child: const Text(
+                      "Enable Location",
+                    ),
+                  )
+                ],
+              ),
+            );
+          } else if (controller.isNearestCampaignLoaded.value) {
             return RefreshIndicator(
               onRefresh: () async {
                 controller.fetchNearestCampaign();
@@ -260,6 +286,21 @@ class CampaingNearMeViewState extends State<CampaingNearMeView> {
                         );
                       },
                     ),
+            );
+          } else {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Something went wrong"),
+                  TextButton(
+                    onPressed: () {
+                      controller.fetchNearestCampaign();
+                    },
+                    child: const Text("Try Again"),
+                  )
+                ],
+              ),
             );
           }
         },
