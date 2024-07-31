@@ -1,5 +1,6 @@
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:animate_do/animate_do.dart';
 
 class CustomTextField extends StatelessWidget {
   final String hintText;
@@ -29,20 +30,24 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
-    return TextFormField(
-      textCapitalization: textCapitalization ?? TextCapitalization.none,
-      maxLength: maxLength,
-      validator: validator,
-      obscureText: isObsecure ?? false,
-      keyboardType: textInputType,
-      controller: controller,
-      decoration: InputDecoration(
-        hintText: hintText,
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIconButton,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-            size.width * 0.03,
+    return FadeInUp(
+      delay: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 600),
+      child: TextFormField(
+        textCapitalization: textCapitalization ?? TextCapitalization.none,
+        maxLength: maxLength,
+        validator: validator,
+        obscureText: isObsecure ?? false,
+        keyboardType: textInputType,
+        controller: controller,
+        decoration: InputDecoration(
+          hintText: hintText,
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIconButton,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(
+              size.width * 0.03,
+            ),
           ),
         ),
       ),

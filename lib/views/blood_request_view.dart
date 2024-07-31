@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:blood_donation_flutter_app/controllers/blood_request_controller.dart';
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:blood_donation_flutter_app/utils/widgets/custom_auth_button.dart';
@@ -21,7 +22,9 @@ class _RequestBloodViewState extends State<BloodRequestView> {
         centerTitle: true,
         title: TweenAnimationBuilder(
           tween: Tween(begin: 0.0, end: 1.0),
-          duration: const Duration(seconds: 2),
+          duration: const Duration(
+            milliseconds: 600,
+          ),
           builder: (context, value, child) {
             return Opacity(
               opacity: value,
@@ -74,16 +77,20 @@ class _RequestBloodViewState extends State<BloodRequestView> {
                 SizedBox(
                   height: size.height * 0.03,
                 ),
-                DropdownMenu(
-                  width: size.width * 0.9,
-                  label: const Text("Select Required Blood Group"),
-                  leadingIcon: const Icon(Icons.bloodtype),
-                  dropdownMenuEntries:
-                      Get.find<BloodRequestController>().bloodGroups.map((e) {
-                    return DropdownMenuEntry(value: e, label: e);
-                  }).toList(),
-                  onSelected: (value) =>
-                      Get.find<BloodRequestController>().requestedBlood = value,
+                FadeInUp(
+                  delay: const Duration(milliseconds: 200),
+                  duration: const Duration(milliseconds: 600),
+                  child: DropdownMenu(
+                    width: size.width * 0.9,
+                    label: const Text("Select Required Blood Group"),
+                    leadingIcon: const Icon(Icons.bloodtype),
+                    dropdownMenuEntries:
+                        Get.find<BloodRequestController>().bloodGroups.map((e) {
+                      return DropdownMenuEntry(value: e, label: e);
+                    }).toList(),
+                    onSelected: (value) => Get.find<BloodRequestController>()
+                        .requestedBlood = value,
+                  ),
                 ),
                 SizedBox(
                   height: size.height * 0.03,

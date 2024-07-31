@@ -21,7 +21,7 @@ class CampaingsViewState extends State<CampaingsView> {
           title: TweenAnimationBuilder(
             tween: Tween(begin: 0.0, end: 1.0),
             duration: const Duration(
-              seconds: 2,
+              milliseconds: 600,
             ),
             builder: (context, value, child) {
               return Opacity(

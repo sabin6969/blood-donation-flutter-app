@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:flutter/material.dart';
 
@@ -14,13 +15,17 @@ class CustomAuthButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
-    return MaterialButton(
-      minWidth: size.width,
-      height: size.height * 0.06,
-      color: buttonColor,
-      shape: const StadiumBorder(),
-      onPressed: onPressed,
-      child: child,
+    return FadeInUp(
+      delay: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 600),
+      child: MaterialButton(
+        minWidth: size.width,
+        height: size.height * 0.06,
+        color: buttonColor,
+        shape: const StadiumBorder(),
+        onPressed: onPressed,
+        child: child,
+      ),
     );
   }
 }

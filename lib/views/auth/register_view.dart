@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:animate_do/animate_do.dart';
 import 'package:blood_donation_flutter_app/constants/app_routes.dart';
 import 'package:blood_donation_flutter_app/constants/image_path.dart';
 import 'package:blood_donation_flutter_app/controllers/register_controller.dart';
@@ -139,29 +140,38 @@ class _SignupViewState extends State<SignupView> {
                   maxLength: 10,
                 ),
                 SizedBox(height: size.height * 0.015),
-                DropdownMenu(
-                  width: size.width * 0.9,
-                  label: const Text("Select your Blood Group"),
-                  leadingIcon: const Icon(Icons.bloodtype),
-                  dropdownMenuEntries: registerController.bloodGroups.map((e) {
-                    return DropdownMenuEntry(value: e, label: e);
-                  }).toList(),
-                  onSelected: (value) =>
-                      registerController.selectedBloodGroup = value,
+                FadeInUp(
+                  duration: const Duration(milliseconds: 600),
+                  delay: const Duration(milliseconds: 200),
+                  child: DropdownMenu(
+                    width: size.width * 0.9,
+                    label: const Text("Select your Blood Group"),
+                    leadingIcon: const Icon(Icons.bloodtype),
+                    dropdownMenuEntries:
+                        registerController.bloodGroups.map((e) {
+                      return DropdownMenuEntry(value: e, label: e);
+                    }).toList(),
+                    onSelected: (value) =>
+                        registerController.selectedBloodGroup = value,
+                  ),
                 ),
                 SizedBox(height: size.height * 0.015),
-                GetX<RegisterController>(
-                  builder: (controller) {
-                    return CheckboxListTile(
-                      value: controller.isAvailableForDonation.value,
-                      onChanged: (value) {
-                        controller.isAvailableForDonation.value = value!;
-                      },
-                      title: const Text(
-                        "Are you currently available for donation?",
-                      ),
-                    );
-                  },
+                FadeInUp(
+                  delay: const Duration(milliseconds: 200),
+                  duration: const Duration(milliseconds: 600),
+                  child: GetX<RegisterController>(
+                    builder: (controller) {
+                      return CheckboxListTile(
+                        value: controller.isAvailableForDonation.value,
+                        onChanged: (value) {
+                          controller.isAvailableForDonation.value = value!;
+                        },
+                        title: const Text(
+                          "Are you currently available for donation?",
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 GetX<RegisterController>(
                   builder: (controller) {
