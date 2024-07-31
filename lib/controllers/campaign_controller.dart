@@ -4,6 +4,7 @@ import 'package:blood_donation_flutter_app/models/campaign_response_model.dart';
 import 'package:blood_donation_flutter_app/utils/determine_user_location.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 
 class CampaingController extends GetxService {
   RxBool isActiveCampaignLoading = RxBool(false);
@@ -38,7 +39,6 @@ class CampaingController extends GetxService {
     } on LocationNotEnabledException {
       isLocactionDisabled.value = true;
     } on InternalServerException {
-      isLocactionDisabled.value = false;
       Get.snackbar("Error", "Something went wrong");
     } on AppException catch (e) {
       Get.snackbar("Error", e.errorMessage);

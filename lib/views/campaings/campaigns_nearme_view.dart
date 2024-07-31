@@ -46,11 +46,10 @@ class CampaingNearMeViewState extends State<CampaingNearMeView> {
                     onPressed: () {
                       AppSettings.openAppSettings(
                               type: AppSettingsType.location)
-                          .then(
-                        (value) {
-                          controller.fetchNearestCampaign();
-                        },
-                      );
+                          .then((value) {
+                        controller.isLocactionDisabled.value = false;
+                        controller.fetchNearestCampaign();
+                      });
                     },
                     child: const Text(
                       "Enable Location",
