@@ -2,6 +2,7 @@ import 'package:blood_donation_flutter_app/constants/app_routes.dart';
 import 'package:blood_donation_flutter_app/data/services/get_storage_service.dart';
 import 'package:blood_donation_flutter_app/data/services/user_api_service.dart';
 import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
+import 'package:blood_donation_flutter_app/utils/get_fcm_token.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,7 +19,12 @@ class LoginController extends GetxController {
     } else {
       try {
         isLoading.value = true;
-        var data = await UserApiService.login(email: email, password: password);
+        String? fcmToken = await getFcmToken() ?? "";
+        var data = await UserApiService.login(
+          email: email,
+          password: password,
+          fcmToken: fcmToken,
+        );
         Get.snackbar("Sucess", data["message"]);
         // storing access token of a user once logged in
         await GetStorageService.setAccessToken(

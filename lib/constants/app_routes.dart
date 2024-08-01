@@ -9,4 +9,5 @@ class AppRoutes {
   static const String campaignsView = "/campaignsView";
   static const String splashView = "/splashView";
   static const String gooleMapView = "/googleMapView";
+  static const String noInternetView = "/noInternetView";
 }

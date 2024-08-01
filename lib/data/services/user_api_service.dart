@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:blood_donation_flutter_app/constants/api_endpoint_constants.dart';
+import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
 import 'package:blood_donation_flutter_app/models/donors_response_model.dart';
 import 'package:blood_donation_flutter_app/models/profile_response_model.dart';
 import 'package:blood_donation_flutter_app/utils/json_response.dart';
@@ -11,7 +12,11 @@ import 'package:image_picker/image_picker.dart';
 
 class UserApiService {
   static late Response _response;
-  static Future login({required String email, required String password}) async {
+  static Future login({
+    required String email,
+    required String password,
+    required String fcmToken,
+  }) async {
     try {
       _response = await post(
         Uri.parse(
@@ -21,6 +26,7 @@ class UserApiService {
           {
             "email": email,
             "password": password,
+            "fcmToken": fcmToken,
           },
         ),
         headers: {
@@ -122,7 +128,8 @@ class UserApiService {
     }
   }
 
-  static Future verifyAccessToken({required String accessToken}) async {
+  static Future verifyAccessToken(
+      {required String accessToken, required String fcmToken}) async {
     try {
       _response = await post(
         Uri.parse(
@@ -130,6 +137,19 @@ class UserApiService {
         ),
         headers: {
           "Authorization": "Bearer $accessToken",
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode(
+          {
+            "fcmToken": fcmToken,
+          },
+        ),
+      ).timeout(
+        const Duration(seconds: 10),
+        onTimeout: () {
+          throw ServerRequestTimeoutError(
+            errorMessage: "Server Request Timeout",
+          );
         },
       );
       String message = getJsonResponse(response: _response)["message"];

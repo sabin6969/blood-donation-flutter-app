@@ -44,3 +44,8 @@ class ForbiddenException extends AppException {
 class LocationNotEnabledException extends AppException {
   LocationNotEnabledException({required super.errorMessage});
 }
+
+/// [ServerRequestTimeoutError] is thrown when the server couldnot response in certain timeduration
+class ServerRequestTimeoutError extends AppException {
+  ServerRequestTimeoutError({required super.errorMessage});
+}
