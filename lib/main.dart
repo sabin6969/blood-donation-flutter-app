@@ -1,5 +1,6 @@
 import 'package:blood_donation_flutter_app/constants/app_routes.dart';
 import 'package:blood_donation_flutter_app/firebase_options.dart';
+import 'package:blood_donation_flutter_app/local_notification/local_notification.dart';
 import 'package:blood_donation_flutter_app/utils/pages.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -19,9 +20,15 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await LocalNotification.initLocalNotifications();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   FirebaseMessaging.onMessage.listen((event) {
-    debugPrint("A remote notification has been received");
+    // debugPrint("A remote notification has been received");
+    FirebaseMessaging.instance.getToken();
+    LocalNotification.trigerLocalNotification(
+      title: event.notification!.title ?? "Title",
+      body: event.notification!.body ?? "Body",
+    );
   });
   await GetStorage.init();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
