@@ -1,6 +1,5 @@
 import 'package:blood_donation_flutter_app/views/campaings/active_campaign_view.dart';
 import 'package:blood_donation_flutter_app/views/campaings/campaigns_nearme_view.dart';
-import 'package:blood_donation_flutter_app/views/campaings/inactive_campaigns_view.dart';
 import 'package:flutter/material.dart';
 
 class CampaingsView extends StatefulWidget {
@@ -14,7 +13,7 @@ class CampaingsViewState extends State<CampaingsView> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -43,7 +42,6 @@ class CampaingsViewState extends State<CampaingsView> {
             tabs: [
               Text("Active"),
               Text("Near me"),
-              Text("Inactive"),
             ],
           ),
         ),
@@ -51,7 +49,6 @@ class CampaingsViewState extends State<CampaingsView> {
           children: [
             ActiveCampaingView(),
             CampaignNearMe(),
-            InactiveCampaign(),
           ],
         ),
       ),

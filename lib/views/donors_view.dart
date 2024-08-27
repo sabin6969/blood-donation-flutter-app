@@ -19,6 +19,7 @@ class _DonorsViewState extends State<DonorsView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Find Donors"),
+        backgroundColor: Colors.cyan,
         centerTitle: true,
       ),
       body: GetX<SearchDonorController>(

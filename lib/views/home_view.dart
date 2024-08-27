@@ -13,11 +13,41 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomeView> {
+  List<String> carouselImagePath = [
+    ImagePath.bloodDonationImageOne,
+    ImagePath.bloodDonationImageTwo,
+    ImagePath.bloodDonationImageThree,
+  ];
+
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
     return Column(
       children: [
+        SizedBox(
+          height: size.height * 0.05,
+        ),
+        SizedBox(
+          height: size.height * 0.3,
+          child: CarouselView(
+            itemExtent: size.width * 0.8,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 5,
+            ),
+            children: carouselImagePath
+                .map(
+                  (image) => SizedBox(
+                    height: size.height * 0.3,
+                    width: size.width * 0.9,
+                    child: Image.asset(
+                      image,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+        ),
         Expanded(
           child: GridView.count(
             childAspectRatio: 2 / 1.5,

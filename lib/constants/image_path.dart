@@ -13,4 +13,10 @@ class ImagePath {
   static String assistanceIcon = "assets/icons/assistance.png";
   static String bloodRequestSucess = "assets/images/blood_request_sucess.png";
   static String appExitImage = "assets/images/logout.png";
+  static String bloodDonationImageOne =
+      "assets/images/blood donation image one.jpeg";
+  static String bloodDonationImageTwo =
+      "assets/images/blood donation image two.jpg";
+  static String bloodDonationImageThree =
+      "assets/images/blood donation image three.jpg";
 }
