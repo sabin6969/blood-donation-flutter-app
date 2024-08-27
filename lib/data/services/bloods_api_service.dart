@@ -33,4 +33,44 @@ class BloodServiceApi {
       return Future.error(e);
     }
   }
+
+  static Future getAllMyApprovedBloodRequests(
+      {required String accessToken}) async {
+    try {
+      _response = await get(
+        Uri.parse("$baseUrl/$bloodRoute/getAllMyApprovedBloodRequests"),
+        headers: {"Authorization": "Bearer $accessToken"},
+      );
+      print(_response.body);
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  static Future getAllMyRejectedBloodRequests(
+      {required String accessToken}) async {
+    try {
+      _response = await get(
+          Uri.parse("$baseUrl/$bloodRoute/getAllMyRejectedBloodRequests"),
+          headers: {"Authorization": "Bearer $accessToken"});
+      print(_response.body);
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  static Future getAllMyPendingBloodRequest(
+      {required String accessToken}) async {
+    try {
+      _response = await get(
+        Uri.parse("$baseUrl/$bloodRoute/getAllMyRejectedBloodRequests"),
+        headers: {
+          "Authorization": "Bearer $accessToken",
+        },
+      );
+      print(_response.body);
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
 }

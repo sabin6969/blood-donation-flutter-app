@@ -1,6 +1,7 @@
 import 'package:blood_donation_flutter_app/utils/ask_for_notifications.dart';
+import 'package:blood_donation_flutter_app/utils/handle_on_exit.dart';
 import 'package:blood_donation_flutter_app/views/home_view.dart';
-import 'package:blood_donation_flutter_app/views/profile_view.dart';
+import 'package:blood_donation_flutter_app/views/user_specific/profile_view.dart';
 import 'package:blood_donation_flutter_app/views/admins_view.dart';
 import 'package:flutter/material.dart';
 
@@ -32,11 +33,12 @@ class HomeViewState extends State<LandingView> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, result) {
         if (!didPop) {
-          debugPrint("Inside not did pop");
+          handleOnAppExit(context: context);
         }
       },
+      canPop: false,
       child: Scaffold(
         body: pages[currentIndex],
         bottomNavigationBar: BottomNavigationBar(

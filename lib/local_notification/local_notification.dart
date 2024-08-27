@@ -20,6 +20,7 @@ class LocalNotification {
   static void trigerLocalNotification({
     required String title,
     required String body,
+    required Map data,
   }) {
     FlutterLocalNotificationsPlugin().show(
       0,
@@ -33,12 +34,16 @@ class LocalNotification {
           importance: Importance.high,
         ),
       ),
+      payload: data["topic"],
     );
   }
 }
 
 @pragma('vm:entry-point')
 void notificationTapBackground(NotificationResponse notificationResponse) {
-  // Navigating a user to campaign page if clicks on notification
-  Get.toNamed(AppRoutes.campaignsView);
+  if (notificationResponse.payload == "Creation of new campaign") {
+    // Navigating a user to campaign page if clicks on notification
+    Get.toNamed(AppRoutes.campaignsView);
+  }
+  // TODO: navigate user to different pages as per payload details
 }

@@ -56,4 +56,15 @@ class BloodRequestController extends GetxController {
       }
     }
   }
+
+  void fetchBloodRequestStatus() {
+    try {
+      String accessToken = GetStorageService.getAccessToken() ?? "";
+      BloodServiceApi.getAllMyApprovedBloodRequests(accessToken: accessToken);
+      BloodServiceApi.getAllMyPendingBloodRequest(accessToken: accessToken);
+      BloodServiceApi.getAllMyRejectedBloodRequests(accessToken: accessToken);
+    } catch (e) {
+      debugPrint("An error occured");
+    }
+  }
 }

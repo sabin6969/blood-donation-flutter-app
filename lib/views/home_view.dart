@@ -59,8 +59,7 @@ class _HomePageState extends State<HomeView> {
                 title: "Status",
                 imageIconPath: ImagePath.reportIcon,
                 onTap: () {
-                  Get.snackbar(
-                      "Comming Soon", "This feature will be available soon");
+                  Get.toNamed(AppRoutes.bloodRequestStatusView);
                 },
               ),
               CustomCard(

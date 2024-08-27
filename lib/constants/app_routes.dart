@@ -10,4 +10,5 @@ class AppRoutes {
   static const String splashView = "/splashView";
   static const String gooleMapView = "/googleMapView";
   static const String noInternetView = "/noInternetView";
+  static const String bloodRequestStatusView = "/bloodRequestStatusView";
 }

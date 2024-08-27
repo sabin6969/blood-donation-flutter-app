@@ -9,14 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
-class CampaingNearMeView extends StatefulWidget {
-  const CampaingNearMeView({super.key});
+class CampaignNearMe extends StatefulWidget {
+  const CampaignNearMe({super.key});
 
   @override
-  State<CampaingNearMeView> createState() => CampaingNearMeViewState();
+  State<CampaignNearMe> createState() => CampaignNearMeViewState();
 }
 
-class CampaingNearMeViewState extends State<CampaingNearMeView> {
+class CampaignNearMeViewState extends State<CampaignNearMe> {
   @override
   void initState() {
     Get.find<CampaingController>().fetchNearestCampaign();

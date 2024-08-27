@@ -23,11 +23,11 @@ void main() async {
   await LocalNotification.initLocalNotifications();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   FirebaseMessaging.onMessage.listen((event) {
-    // debugPrint("A remote notification has been received");
     FirebaseMessaging.instance.getToken();
     LocalNotification.trigerLocalNotification(
       title: event.notification!.title ?? "Title",
       body: event.notification!.body ?? "Body",
+      data: event.data,
     );
   });
   await GetStorage.init();

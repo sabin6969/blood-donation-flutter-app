@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class InactiveCampaingView extends StatefulWidget {
-  const InactiveCampaingView({super.key});
+class InactiveCampaign extends StatefulWidget {
+  const InactiveCampaign({super.key});
 
   @override
-  State<InactiveCampaingView> createState() => _InactiveCampaingViewState();
+  State<InactiveCampaign> createState() => _InactiveCampaignViewState();
 }
 
-class _InactiveCampaingViewState extends State<InactiveCampaingView> {
+class _InactiveCampaignViewState extends State<InactiveCampaign> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(

@@ -50,8 +50,8 @@ class CampaingsViewState extends State<CampaingsView> {
         body: const TabBarView(
           children: [
             ActiveCampaingView(),
-            CampaingNearMeView(),
-            InactiveCampaingView(),
+            CampaignNearMe(),
+            InactiveCampaign(),
           ],
         ),
       ),
