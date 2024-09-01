@@ -22,87 +22,122 @@ class _HomePageState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
-    return Column(
-      children: [
-        SizedBox(
-          height: size.height * 0.05,
-        ),
-        SizedBox(
-          height: size.height * 0.3,
-          child: CarouselView(
-            itemExtent: size.width * 0.8,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 5,
+    return SafeArea(
+      child: DefaultTabController(
+        length: 2,
+        child: Column(
+          children: [
+            SizedBox(
+              height: size.height * 0.25,
+              child: CarouselView(
+                itemExtent: size.width * 0.8,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 5,
+                ),
+                children: carouselImagePath
+                    .map(
+                      (image) => SizedBox(
+                        height: size.height * 0.3,
+                        width: size.width * 0.9,
+                        child: Image.asset(
+                          image,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
             ),
-            children: carouselImagePath
-                .map(
-                  (image) => SizedBox(
-                    height: size.height * 0.3,
-                    width: size.width * 0.9,
-                    child: Image.asset(
-                      image,
-                      fit: BoxFit.cover,
-                    ),
+            Expanded(
+              child: GridView.count(
+                childAspectRatio: 2 / 1.5,
+                crossAxisSpacing: size.width * 0.02,
+                mainAxisSpacing: size.height * 0.02,
+                crossAxisCount: 3,
+                children: [
+                  CustomCard(
+                    title: "Find Donors",
+                    imageIconPath: ImagePath.searchBloodIcon,
+                    onTap: () {
+                      Get.toNamed(AppRoutes.donorsView);
+                    },
                   ),
-                )
-                .toList(),
-          ),
+                  CustomCard(
+                    title: "Donates",
+                    imageIconPath: ImagePath.donatesIcon,
+                    onTap: () {
+                      Get.snackbar("Comming Soon",
+                          "This feature will be available soon");
+                    },
+                  ),
+                  CustomCard(
+                    title: "Order Blood",
+                    imageIconPath: ImagePath.orderBloodIcon,
+                    onTap: () {
+                      Get.toNamed(AppRoutes.bloodRequestView);
+                    },
+                  ),
+                  CustomCard(
+                    title: "Assistance",
+                    imageIconPath: ImagePath.assistanceIcon,
+                    onTap: () {
+                      Get.snackbar("Comming Soon",
+                          "This feature will be available soon");
+                    },
+                  ),
+                  CustomCard(
+                    title: "Status",
+                    imageIconPath: ImagePath.reportIcon,
+                    onTap: () {
+                      Get.toNamed(AppRoutes.bloodRequestStatusView);
+                    },
+                  ),
+                  CustomCard(
+                    title: "Campaigns",
+                    imageIconPath: ImagePath.campaignIcon,
+                    onTap: () {
+                      Get.toNamed(AppRoutes.campaignsView);
+                    },
+                  ),
+                ],
+              ),
+            ),
+            TabBar(
+              indicatorSize: TabBarIndicatorSize.tab,
+              labelColor: Colors.white,
+              labelPadding: const EdgeInsets.symmetric(
+                vertical: 5,
+              ),
+              indicator: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(
+                  20,
+                ),
+              ),
+              tabs: const [
+                Text(
+                  "Top Blood Requester",
+                ),
+                Text(
+                  "Top Blood Donor",
+                ),
+              ],
+            ),
+            const Expanded(
+              child: TabBarView(
+                children: [
+                  Center(
+                    child: Text("Comming Soon.."),
+                  ),
+                  Center(
+                    child: Text("Comming Soon.."),
+                  )
+                ],
+              ),
+            )
+          ],
         ),
-        Expanded(
-          child: GridView.count(
-            childAspectRatio: 2 / 1.5,
-            crossAxisSpacing: size.width * 0.02,
-            mainAxisSpacing: size.height * 0.02,
-            crossAxisCount: 3,
-            children: [
-              CustomCard(
-                title: "Find Donors",
-                imageIconPath: ImagePath.searchBloodIcon,
-                onTap: () {
-                  Get.toNamed(AppRoutes.donorsView);
-                },
-              ),
-              CustomCard(
-                title: "Donates",
-                imageIconPath: ImagePath.donatesIcon,
-                onTap: () {
-                  Get.snackbar(
-                      "Comming Soon", "This feature will be available soon");
-                },
-              ),
-              CustomCard(
-                title: "Order Blood",
-                imageIconPath: ImagePath.orderBloodIcon,
-                onTap: () {
-                  Get.toNamed(AppRoutes.bloodRequestView);
-                },
-              ),
-              CustomCard(
-                title: "Assistance",
-                imageIconPath: ImagePath.assistanceIcon,
-                onTap: () {
-                  Get.snackbar(
-                      "Comming Soon", "This feature will be available soon");
-                },
-              ),
-              CustomCard(
-                title: "Status",
-                imageIconPath: ImagePath.reportIcon,
-                onTap: () {
-                  Get.toNamed(AppRoutes.bloodRequestStatusView);
-                },
-              ),
-              CustomCard(
-                title: "Campaigns",
-                imageIconPath: ImagePath.campaignIcon,
-                onTap: () {
-                  Get.toNamed(AppRoutes.campaignsView);
-                },
-              ),
-            ],
-          ),
-        )
-      ],
+      ),
     );
   }
 }
