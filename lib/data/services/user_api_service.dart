@@ -4,6 +4,7 @@ import 'package:blood_donation_flutter_app/constants/api_endpoint_constants.dart
 import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
 import 'package:blood_donation_flutter_app/models/donors_response_model.dart';
 import 'package:blood_donation_flutter_app/models/profile_response_model.dart';
+import 'package:blood_donation_flutter_app/models/top_blood_requestor_model.dart';
 import 'package:blood_donation_flutter_app/utils/json_response.dart';
 
 import 'package:geolocator/geolocator.dart';
@@ -154,6 +155,23 @@ class UserApiService {
       );
       String message = getJsonResponse(response: _response)["message"];
       return message;
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  static Future<TopBloodRequestor> getTopBloodRequestor(
+      {required String accessToken}) async {
+    try {
+      _response = await get(
+        Uri.parse(
+          "$baseUrl/$userRoute/getTopBloodRequestor",
+        ),
+        headers: {
+          "Authorization": "Bearer $accessToken",
+        },
+      );
+      return TopBloodRequestor.fromJson(getJsonResponse(response: _response));
     } catch (e) {
       return Future.error(e);
     }

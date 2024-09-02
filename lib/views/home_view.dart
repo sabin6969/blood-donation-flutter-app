@@ -1,7 +1,9 @@
 import 'package:blood_donation_flutter_app/constants/app_routes.dart';
 import 'package:blood_donation_flutter_app/constants/image_path.dart';
+import 'package:blood_donation_flutter_app/controllers/home_controller.dart';
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:blood_donation_flutter_app/utils/widgets/custom_card_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -116,20 +118,95 @@ class _HomePageState extends State<HomeView> {
               ),
               tabs: const [
                 Text(
-                  "Top Blood Requester",
+                  "Top Blood Requestor",
                 ),
                 Text(
                   "Top Blood Donor",
                 ),
               ],
             ),
-            const Expanded(
+            Expanded(
               child: TabBarView(
                 children: [
-                  Center(
-                    child: Text("Comming Soon.."),
+                  GetX<HomeController>(
+                    builder: (controller) {
+                      return controller.isLoading.value
+                          ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : controller.topBloodRequestor.data.isEmpty
+                              ? const Center(
+                                  child: Text("No Data Found"),
+                                )
+                              : SingleChildScrollView(
+                                  child: Container(
+                                    margin: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                    ),
+                                    child: ExpansionTile(
+                                      title: ListTile(
+                                        title: Text(
+                                          controller.topBloodRequestor.data
+                                                  .first.fullName ??
+                                              "N/A",
+                                        ),
+                                        leading: CircleAvatar(
+                                          backgroundImage:
+                                              CachedNetworkImageProvider(
+                                            controller.topBloodRequestor.data
+                                                    .first.imageUrl ??
+                                                "N/A",
+                                          ),
+                                        ),
+                                      ),
+                                      children: [
+                                        ListTile(
+                                          title: const Text("Email"),
+                                          leading: const Icon(Icons.email),
+                                          subtitle: Text(
+                                            controller.topBloodRequestor.data
+                                                    .first.email ??
+                                                "N/A",
+                                          ),
+                                        ),
+                                        ListTile(
+                                          title: const Text("Phone Number"),
+                                          leading: const Icon(
+                                            Icons.phone,
+                                          ),
+                                          subtitle: Text(
+                                            controller.topBloodRequestor.data
+                                                    .first.phoneNumber ??
+                                                "N/A",
+                                          ),
+                                        ),
+                                        ListTile(
+                                          leading: const Icon(
+                                            Icons.bloodtype,
+                                          ),
+                                          title: const Text("Blood Group"),
+                                          subtitle: Text(
+                                            controller.topBloodRequestor.data
+                                                    .first.bloodGroup ??
+                                                "N/A",
+                                          ),
+                                        ),
+                                        ListTile(
+                                          title:
+                                              const Text("Requested for Blood"),
+                                          leading: const Icon(
+                                            Icons.volunteer_activism,
+                                          ),
+                                          subtitle: Text(
+                                              "${controller.topBloodRequestor.data.first.noOfTimesRequestedForBlood} Times"),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                    },
                   ),
-                  Center(
+                  const Center(
                     child: Text("Comming Soon.."),
                   )
                 ],
