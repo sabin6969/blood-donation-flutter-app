@@ -27,7 +27,7 @@ void handleOnAppExit({required BuildContext context}) {
             Navigator.pop(context);
           },
           child: const Text(
-            "Cancle",
+            "Cancel",
           ),
         ),
         TextButton(

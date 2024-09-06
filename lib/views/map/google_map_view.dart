@@ -45,9 +45,10 @@ class GoogleMapViewState extends State<GoogleMapView> {
       ),
       body: GoogleMap(
         onMapCreated: _onMapCreated,
+        mapType: MapType.hybrid,
         initialCameraPosition: CameraPosition(
           target: _latLng,
-          zoom: 13.0,
+          zoom: 16.0,
         ),
         markers: {
           Marker(
