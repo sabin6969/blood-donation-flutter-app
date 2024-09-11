@@ -48,7 +48,9 @@ class MyApp extends StatelessWidget {
       defaultTransition: Transition.downToUp,
       getPages: pages,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(),
+      theme: ThemeData(
+        fontFamily: "Poppins",
+      ),
     );
   }
 }
