@@ -1,5 +1,5 @@
 const String baseUrl =
-    "https://blooddonationbackend-production.up.railway.app/api";
+    "https://blooddonationappbackend-8qqw203j.b4a.run/api";
 const String userRoute = "users";
 const String bloodRoute = "blood";
 const String authRoute = "auth";
