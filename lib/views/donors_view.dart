@@ -29,7 +29,7 @@ class _DonorsViewState extends State<DonorsView> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.red.shade400,
         centerTitle: true,
       ),
       body: GetX<SearchDonorController>(

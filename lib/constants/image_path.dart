@@ -19,4 +19,5 @@ class ImagePath {
       "assets/images/blood donation image two.jpg";
   static String bloodDonationImageThree =
       "assets/images/blood donation image three.jpg";
+  static String loginImage = "assets/images/login_image.png";
 }

@@ -36,8 +36,9 @@ class _LoginViewState extends State<LoginView> {
                       height: size.height * 0.05,
                     ),
                     Image.asset(
-                      ImagePath.bloodImagePath,
-                      height: size.height * 0.2,
+                      ImagePath.loginImage,
+                      width: size.width * 0.8,
+                      fit: BoxFit.cover,
                     ),
                     SizedBox(
                       height: size.height * 0.05,

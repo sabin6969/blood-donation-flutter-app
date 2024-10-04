@@ -6,6 +6,10 @@ import 'package:blood_donation_flutter_app/models/profile_response_model.dart';
 import 'package:get/get.dart';
 
 class ProfileController extends GetxService {
+  late RxBool _isAvailableForDonation;
+
+  RxBool get isAvailableForDonation => _isAvailableForDonation;
+
   @override
   void onInit() {
     fetchProfile();
@@ -21,6 +25,8 @@ class ProfileController extends GetxService {
       isLoading.value = true;
       String accessToken = GetStorageService.getAccessToken() ?? "";
       response = await UserApiService.getProfile(accessToken: accessToken);
+      _isAvailableForDonation =
+          RxBool(response.data.first.isAvailableForDonation!);
     } on UnauthorizedException catch (e) {
       Get.snackbar("Unauthorized", e.errorMessage);
       Get.offAllNamed(AppRoutes.loginView);
@@ -50,6 +56,28 @@ class ProfileController extends GetxService {
       Get.snackbar("Error", e.errorMessage);
     } catch (e) {
       Get.snackbar("Error", "Something went wrong");
+    }
+  }
+
+  void updateDonationAvailability(
+      {required bool isAvailableForDonation}) async {
+    try {
+      String accessToken = GetStorageService.getAccessToken() ?? "";
+      var jsonData = await UserApiService.updateDonationAvailability(
+        isAvailableForDonation: isAvailableForDonation,
+        accessToken: accessToken,
+      );
+
+      _isAvailableForDonation.value =
+          jsonData["data"]["isAvailableForDonation"];
+      Get.snackbar("Sucess", "Sucessfully updated Availability Status");
+    } on UnauthorizedException catch (e) {
+      Get.snackbar("Error", e.errorMessage);
+      Get.offAllNamed(AppRoutes.loginView);
+    } on AppException catch (e) {
+      Get.snackbar("Error", e.errorMessage);
+    } catch (e) {
+      Get.snackbar("Error", "An unknown error occured");
     }
   }
 }

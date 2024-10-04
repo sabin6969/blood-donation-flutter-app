@@ -135,6 +135,23 @@ class _ProfilePageState extends State<ProfileView> {
                       subtitle: Text(
                         "${controller.response.data.first.bloodRequestCount} Times",
                       ),
+                    ),
+                    const Divider(
+                      thickness: 1,
+                      color: Colors.blue,
+                    ),
+                    Obx(
+                      () => SwitchListTile(
+                        value: controller.isAvailableForDonation.value,
+                        onChanged: (value) {
+                          controller.updateDonationAvailability(
+                            isAvailableForDonation: value,
+                          );
+                        },
+                        title: const Text(
+                          "Available for Donation",
+                        ),
+                      ),
                     )
                   ],
                 ),
@@ -221,8 +238,18 @@ class _ProfilePageState extends State<ProfileView> {
                     leading: const Icon(
                       Icons.logout,
                     ),
-                    subtitle: const Text("Logout from this device"),
-                    title: const Text("Logout"),
+                    subtitle: const Text(
+                      "Logout from this device",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                    title: const Text(
+                      "Logout",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
               ],

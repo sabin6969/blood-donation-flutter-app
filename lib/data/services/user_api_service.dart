@@ -176,4 +176,30 @@ class UserApiService {
       return Future.error(e);
     }
   }
+
+  static Future updateDonationAvailability({
+    required bool isAvailableForDonation,
+    required String accessToken,
+  }) async {
+    try {
+      _response = await patch(
+        Uri.parse(
+          "$baseUrl/$userRoute/updateUserAvailabilityForDonation",
+        ),
+        body: jsonEncode(
+          {
+            "isAvailableForDonation": isAvailableForDonation,
+          },
+        ),
+        headers: {
+          "authorization": "Bearer $accessToken",
+          "Content-Type": "application/json",
+        },
+      );
+
+      return getJsonResponse(response: _response);
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
 }
