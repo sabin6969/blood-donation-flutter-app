@@ -21,6 +21,7 @@ class UserLoadingSkeletonizer extends StatelessWidget {
               vertical: size.height * 0.001,
             ),
             child: Card(
+              elevation: 5,
               child: SizedBox(
                 height: size.height * 0.2,
                 width: size.width,
@@ -29,7 +30,7 @@ class UserLoadingSkeletonizer extends StatelessWidget {
                     Expanded(
                       flex: 2,
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(size.width * 0.05),
+                        borderRadius: BorderRadius.circular(size.width),
                         child: AspectRatio(
                           aspectRatio: 1,
                           child: Container(
@@ -47,6 +48,10 @@ class UserLoadingSkeletonizer extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Container(
+                            color: Colors.grey.shade200,
+                            height: size.height * 0.02,
+                          ),
                           Container(
                             color: Colors.grey.shade200,
                             height: size.height * 0.02,

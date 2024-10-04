@@ -18,8 +18,18 @@ class _DonorsViewState extends State<DonorsView> {
     size = MediaQuery.sizeOf(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Find Donors"),
-        backgroundColor: Colors.cyan,
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+        title: const Text(
+          "Find Donors",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 17,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.red,
         centerTitle: true,
       ),
       body: GetX<SearchDonorController>(
@@ -40,6 +50,7 @@ class _DonorsViewState extends State<DonorsView> {
                       vertical: size.height * 0.001,
                     ),
                     child: Card(
+                      elevation: 5,
                       child: SizedBox(
                         height: size.height * 0.20,
                         width: size.width,
@@ -48,8 +59,7 @@ class _DonorsViewState extends State<DonorsView> {
                             Expanded(
                               flex: 2,
                               child: ClipRRect(
-                                borderRadius:
-                                    BorderRadius.circular(size.width * 0.05),
+                                borderRadius: BorderRadius.circular(size.width),
                                 child: AspectRatio(
                                   aspectRatio: 1,
                                   child: CachedNetworkImage(

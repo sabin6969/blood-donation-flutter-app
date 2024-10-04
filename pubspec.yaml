@@ -29,6 +29,7 @@ dependencies:
   google_maps_flutter: ^2.6.1
   animate_do: ^3.3.4
   flutter_local_notifications: ^17.2.1+2
+  win32: 4.0.0
 
 dev_dependencies:
   flutter_test:

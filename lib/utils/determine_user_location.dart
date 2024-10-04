@@ -28,7 +28,7 @@ class DetermineLocation {
         );
         throw LocationNotEnabledException(
           errorMessage:
-              "Location permissions are permanently denied, we cannot request permissions. Please enable it manually",
+              "Location permissions are permanently denied. Please enable it manually",
         );
       }
     }

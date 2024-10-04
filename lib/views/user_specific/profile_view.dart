@@ -27,7 +27,7 @@ class _ProfilePageState extends State<ProfileView> {
     return GetX<ProfileController>(
       builder: (controller) {
         if (controller.isLoading.value) {
-          return buildLoadingProfile();
+          return buildProfileShimmer();
         } else if (controller.hasError.value) {
           return RefreshIndicator(
             onRefresh: () async {
@@ -41,9 +41,10 @@ class _ProfilePageState extends State<ProfileView> {
               ],
             ),
           );
-        } else {
+        } else if (controller.isLoading.value == false) {
           return buildProfile(controller: controller);
         }
+        return const SizedBox();
       },
     );
   }
@@ -56,7 +57,8 @@ class _ProfilePageState extends State<ProfileView> {
         },
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: size.width * 0.015,
+            horizontal: size.width * 0.04,
+            vertical: size.height * 0.01,
           ),
           child: Skeletonizer(
             enabled: controller.isLoading.value,
@@ -65,8 +67,15 @@ class _ProfilePageState extends State<ProfileView> {
                 Container(
                   height: size.height * 0.25,
                   decoration: BoxDecoration(
+                    boxShadow: const [
+                      BoxShadow(
+                        blurRadius: 6,
+                        spreadRadius: 1,
+                      )
+                    ],
                     shape: BoxShape.circle,
                     image: DecorationImage(
+                      fit: BoxFit.cover,
                       image: CachedNetworkImageProvider(
                         controller.response.data.first.imageUrl!,
                       ),
@@ -76,14 +85,9 @@ class _ProfilePageState extends State<ProfileView> {
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                ExpansionTile(
-                  leading: const Icon(
-                    Icons.person,
-                  ),
-                  title: Text(
-                    controller.response.data.first.fullName ?? "",
-                  ),
-                  children: [
+                SettingTileWrapper(
+                  controller: controller,
+                  childrens: [
                     ListTile(
                       leading: const Icon(
                         Icons.email,
@@ -92,6 +96,10 @@ class _ProfilePageState extends State<ProfileView> {
                       subtitle: Text(
                         controller.response.data.first.email ?? "",
                       ),
+                    ),
+                    const Divider(
+                      thickness: 1,
+                      color: Colors.blue,
                     ),
                     ListTile(
                       leading: const Icon(
@@ -102,6 +110,10 @@ class _ProfilePageState extends State<ProfileView> {
                         controller.response.data.first.bloodGroup ?? "",
                       ),
                     ),
+                    const Divider(
+                      thickness: 1,
+                      color: Colors.blue,
+                    ),
                     ListTile(
                       leading: const Icon(
                         Icons.phone,
@@ -111,73 +123,107 @@ class _ProfilePageState extends State<ProfileView> {
                         controller.response.data.first.phoneNumber ?? "",
                       ),
                     ),
+                    const Divider(
+                      thickness: 1,
+                      color: Colors.blue,
+                    ),
                     ListTile(
                       leading: const Icon(
                         Icons.volunteer_activism,
                       ),
                       title: const Text("Requested for Blood"),
                       subtitle: Text(
-                          "${controller.response.data.first.bloodRequestCount} times"),
+                        "${controller.response.data.first.bloodRequestCount} Times",
+                      ),
                     )
                   ],
                 ),
-                SwitchListTile(
-                  title: const Text("Available for donation"),
-                  value:
-                      controller.response.data.first.isAvailableForDonation ??
-                          false,
-                  onChanged: (value) {},
+                SizedBox(
+                  height: size.height * 0.03,
                 ),
-                const Divider(),
-                ListTile(
-                  leading: const Icon(Icons.share),
-                  title: const Text("Invite a friend"),
-                  onTap: () {
-                    Get.snackbar(
-                        "Comming Soon", "This feature is comming soon");
-                  },
+                SettingTileWrapper(
+                  controller: controller,
+                  childrens: [
+                    ListTile(
+                      leading: const Icon(Icons.share),
+                      title: const Text("Invite a friend"),
+                      onTap: () {
+                        Get.snackbar(
+                            "Comming Soon", "This feature is comming soon");
+                      },
+                    ),
+                    const Divider(),
+                    ListTile(
+                      leading: const Icon(Icons.help),
+                      onTap: () {
+                        Get.snackbar(
+                            "Comming soon", "This feature is comming soon");
+                      },
+                      title: const Text("Get Help"),
+                    ),
+                  ],
                 ),
-                const Divider(),
-                ListTile(
-                  leading: const Icon(Icons.help),
-                  onTap: () {
-                    Get.snackbar(
-                        "Comming soon", "This feature is comming soon");
-                  },
-                  title: const Text("Get Help"),
+                SizedBox(
+                  height: size.height * 0.02,
                 ),
-                const Divider(),
-                ListTile(
-                  onTap: () {
-                    Get.dialog(AlertDialog(
-                      title: const Text(
-                        "Logout Confirmation",
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                      11,
+                    ),
+                    color: Colors.red.shade200,
+                    border: const Border(
+                      top: BorderSide(
+                        width: 2,
+                        color: Colors.red,
                       ),
-                      content: const Text("Are you sure you want to log out?"),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          child: const Text("No"),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Get.back();
-                            controller.logout();
-                          },
-                          child: const Text(
-                            "Yes",
-                          ),
-                        ),
-                      ],
-                    ));
-                  },
-                  leading: const Icon(
-                    Icons.logout,
+                      left: BorderSide(
+                        width: 2,
+                        color: Colors.red,
+                      ),
+                      right: BorderSide(
+                        width: 2,
+                        color: Colors.red,
+                      ),
+                      bottom: BorderSide(
+                        width: 6,
+                        color: Colors.red,
+                      ),
+                    ),
                   ),
-                  subtitle: const Text("Logout from this device"),
-                  title: const Text("Logout"),
+                  child: ListTile(
+                    onTap: () {
+                      Get.dialog(AlertDialog(
+                        title: const Text(
+                          "Logout Confirmation",
+                        ),
+                        content:
+                            const Text("Are you sure you want to log out?"),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            child: const Text("No"),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Get.back();
+                              controller.logout();
+                            },
+                            child: const Text(
+                              "Yes",
+                            ),
+                          ),
+                        ],
+                      ));
+                    },
+                    leading: const Icon(
+                      Icons.logout,
+                    ),
+                    subtitle: const Text("Logout from this device"),
+                    title: const Text("Logout"),
+                  ),
                 ),
               ],
             ),
@@ -188,89 +234,125 @@ class _ProfilePageState extends State<ProfileView> {
   }
 }
 
-SafeArea buildLoadingProfile() {
-  return SafeArea(
-    child: Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: size.width * 0.015,
-      ),
-      child: Skeletonizer(
-        enabled: true,
-        child: ListView(
-          children: [
-            Container(
-              height: size.height * 0.25,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.grey[300], // Placeholder color for loading
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
-            ExpansionTile(
-              leading: Icon(
-                Icons.person,
-                color: Colors.grey[300], // Placeholder color for loading
-              ),
-              title: Container(
-                height: 20,
-                color: Colors.grey[300], // Placeholder color for loading
-              ),
-            ),
-            SwitchListTile(
-              title: Container(
-                height: 20,
-                color: Colors.grey[300], // Placeholder color for loading
-              ),
-              value: false,
-              onChanged: null, // Disable switch during loading
-            ),
-            Divider(
-              color: Colors.grey[300], // Placeholder color for loading
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.share,
-                color: Colors.grey[300], // Placeholder color for loading
-              ),
-              title: Container(
-                height: 20,
-                color: Colors.grey[300], // Placeholder color for loading
-              ),
-            ),
-            Divider(
-              color: Colors.grey[300], // Placeholder color for loading
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.help,
-                color: Colors.grey[300], // Placeholder color for loading
-              ),
-              title: Container(
-                height: 20,
-                color: Colors.grey[300], // Placeholder color for loading
-              ),
-            ),
-            Divider(
-              color: Colors.grey[300], // Placeholder color for loading
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.logout,
-                color: Colors.grey[300], // Placeholder color for loading
-              ),
-              title: Container(
-                height: 20,
-                color: Colors.grey[300], // Placeholder color for loading
-              ),
-              subtitle: Container(
-                height: 20,
-                color: Colors.grey[300], // Placeholder color for loading
-              ),
-            ),
-          ],
+class SettingTileWrapper extends StatelessWidget {
+  final ProfileController controller;
+  final List<Widget> childrens;
+  const SettingTileWrapper({
+    super.key,
+    required this.controller,
+    required this.childrens,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(
+          11,
         ),
+        border: const Border(
+          top: BorderSide(
+            width: 2,
+            color: Colors.blue,
+          ),
+          left: BorderSide(
+            width: 2,
+            color: Colors.blue,
+          ),
+          right: BorderSide(
+            width: 2,
+            color: Colors.blue,
+          ),
+          bottom: BorderSide(
+            width: 6,
+            color: Colors.blue,
+          ),
+        ),
+      ),
+      child: Column(
+        children: [
+          ...childrens,
+        ],
+      ),
+    );
+  }
+}
+
+Widget buildProfileShimmer() {
+  return Padding(
+    padding: EdgeInsets.symmetric(
+      horizontal: size.width * 0.04,
+      vertical: size.height * 0.01,
+    ),
+    child: Skeletonizer(
+      enabled: true,
+      child: ListView(
+        children: [
+          Container(
+            height: size.height * 0.25,
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 6,
+                  spreadRadius: 1,
+                  color: Colors.grey.shade200,
+                )
+              ],
+              shape: BoxShape.circle,
+            ),
+          ),
+          SizedBox(
+            height: size.height * 0.02,
+          ),
+          const ListTile(
+            leading: Icon(
+              Icons.email,
+            ),
+            title: Text("Email"),
+            subtitle: Text(
+              "Email Address",
+            ),
+          ),
+          const ListTile(
+            leading: Icon(
+              Icons.bloodtype,
+            ),
+            title: Text("Blood Group"),
+            subtitle: Text(
+              "Blood Group",
+            ),
+          ),
+          const ListTile(
+            leading: Icon(
+              Icons.phone,
+            ),
+            title: Text("Phone Number"),
+            subtitle: Text(
+              "Phone Number",
+            ),
+          ),
+          const ListTile(
+            leading: Icon(
+              Icons.volunteer_activism,
+            ),
+            title: Text("Requested for Blood"),
+            subtitle: Text("This is subtitle"),
+          ),
+          SizedBox(
+            height: size.height * 0.03,
+          ),
+          const ListTile(
+            leading: Icon(Icons.share),
+            title: Text("Invite a friend"),
+          ),
+          const ListTile(
+            leading: Icon(Icons.help),
+            title: Text("Get Help"),
+          ),
+          SizedBox(
+            height: size.height * 0.02,
+          ),
+        ],
       ),
     ),
   );
