@@ -12,7 +12,8 @@ import 'package:blood_donation_flutter_app/views/auth/login_view.dart';
 import 'package:blood_donation_flutter_app/views/auth/register_view.dart';
 import 'package:blood_donation_flutter_app/views/blood_request_view.dart';
 import 'package:blood_donation_flutter_app/views/campaings/campaigns_view.dart';
-import 'package:blood_donation_flutter_app/views/donors_view.dart';
+import 'package:blood_donation_flutter_app/views/donor/donors_view.dart';
+import 'package:blood_donation_flutter_app/views/donor/nearby_donor_view.dart';
 import 'package:blood_donation_flutter_app/views/landing_view.dart';
 import 'package:blood_donation_flutter_app/views/map/google_map_view.dart';
 import 'package:blood_donation_flutter_app/views/no_internet_view.dart';
@@ -133,5 +134,9 @@ List<GetPage> pages = [
     binding: BindingsBuilder(() {
       Get.lazyPut(() => BloodRequestController());
     }),
+  ),
+  GetPage(
+    name: AppRoutes.nearbyDonorView,
+    page: () => const NearbyDonorView(),
   )
 ];

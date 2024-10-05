@@ -1,11 +1,14 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:blood_donation_flutter_app/constants/api_endpoint_constants.dart';
 import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
 import 'package:blood_donation_flutter_app/models/donors_response_model.dart';
+import 'package:blood_donation_flutter_app/models/nearby_donor_model.dart';
 import 'package:blood_donation_flutter_app/models/profile_response_model.dart';
 import 'package:blood_donation_flutter_app/models/top_blood_requestor_model.dart';
 import 'package:blood_donation_flutter_app/utils/json_response.dart';
+import 'package:flutter/material.dart';
 
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart';
@@ -198,6 +201,30 @@ class UserApiService {
       );
 
       return getJsonResponse(response: _response);
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  static Future<NearByDonorResponse> getNearByDonors({
+    required String accessToken,
+    required bool isActivelyDonating,
+    required Position position,
+    required double maxDistanceRange,
+  }) async {
+    try {
+      debugPrint(
+          "$baseUrl/$userRoute/getNearestDonor?lng=${position.longitude}&lat=${position.latitude}&maxDistance=$maxDistanceRange&isAvailableForDonation=$isActivelyDonating");
+      _response = await get(
+        Uri.parse(
+          "$baseUrl/$userRoute/getNearestDonor?lng=${position.longitude}&lat=${position.latitude}&maxDistance=$maxDistanceRange&isAvailableForDonation=$isActivelyDonating",
+        ),
+        headers: {
+          "Authorization": "Bearer $accessToken",
+          HttpHeaders.contentTypeHeader: "application/json",
+        },
+      );
+      return NearByDonorResponse.fromJson(getJsonResponse(response: _response));
     } catch (e) {
       return Future.error(e);
     }

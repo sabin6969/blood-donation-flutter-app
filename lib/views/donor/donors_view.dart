@@ -1,3 +1,4 @@
+import 'package:blood_donation_flutter_app/constants/app_routes.dart';
 import 'package:blood_donation_flutter_app/controllers/search_donor_controller.dart';
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:blood_donation_flutter_app/utils/widgets/user_loading_skeletonizer.dart';
@@ -21,6 +22,16 @@ class _DonorsViewState extends State<DonorsView> {
         iconTheme: const IconThemeData(
           color: Colors.white,
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Get.toNamed(AppRoutes.nearbyDonorView);
+            },
+            icon: const Icon(
+              Icons.map,
+            ),
+          )
+        ],
         title: const Text(
           "Find Donors",
           style: TextStyle(
