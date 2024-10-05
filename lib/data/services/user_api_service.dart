@@ -66,8 +66,8 @@ class UserApiService {
         'fcmToken': fcmToken,
         'isAvailableForDonation': isAvailableForDonation.toString(),
         'fullName': fullName,
-        'location[coordinates][0]': position.latitude.toString(),
-        'location[coordinates][1]': position.longitude.toString(),
+        'location[coordinates][0]': position.longitude.toString(),
+        'location[coordinates][1]': position.latitude.toString(),
       });
 
       request.files.add(await MultipartFile.fromPath(
