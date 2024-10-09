@@ -1,9 +1,11 @@
 import 'package:blood_donation_flutter_app/constants/app_routes.dart';
 import 'package:blood_donation_flutter_app/controllers/search_donor_controller.dart';
 import 'package:blood_donation_flutter_app/main.dart';
+import 'package:blood_donation_flutter_app/utils/widgets/toast_message.dart';
 import 'package:blood_donation_flutter_app/utils/widgets/user_loading_skeletonizer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 class DonorsView extends StatefulWidget {
@@ -14,6 +16,8 @@ class DonorsView extends StatefulWidget {
 }
 
 class _DonorsViewState extends State<DonorsView> {
+  RxBool _isSearchEnabled = RxBool(false);
+
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
@@ -25,20 +29,66 @@ class _DonorsViewState extends State<DonorsView> {
         actions: [
           IconButton(
             onPressed: () {
-              Get.toNamed(AppRoutes.nearbyDonorView);
+              _isSearchEnabled.value = true;
+              // TODO: Implement a search by name and email feature
+            },
+            icon: const Icon(
+              Icons.search,
+            ),
+          ),
+          IconButton(
+            onPressed: () async {
+              bool isLocationServiceEnabled =
+                  await Geolocator.isLocationServiceEnabled();
+
+              if (!isLocationServiceEnabled) {
+                showToastMessage(
+                  message: "Please enable location to access this feature",
+                );
+                LocationPermission permission =
+                    await Geolocator.checkPermission();
+                if (permission == LocationPermission.denied ||
+                    permission == LocationPermission.deniedForever) {
+                  showToastMessage(
+                    message:
+                        "Location permissions are deined forever please enable it from app settings",
+                  );
+                }
+              } else {
+                Get.toNamed(AppRoutes.nearbyDonorView);
+              }
             },
             icon: const Icon(
               Icons.map,
             ),
           )
         ],
-        title: const Text(
-          "Find Donors",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 17,
-            fontWeight: FontWeight.bold,
-          ),
+        title: Obx(
+          () => _isSearchEnabled.value
+              ? TextFormField(
+                  autofocus: true,
+                  cursorColor: Colors.white,
+                  style: const TextStyle(
+                    color: Colors.white,
+                  ),
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                    ),
+                    hintText: "Search by Name / Email",
+                    hintStyle: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              : const Text(
+                  "Find Donors",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
         ),
         backgroundColor: Colors.red.shade400,
         centerTitle: true,

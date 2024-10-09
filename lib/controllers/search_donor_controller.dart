@@ -32,7 +32,7 @@ class SearchDonorController extends GetxService with WidgetsBindingObserver {
 
   RxBool isLocationDisabled = RxBool(false);
 
-  RxDouble distance = 0.0.obs;
+  RxDouble distance = 100.0.obs;
   RxBool isActivelyDonating = true.obs;
 
   @override
@@ -40,6 +40,12 @@ class SearchDonorController extends GetxService with WidgetsBindingObserver {
     fetchAllDonors();
     WidgetsBinding.instance.addObserver(this);
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.onClose();
   }
 
   void fetchAllDonors({int? page}) async {
@@ -65,13 +71,12 @@ class SearchDonorController extends GetxService with WidgetsBindingObserver {
       isNearByDonorLoading.value = true;
       Position position = await DetermineLocation.determineUserLocation();
       String accessToken = GetStorageService.getAccessToken() ?? "";
+
       nearByDonorResponse = await UserApiService.getNearByDonors(
         accessToken: accessToken,
         isActivelyDonating: isActivelyDonating.value,
         position: position,
-        maxDistanceRange: distance.value == 0
-            ? 25000
-            : distance.value * 1000, // by default 15km
+        maxDistanceRange: distance.value * 1000,
       );
     } on UnauthorizedException catch (e) {
       Get.snackbar("Unauthorized", e.errorMessage);
