@@ -55,15 +55,12 @@
 - Firebase account with Firebase Cloud Messaging (FCM) setup
 
 ## Screenshots
+![1](https://github.com/user-attachments/assets/c27e7445-5152-4989-967b-a92b6453bdf7)
+![2](https://github.com/user-attachments/assets/14e88f14-19ad-4144-90eb-75eaaee3dd76)
+![3](https://github.com/user-attachments/assets/9e6bb5a2-cc1a-424d-9bda-8459d181ce38)
 
-![login page](https://github.com/user-attachments/assets/07d781db-eedc-4dbd-9e2b-7e466429320f)
-![register page](https://github.com/user-attachments/assets/0ac032ca-8791-4491-a2f9-a0abede556b4)
-![profile page](https://github.com/user-attachments/assets/6f035129-a6ad-4fe6-bfa6-df2e42ecbc3b)
-![home page](https://github.com/user-attachments/assets/6f630bef-f09a-4972-9a14-e7b2c8ca4e6f)
-![google map view](https://github.com/user-attachments/assets/26e1d4db-fd5d-4a34-aff1-2336946b06a0)
-![campaings page](https://github.com/user-attachments/assets/960c7c43-89e5-4944-90ac-2423a98df56a)
-![campaigns near me](https://github.com/user-attachments/assets/835006fb-aae9-46da-b605-aae0f59ea7c9)
-![blood request page](https://github.com/user-attachments/assets/5448891d-0fe3-4343-91d1-bab8198dd07e)
+
+
 
 
 ## License
