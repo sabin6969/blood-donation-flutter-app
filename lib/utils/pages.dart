@@ -17,6 +17,7 @@ import 'package:blood_donation_flutter_app/views/donor/nearby_donor_view.dart';
 import 'package:blood_donation_flutter_app/views/landing_view.dart';
 import 'package:blood_donation_flutter_app/views/map/google_map_view.dart';
 import 'package:blood_donation_flutter_app/views/no_internet_view.dart';
+import 'package:blood_donation_flutter_app/views/notifications/notifications_configuration_view.dart';
 import 'package:blood_donation_flutter_app/views/onboarding_view.dart';
 import 'package:blood_donation_flutter_app/views/splash_view.dart';
 import 'package:blood_donation_flutter_app/views/user_specific/blood_request_status_view.dart';
@@ -138,5 +139,9 @@ List<GetPage> pages = [
   GetPage(
     name: AppRoutes.nearbyDonorView,
     page: () => const NearbyDonorView(),
-  )
+  ),
+  GetPage(
+    name: AppRoutes.notificationConfigurationView,
+    page: () => const NotificationsConfigurationView(),
+  ),
 ];

@@ -1,4 +1,5 @@
 import 'package:blood_donation_flutter_app/constants/app_lottie_animations.dart';
+import 'package:blood_donation_flutter_app/constants/app_routes.dart';
 import 'package:blood_donation_flutter_app/controllers/profile_controller.dart';
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -17,7 +18,7 @@ class ProfileView extends StatefulWidget {
 class _ProfilePageState extends State<ProfileView> {
   @override
   void initState() {
-    Get.put(ProfileController());
+    Get.lazyPut(() => ProfileController());
     super.initState();
   }
 
@@ -169,7 +170,10 @@ class _ProfilePageState extends State<ProfileView> {
                             "Comming Soon", "This feature is comming soon");
                       },
                     ),
-                    const Divider(),
+                    const Divider(
+                      thickness: 1,
+                      color: Colors.blue,
+                    ),
                     ListTile(
                       leading: const Icon(Icons.help),
                       onTap: () {
@@ -178,39 +182,30 @@ class _ProfilePageState extends State<ProfileView> {
                       },
                       title: const Text("Get Help"),
                     ),
+                    const Divider(
+                      thickness: 1,
+                      color: Colors.blue,
+                    ),
+                    ListTile(
+                      leading: const Icon(
+                        Icons.notifications,
+                      ),
+                      onTap: () {
+                        Get.toNamed(AppRoutes.notificationConfigurationView);
+                      },
+                      title: const Text(
+                        "Manage Notifications",
+                      ),
+                    )
                   ],
                 ),
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      11,
-                    ),
-                    color: Colors.red.shade200,
-                    border: const Border(
-                      top: BorderSide(
-                        width: 2,
-                        color: Colors.red,
-                      ),
-                      left: BorderSide(
-                        width: 2,
-                        color: Colors.red,
-                      ),
-                      right: BorderSide(
-                        width: 2,
-                        color: Colors.red,
-                      ),
-                      bottom: BorderSide(
-                        width: 6,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ),
-                  child: ListTile(
-                    onTap: () {
-                      Get.dialog(AlertDialog(
+                InkWell(
+                  onTap: () {
+                    Get.dialog(
+                      AlertDialog(
                         title: const Text(
                           "Logout Confirmation",
                         ),
@@ -233,21 +228,49 @@ class _ProfilePageState extends State<ProfileView> {
                             ),
                           ),
                         ],
-                      ));
-                    },
-                    leading: const Icon(
-                      Icons.logout,
-                    ),
-                    subtitle: const Text(
-                      "Logout from this device",
-                      style: TextStyle(
-                        color: Colors.white,
+                      ),
+                    );
+                  },
+                  child: Ink(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        11,
+                      ),
+                      color: Colors.red.shade200,
+                      border: const Border(
+                        top: BorderSide(
+                          width: 2,
+                          color: Colors.red,
+                        ),
+                        left: BorderSide(
+                          width: 2,
+                          color: Colors.red,
+                        ),
+                        right: BorderSide(
+                          width: 2,
+                          color: Colors.red,
+                        ),
+                        bottom: BorderSide(
+                          width: 6,
+                          color: Colors.red,
+                        ),
                       ),
                     ),
-                    title: const Text(
-                      "Logout",
-                      style: TextStyle(
-                        color: Colors.white,
+                    child: const ListTile(
+                      leading: Icon(
+                        Icons.logout,
+                      ),
+                      subtitle: Text(
+                        "Logout from this device",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      title: Text(
+                        "Logout",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
