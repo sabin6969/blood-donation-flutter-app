@@ -26,7 +26,11 @@ class _ProfilePageState extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
-    return GetX<ProfileController>(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Profile"),
+      ),
+      body: GetX<ProfileController>(
       builder: (controller) {
         if (controller.isLoading.value) {
           return buildProfileShimmer();
@@ -48,246 +52,245 @@ class _ProfilePageState extends State<ProfileView> {
         }
         return const SizedBox();
       },
+    ),
     );
   }
 
-  SafeArea buildProfile({required ProfileController controller}) {
-    return SafeArea(
-      child: RefreshIndicator(
-        onRefresh: () async {
-          controller.fetchProfile();
-        },
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: size.width * 0.04,
-            vertical: size.height * 0.01,
-          ),
-          child: Skeletonizer(
-            enabled: controller.isLoading.value,
-            child: ListView(
-              children: [
-                Container(
-                  height: size.height * 0.25,
-                  decoration: BoxDecoration(
-                    boxShadow: const [
-                      BoxShadow(
-                        blurRadius: 6,
-                        spreadRadius: 1,
-                      )
-                    ],
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: CachedNetworkImageProvider(
-                        controller.response.data.first.imageUrl!,
-                      ),
+  Widget buildProfile({required ProfileController controller}) {
+    return RefreshIndicator(
+      onRefresh: () async {
+        controller.fetchProfile();
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: size.width * 0.04,
+          vertical: size.height * 0.01,
+        ),
+        child: Skeletonizer(
+          enabled: controller.isLoading.value,
+          child: ListView(
+            children: [
+              Container(
+                height: size.height * 0.25,
+                decoration: BoxDecoration(
+                  boxShadow: const [
+                    BoxShadow(
+                      blurRadius: 6,
+                      spreadRadius: 1,
+                    )
+                  ],
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: CachedNetworkImageProvider(
+                      controller.response.data.first.imageUrl!,
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: size.height * 0.02,
-                ),
-                SettingTileWrapper(
-                  controller: controller,
-                  childrens: [
-                    ListTile(
-                      leading: const Icon(
-                        Icons.email,
-                      ),
-                      title: const Text("Email"),
-                      subtitle: Text(
-                        controller.response.data.first.email ?? "",
-                      ),
+              ),
+              SizedBox(
+                height: size.height * 0.02,
+              ),
+              SettingTileWrapper(
+                controller: controller,
+                childrens: [
+                  ListTile(
+                    leading: const Icon(
+                      Icons.email,
                     ),
-                    const Divider(
-                      thickness: 1,
-                      color: Colors.blue,
+                    title: const Text("Email"),
+                    subtitle: Text(
+                      controller.response.data.first.email ?? "",
                     ),
-                    ListTile(
-                      leading: const Icon(
-                        Icons.bloodtype,
-                      ),
-                      title: const Text("Blood Group"),
-                      subtitle: Text(
-                        controller.response.data.first.bloodGroup ?? "",
-                      ),
+                  ),
+                  const Divider(
+                    thickness: 1,
+                    color: Colors.blue,
+                  ),
+                  ListTile(
+                    leading: const Icon(
+                      Icons.bloodtype,
                     ),
-                    const Divider(
-                      thickness: 1,
-                      color: Colors.blue,
+                    title: const Text("Blood Group"),
+                    subtitle: Text(
+                      controller.response.data.first.bloodGroup ?? "",
                     ),
-                    ListTile(
-                      leading: const Icon(
-                        Icons.phone,
-                      ),
-                      title: const Text("Phone Number"),
-                      subtitle: Text(
-                        controller.response.data.first.phoneNumber ?? "",
-                      ),
+                  ),
+                  const Divider(
+                    thickness: 1,
+                    color: Colors.blue,
+                  ),
+                  ListTile(
+                    leading: const Icon(
+                      Icons.phone,
                     ),
-                    const Divider(
-                      thickness: 1,
-                      color: Colors.blue,
+                    title: const Text("Phone Number"),
+                    subtitle: Text(
+                      controller.response.data.first.phoneNumber ?? "",
                     ),
-                    ListTile(
-                      leading: const Icon(
-                        Icons.volunteer_activism,
-                      ),
-                      title: const Text("Requested for Blood"),
-                      subtitle: Text(
-                        "${controller.response.data.first.bloodRequestCount} Times",
-                      ),
+                  ),
+                  const Divider(
+                    thickness: 1,
+                    color: Colors.blue,
+                  ),
+                  ListTile(
+                    leading: const Icon(
+                      Icons.volunteer_activism,
                     ),
-                    const Divider(
-                      thickness: 1,
-                      color: Colors.blue,
+                    title: const Text("Requested for Blood"),
+                    subtitle: Text(
+                      "${controller.response.data.first.bloodRequestCount} Times",
                     ),
-                    Obx(
-                      () => SwitchListTile(
-                        value: controller.isAvailableForDonation.value,
-                        onChanged: (value) {
-                          controller.updateDonationAvailability(
-                            isAvailableForDonation: value,
-                          );
-                        },
-                        title: const Text(
-                          "Available for Donation",
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: size.height * 0.03,
-                ),
-                SettingTileWrapper(
-                  controller: controller,
-                  childrens: [
-                    ListTile(
-                      leading: const Icon(Icons.share),
-                      title: const Text("Invite a friend"),
-                      onTap: () {
-                        Get.snackbar(
-                            "Comming Soon", "This feature is comming soon");
-                      },
-                    ),
-                    const Divider(
-                      thickness: 1,
-                      color: Colors.blue,
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.help),
-                      onTap: () {
-                        Get.snackbar(
-                            "Comming soon", "This feature is comming soon");
-                      },
-                      title: const Text("Get Help"),
-                    ),
-                    const Divider(
-                      thickness: 1,
-                      color: Colors.blue,
-                    ),
-                    ListTile(
-                      leading: const Icon(
-                        Icons.notifications,
-                      ),
-                      onTap: () async {
-                        PermissionStatus status =
-                            await Permission.notification.request();
-
-                        Get.toNamed(
-                          AppRoutes.notificationConfigurationView,
-                          arguments: status,
+                  ),
+                  const Divider(
+                    thickness: 1,
+                    color: Colors.blue,
+                  ),
+                  Obx(
+                    () => SwitchListTile(
+                      value: controller.isAvailableForDonation.value,
+                      onChanged: (value) {
+                        controller.updateDonationAvailability(
+                          isAvailableForDonation: value,
                         );
                       },
                       title: const Text(
-                        "Manage Notifications",
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: size.height * 0.02,
-                ),
-                InkWell(
-                  splashColor: Colors.red,
-                  onTap: () {
-                    Get.dialog(
-                      AlertDialog(
-                        title: const Text(
-                          "Logout Confirmation",
-                        ),
-                        content:
-                            const Text("Are you sure you want to log out?"),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Get.back();
-                            },
-                            child: const Text("No"),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Get.back();
-                              controller.logout();
-                            },
-                            child: const Text(
-                              "Yes",
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                  borderRadius: BorderRadius.circular(
-                    11,
-                  ),
-                  child: Ink(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        11,
-                      ),
-                      color: Colors.red.shade200,
-                      border: const Border(
-                        top: BorderSide(
-                          width: 2,
-                          color: Colors.red,
-                        ),
-                        left: BorderSide(
-                          width: 2,
-                          color: Colors.red,
-                        ),
-                        right: BorderSide(
-                          width: 2,
-                          color: Colors.red,
-                        ),
-                        bottom: BorderSide(
-                          width: 6,
-                          color: Colors.red,
-                        ),
+                        "Available for Donation",
                       ),
                     ),
-                    child: const ListTile(
-                      leading: Icon(
-                        Icons.logout,
+                  )
+                ],
+              ),
+              SizedBox(
+                height: size.height * 0.03,
+              ),
+              SettingTileWrapper(
+                controller: controller,
+                childrens: [
+                  ListTile(
+                    leading: const Icon(Icons.share),
+                    title: const Text("Invite a friend"),
+                    onTap: () {
+                      Get.snackbar(
+                          "Comming Soon", "This feature is comming soon");
+                    },
+                  ),
+                  const Divider(
+                    thickness: 1,
+                    color: Colors.blue,
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.help),
+                    onTap: () {
+                      Get.snackbar(
+                          "Comming soon", "This feature is comming soon");
+                    },
+                    title: const Text("Get Help"),
+                  ),
+                  const Divider(
+                    thickness: 1,
+                    color: Colors.blue,
+                  ),
+                  ListTile(
+                    leading: const Icon(
+                      Icons.notifications,
+                    ),
+                    onTap: () async {
+                      PermissionStatus status =
+                          await Permission.notification.request();
+    
+                      Get.toNamed(
+                        AppRoutes.notificationConfigurationView,
+                        arguments: status,
+                      );
+                    },
+                    title: const Text(
+                      "Manage Notifications",
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: size.height * 0.02,
+              ),
+              InkWell(
+                splashColor: Colors.red.shade300,
+                onTap: () {
+                  Get.dialog(
+                    AlertDialog(
+                      title: const Text(
+                        "Logout Confirmation",
                       ),
-                      subtitle: Text(
-                        "Logout from this device",
-                        style: TextStyle(
-                          color: Colors.white,
+                      content:
+                          const Text("Are you sure you want to log out?"),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          child: const Text("No"),
                         ),
+                        TextButton(
+                          onPressed: () {
+                            Get.back();
+                            controller.logout();
+                          },
+                          child: const Text(
+                            "Yes",
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                borderRadius: BorderRadius.circular(
+                  11,
+                ),
+                child: Ink(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                      11,
+                    ),
+                    color: Colors.red.shade400,
+                    border: const Border(
+                      top: BorderSide(
+                        width: 2,
+                        color: Colors.red,
                       ),
-                      title: Text(
-                        "Logout",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
+                      left: BorderSide(
+                        width: 2,
+                        color: Colors.red,
+                      ),
+                      right: BorderSide(
+                        width: 2,
+                        color: Colors.red,
+                      ),
+                      bottom: BorderSide(
+                        width: 6,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                  child: const ListTile(
+                    leading: Icon(
+                      Icons.logout,
+                    ),
+                    subtitle: Text(
+                      "Logout from this device",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                    title: Text(
+                      "Logout",
+                      style: TextStyle(
+                        color: Colors.white,
                       ),
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

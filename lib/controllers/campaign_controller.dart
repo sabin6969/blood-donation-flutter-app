@@ -12,6 +12,15 @@ class CampaingController extends GetxService {
   RxBool isNearestCampaignLoaded = RxBool(false);
   RxBool isAllCampaignLoaded = RxBool(false);
 
+
+  @override
+  void onInit(){
+    fetchActiveCampaign();
+    fetchNearestCampaign();
+    super.onInit();
+  }
+
+
   late CampaignResponse campaignResponse;
   late CampaignResponse nearestCampaignResponse;
   void fetchActiveCampaign() async {
@@ -38,10 +47,11 @@ class CampaingController extends GetxService {
     } on LocationNotEnabledException {
       isLocactionDisabled.value = true;
     } on InternalServerException {
-      Get.snackbar("Error", "Something went wrong");
+      Get.snackbar("Error", "Internal Server Error Occured!!");
     } on AppException catch (e) {
       Get.snackbar("Error", e.errorMessage);
-    } catch (e) {
+    }
+     catch (e) {
       Get.snackbar("Error", "Something went wrong");
     } finally {
       isNearestCampaignLoading.value = false;

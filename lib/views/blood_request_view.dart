@@ -14,6 +14,20 @@ class BloodRequestView extends StatefulWidget {
 }
 
 class _RequestBloodViewState extends State<BloodRequestView> {
+
+
+
+  @override
+  void initState(){
+    Get.find<BloodRequestController>().fetchBloodRequestStatus();
+    super.initState();
+  }
+
+  @override
+  void dispose(){
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);

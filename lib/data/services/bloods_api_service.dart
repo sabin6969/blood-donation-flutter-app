@@ -41,6 +41,7 @@ class BloodServiceApi {
         Uri.parse("$baseUrl/$bloodRoute/getAllMyApprovedBloodRequests"),
         headers: {"Authorization": "Bearer $accessToken"},
       );
+      print("Approvied Blood request"+_response.body);
     } catch (e) {
       return Future.error(e);
     }
@@ -52,6 +53,7 @@ class BloodServiceApi {
       _response = await get(
           Uri.parse("$baseUrl/$bloodRoute/getAllMyRejectedBloodRequests"),
           headers: {"Authorization": "Bearer $accessToken"});
+      print("Rejected Blood Request "+_response.body);
     } catch (e) {
       return Future.error(e);
     }
@@ -66,6 +68,7 @@ class BloodServiceApi {
           "Authorization": "Bearer $accessToken",
         },
       );
+      print("Bending Blood Request "+ _response.body);
     } catch (e) {
       return Future.error(e);
     }

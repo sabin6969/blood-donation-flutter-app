@@ -48,7 +48,7 @@ class _NearbyDonorViewState extends State<NearbyDonorView>
           IconButton(
             onPressed: () => _showFilterDialog(context: context),
             icon: const Icon(
-              Icons.filter_alt,
+              Icons.filter_list,
             ),
           )
         ],

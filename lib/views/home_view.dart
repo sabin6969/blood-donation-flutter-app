@@ -107,6 +107,7 @@ class _HomePageState extends State<HomeView> {
             TabBar(
               indicatorSize: TabBarIndicatorSize.tab,
               labelColor: Colors.white,
+              unselectedLabelColor: Colors.black,
               labelPadding: const EdgeInsets.symmetric(
                 vertical: 5,
               ),

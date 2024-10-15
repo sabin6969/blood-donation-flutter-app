@@ -18,12 +18,6 @@ class CampaignNearMe extends StatefulWidget {
 
 class CampaignNearMeViewState extends State<CampaignNearMe> {
   @override
-  void initState() {
-    Get.find<CampaingController>().fetchNearestCampaign();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GetX<CampaingController>(

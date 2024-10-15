@@ -1,4 +1,7 @@
 import 'package:blood_donation_flutter_app/controllers/blood_request_controller.dart';
+import 'package:blood_donation_flutter_app/views/blood_request_status/approved_request_status_view.dart';
+import 'package:blood_donation_flutter_app/views/blood_request_status/pending_request_status_view.dart';
+import 'package:blood_donation_flutter_app/views/blood_request_status/rejected_requested_status_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,9 +21,11 @@ class _BloodRequestStatusViewState extends State<BloodRequestStatusView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: TweenAnimationBuilder(
+    return DefaultTabController(
+      length: 3, 
+      child: Scaffold(
+        appBar: AppBar(
+          title: TweenAnimationBuilder(
           tween: Tween(begin: 0.0, end: 1.0),
           duration: const Duration(
             milliseconds: 600,
@@ -34,6 +39,22 @@ class _BloodRequestStatusViewState extends State<BloodRequestStatusView> {
             );
           },
         ),
+        bottom: const TabBar(
+          indicatorWeight: 5,
+          tabs: [
+            Text("Approved"),
+            Text("Pending"),
+            Text("Rejected"),
+          ],
+          ),
+        ),
+        body: const TabBarView(
+          children: [
+           ApprovedRequestStatusView(),
+           PendingRequestStatusView(),
+           RejectedRequestedStatusView(),
+          ],
+          ),
       ),
     );
   }

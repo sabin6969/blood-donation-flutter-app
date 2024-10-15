@@ -18,12 +18,6 @@ class ActiveCampaingView extends StatefulWidget {
 
 class _ActiveCampaingViewState extends State<ActiveCampaingView> {
   @override
-  void initState() {
-    Get.find<CampaingController>().fetchActiveCampaign();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
     return Scaffold(

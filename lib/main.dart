@@ -50,6 +50,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: "Poppins",
+        tabBarTheme: const TabBarTheme(
+          indicatorColor: Colors.purple,
+          indicatorSize: TabBarIndicatorSize.tab,
+          labelPadding: EdgeInsets.only(bottom: 10,),
+          labelColor: Colors.white,
+          unselectedLabelColor: Colors.white,
+          
+        ),
         appBarTheme:  AppBarTheme(
           centerTitle: true,
           iconTheme: const IconThemeData(

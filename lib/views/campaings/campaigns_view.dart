@@ -30,12 +30,9 @@ class CampaingsViewState extends State<CampaingsView> {
               );
             },
           ),
-          bottom: const TabBar(
-            labelPadding: EdgeInsets.only(
-              bottom: 10,
-            ),
-            labelColor: Colors.white,
-            tabs: [
+          bottom: const  TabBar(
+            indicatorWeight: 5,
+            tabs:  [
               Text(
                 "Active",
                 style: TextStyle(
