@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:blood_donation_flutter_app/constants/api_endpoint_constants.dart';
+import 'package:blood_donation_flutter_app/models/approved_blood_request_model.dart';
 import 'package:blood_donation_flutter_app/utils/json_response.dart';
 import 'package:http/http.dart';
 
@@ -34,14 +35,14 @@ class BloodServiceApi {
     }
   }
 
-  static Future getAllMyApprovedBloodRequests(
+  static Future<ApprovedBloodRequestModel> getAllMyApprovedBloodRequests(
       {required String accessToken}) async {
     try {
       _response = await get(
         Uri.parse("$baseUrl/$bloodRoute/getAllMyApprovedBloodRequests"),
         headers: {"Authorization": "Bearer $accessToken"},
       );
-      print("Approvied Blood request"+_response.body);
+      return ApprovedBloodRequestModel.fromJson(getJsonResponse(response: _response));
     } catch (e) {
       return Future.error(e);
     }
@@ -53,7 +54,6 @@ class BloodServiceApi {
       _response = await get(
           Uri.parse("$baseUrl/$bloodRoute/getAllMyRejectedBloodRequests"),
           headers: {"Authorization": "Bearer $accessToken"});
-      print("Rejected Blood Request "+_response.body);
     } catch (e) {
       return Future.error(e);
     }
@@ -68,7 +68,6 @@ class BloodServiceApi {
           "Authorization": "Bearer $accessToken",
         },
       );
-      print("Bending Blood Request "+ _response.body);
     } catch (e) {
       return Future.error(e);
     }

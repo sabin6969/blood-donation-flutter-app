@@ -2,6 +2,7 @@ import 'package:blood_donation_flutter_app/constants/app_routes.dart';
 import 'package:blood_donation_flutter_app/data/services/bloods_api_service.dart';
 import 'package:blood_donation_flutter_app/data/services/get_storage_service.dart';
 import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
+import 'package:blood_donation_flutter_app/models/approved_blood_request_model.dart';
 import 'package:blood_donation_flutter_app/utils/widgets/show_blood_order_sucess_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,6 +14,8 @@ class BloodRequestController extends GetxController {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String? requestedBlood;
   RxBool isLoading = RxBool(false);
+  RxBool isApprovedBloodRequestLoading = RxBool(false);
+  ApprovedBloodRequestModel? approvedBloodRequestModel;
   List<String> bloodGroups = [
     "A+",
     "A-",
@@ -67,4 +70,26 @@ class BloodRequestController extends GetxController {
       debugPrint("An error occured");
     }
   }
+
+  void fetchApprovedBloodRequest()async{
+    try {
+        isApprovedBloodRequestLoading.value = true;
+        String accessToken = GetStorageService.getAccessToken() ?? "";
+        approvedBloodRequestModel =  await BloodServiceApi.getAllMyApprovedBloodRequests(accessToken: accessToken);
+    }
+    on UnauthorizedException catch(e){
+      Get.offAllNamed(AppRoutes.loginView);
+      Get.snackbar("Unauthorized Access", e.errorMessage);
+    }
+    on InternalServerException catch(e){
+      Get.snackbar("Internal server erro", e.errorMessage);
+    }
+     catch (e) {
+      Get.snackbar("Error", "Something went wrong");
+    }
+    finally{
+      isApprovedBloodRequestLoading.value = false;
+    }
+  }
+
 }
