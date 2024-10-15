@@ -213,7 +213,7 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                   height: 20,
                                 ),
                                 CustomAuthButton(
-                                  buttonColor: Colors.blue,
+                                  buttonColor: Colors.red.shade400,
                                   onPressed: () {
                                     Get.toNamed(
                                       AppRoutes.gooleMapView,

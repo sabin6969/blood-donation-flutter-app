@@ -19,7 +19,6 @@ class _RequestBloodViewState extends State<BloodRequestView> {
     size = MediaQuery.sizeOf(context);
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: TweenAnimationBuilder(
           tween: Tween(begin: 0.0, end: 1.0),
           duration: const Duration(
@@ -30,10 +29,6 @@ class _RequestBloodViewState extends State<BloodRequestView> {
               opacity: value,
               child: const Text(
                 "Create a Blood Request",
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                ),
               ),
             );
           },
@@ -43,6 +38,7 @@ class _RequestBloodViewState extends State<BloodRequestView> {
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: size.width * 0.05,
+            vertical: size.height*0.02,
           ),
           child: Form(
             key: Get.find<BloodRequestController>().formKey,

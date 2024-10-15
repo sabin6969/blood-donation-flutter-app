@@ -44,11 +44,6 @@ class _NearbyDonorViewState extends State<NearbyDonorView>
     size = MediaQuery.sizeOf(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red.shade400,
-        centerTitle: true,
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
         actions: [
           IconButton(
             onPressed: () => _showFilterDialog(context: context),
@@ -58,12 +53,7 @@ class _NearbyDonorViewState extends State<NearbyDonorView>
           )
         ],
         title: const Text(
-          "Donors Near You",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 17,
-            fontWeight: FontWeight.bold,
-          ),
+          "Donors Near You"
         ),
       ),
       body: GetX<SearchDonorController>(

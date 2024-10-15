@@ -16,7 +16,6 @@ class CampaingsViewState extends State<CampaingsView> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          centerTitle: true,
           title: TweenAnimationBuilder(
             tween: Tween(begin: 0.0, end: 1.0),
             duration: const Duration(
@@ -27,10 +26,6 @@ class CampaingsViewState extends State<CampaingsView> {
                 opacity: value,
                 child: const Text(
                   "Campaigns",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
                 ),
               );
             },
@@ -39,9 +34,20 @@ class CampaingsViewState extends State<CampaingsView> {
             labelPadding: EdgeInsets.only(
               bottom: 10,
             ),
+            labelColor: Colors.white,
             tabs: [
-              Text("Active"),
-              Text("Near me"),
+              Text(
+                "Active",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              Text(
+                "Near me",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+              ),
             ],
           ),
         ),

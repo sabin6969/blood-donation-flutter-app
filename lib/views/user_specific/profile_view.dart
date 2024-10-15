@@ -6,6 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class ProfileView extends StatefulWidget {
@@ -190,8 +191,14 @@ class _ProfilePageState extends State<ProfileView> {
                       leading: const Icon(
                         Icons.notifications,
                       ),
-                      onTap: () {
-                        Get.toNamed(AppRoutes.notificationConfigurationView);
+                      onTap: () async {
+                        PermissionStatus status =
+                            await Permission.notification.request();
+
+                        Get.toNamed(
+                          AppRoutes.notificationConfigurationView,
+                          arguments: status,
+                        );
                       },
                       title: const Text(
                         "Manage Notifications",
@@ -203,6 +210,7 @@ class _ProfilePageState extends State<ProfileView> {
                   height: size.height * 0.02,
                 ),
                 InkWell(
+                  splashColor: Colors.red,
                   onTap: () {
                     Get.dialog(
                       AlertDialog(
@@ -231,6 +239,9 @@ class _ProfilePageState extends State<ProfileView> {
                       ),
                     );
                   },
+                  borderRadius: BorderRadius.circular(
+                    11,
+                  ),
                   child: Ink(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(

@@ -16,7 +16,7 @@ class DonorsView extends StatefulWidget {
 }
 
 class _DonorsViewState extends State<DonorsView> {
-  RxBool _isSearchEnabled = RxBool(false);
+  final RxBool _isSearchEnabled = RxBool(false);
 
   @override
   Widget build(BuildContext context) {
@@ -82,15 +82,9 @@ class _DonorsViewState extends State<DonorsView> {
                   ),
                 )
               : const Text(
-                  "Find Donors",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  "Find Donors"
                 ),
         ),
-        backgroundColor: Colors.red.shade400,
         centerTitle: true,
       ),
       body: GetX<SearchDonorController>(

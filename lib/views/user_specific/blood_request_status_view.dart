@@ -20,7 +20,6 @@ class _BloodRequestStatusViewState extends State<BloodRequestStatusView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: TweenAnimationBuilder(
           tween: Tween(begin: 0.0, end: 1.0),
           duration: const Duration(
@@ -31,10 +30,6 @@ class _BloodRequestStatusViewState extends State<BloodRequestStatusView> {
               opacity: value,
               child: const Text(
                 "Blood Request Status",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
               ),
             );
           },

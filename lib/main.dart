@@ -50,6 +50,18 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: "Poppins",
+        appBarTheme:  AppBarTheme(
+          centerTitle: true,
+          iconTheme: const IconThemeData(
+            color: Colors.white
+          ),
+          backgroundColor: Colors.red.shade400,
+          titleTextStyle: const TextStyle(
+            fontSize: 17,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          )
+        )
       ),
     );
   }
