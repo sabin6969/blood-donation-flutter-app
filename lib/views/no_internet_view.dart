@@ -28,6 +28,7 @@ class _NoInternetViewState extends State<NoInternetView> {
               fontWeight: FontWeight.bold,
             ),
             maxLines: 1,
+            textAlign: TextAlign.center,
           ),
           TextButton(
             onPressed: () {

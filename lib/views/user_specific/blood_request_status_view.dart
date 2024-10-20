@@ -15,7 +15,6 @@ class BloodRequestStatusView extends StatefulWidget {
 class _BloodRequestStatusViewState extends State<BloodRequestStatusView> {
   @override
   void initState() {
-    Get.find<BloodRequestController>().fetchBloodRequestStatus();
     super.initState();
   }
 

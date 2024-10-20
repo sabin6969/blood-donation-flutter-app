@@ -3,6 +3,8 @@ import 'package:blood_donation_flutter_app/data/services/bloods_api_service.dart
 import 'package:blood_donation_flutter_app/data/services/get_storage_service.dart';
 import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
 import 'package:blood_donation_flutter_app/models/approved_blood_request_model.dart';
+import 'package:blood_donation_flutter_app/models/pending_blood_request_mode.dart';
+import 'package:blood_donation_flutter_app/models/rejected_blood_request_model.dart';
 import 'package:blood_donation_flutter_app/utils/widgets/show_blood_order_sucess_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,7 +17,13 @@ class BloodRequestController extends GetxController {
   String? requestedBlood;
   RxBool isLoading = RxBool(false);
   RxBool isApprovedBloodRequestLoading = RxBool(false);
+  RxBool isPendingBloodRequestLoading = RxBool(false);
+  RxBool isRejectedBloodRequestLoading = RxBool(false);
+
   ApprovedBloodRequestModel? approvedBloodRequestModel;
+  PendingBloodRequestModel? pendingBloodRequestModel;
+  RejectedBloodRequestModel? rejectedBloodRequestModel;
+
   List<String> bloodGroups = [
     "A+",
     "A-",
@@ -60,36 +68,58 @@ class BloodRequestController extends GetxController {
     }
   }
 
-  void fetchBloodRequestStatus() {
+  void fetchApprovedBloodRequest() async {
     try {
+      isApprovedBloodRequestLoading.value = true;
       String accessToken = GetStorageService.getAccessToken() ?? "";
-      BloodServiceApi.getAllMyApprovedBloodRequests(accessToken: accessToken);
-      BloodServiceApi.getAllMyPendingBloodRequest(accessToken: accessToken);
-      BloodServiceApi.getAllMyRejectedBloodRequests(accessToken: accessToken);
-    } catch (e) {
-      debugPrint("An error occured");
-    }
-  }
-
-  void fetchApprovedBloodRequest()async{
-    try {
-        isApprovedBloodRequestLoading.value = true;
-        String accessToken = GetStorageService.getAccessToken() ?? "";
-        approvedBloodRequestModel =  await BloodServiceApi.getAllMyApprovedBloodRequests(accessToken: accessToken);
-    }
-    on UnauthorizedException catch(e){
+      approvedBloodRequestModel =
+          await BloodServiceApi.getAllMyApprovedBloodRequests(
+              accessToken: accessToken);
+    } on UnauthorizedException catch (e) {
       Get.offAllNamed(AppRoutes.loginView);
       Get.snackbar("Unauthorized Access", e.errorMessage);
-    }
-    on InternalServerException catch(e){
+    } on InternalServerException catch (e) {
       Get.snackbar("Internal server erro", e.errorMessage);
-    }
-     catch (e) {
+    } catch (e) {
       Get.snackbar("Error", "Something went wrong");
-    }
-    finally{
+    } finally {
       isApprovedBloodRequestLoading.value = false;
     }
   }
 
+  void fetchPendingBloodRequest() async {
+    try {
+      isPendingBloodRequestLoading.value = true;
+      String accessToken = GetStorageService.getAccessToken() ?? "";
+      pendingBloodRequestModel =
+          await BloodServiceApi.getAllMyPendingBloodRequest(
+              accessToken: accessToken);
+    } on UnauthorizedException catch (e) {
+      Get.offAllNamed(AppRoutes.loginView);
+      Get.snackbar("Unauthorized", e.errorMessage);
+    } on AppException catch (e) {
+      Get.snackbar("Error", e.errorMessage);
+    } catch (e) {
+      Get.snackbar("Error", "Something went wrong");
+    } finally {
+      isPendingBloodRequestLoading.value = false;
+    }
+  }
+
+  void fetchRejectedBloodRequest() async {
+    try {
+      isRejectedBloodRequestLoading.value = true;
+      String accessToken = GetStorageService.getAccessToken() ?? "";
+      rejectedBloodRequestModel = await BloodServiceApi.getAllMyRejectedBloodRequests(accessToken: accessToken);
+    } on UnauthorizedException catch (e) {
+      Get.offAllNamed(AppRoutes.loginView);
+      Get.snackbar("Unauthorized", e.errorMessage);
+    } on AppException catch (e) {
+      Get.snackbar("Error", e.errorMessage);
+    } catch (e) {
+      Get.snackbar("Error", "Something went wrong");
+    } finally {
+      isRejectedBloodRequestLoading.value = false;
+    }
+  }
 }

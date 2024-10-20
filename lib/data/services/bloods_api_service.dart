@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:blood_donation_flutter_app/constants/api_endpoint_constants.dart';
 import 'package:blood_donation_flutter_app/models/approved_blood_request_model.dart';
+import 'package:blood_donation_flutter_app/models/pending_blood_request_mode.dart';
+import 'package:blood_donation_flutter_app/models/rejected_blood_request_model.dart';
 import 'package:blood_donation_flutter_app/utils/json_response.dart';
 import 'package:http/http.dart';
 
@@ -42,32 +44,37 @@ class BloodServiceApi {
         Uri.parse("$baseUrl/$bloodRoute/getAllMyApprovedBloodRequests"),
         headers: {"Authorization": "Bearer $accessToken"},
       );
-      return ApprovedBloodRequestModel.fromJson(getJsonResponse(response: _response));
+      return ApprovedBloodRequestModel.fromJson(
+          getJsonResponse(response: _response));
     } catch (e) {
       return Future.error(e);
     }
   }
 
-  static Future getAllMyRejectedBloodRequests(
+  static Future<RejectedBloodRequestModel> getAllMyRejectedBloodRequests(
       {required String accessToken}) async {
     try {
       _response = await get(
           Uri.parse("$baseUrl/$bloodRoute/getAllMyRejectedBloodRequests"),
           headers: {"Authorization": "Bearer $accessToken"});
+      return RejectedBloodRequestModel.fromJson(
+          getJsonResponse(response: _response));
     } catch (e) {
       return Future.error(e);
     }
   }
 
-  static Future getAllMyPendingBloodRequest(
+  static Future<PendingBloodRequestModel> getAllMyPendingBloodRequest(
       {required String accessToken}) async {
     try {
       _response = await get(
-        Uri.parse("$baseUrl/$bloodRoute/getAllMyRejectedBloodRequests"),
+        Uri.parse("$baseUrl/$bloodRoute/getAllMyPendingBloodRequests"),
         headers: {
           "Authorization": "Bearer $accessToken",
         },
       );
+      return PendingBloodRequestModel.fromJson(
+          getJsonResponse(response: _response));
     } catch (e) {
       return Future.error(e);
     }

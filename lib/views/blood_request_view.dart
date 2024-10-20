@@ -19,7 +19,6 @@ class _RequestBloodViewState extends State<BloodRequestView> {
 
   @override
   void initState(){
-    Get.find<BloodRequestController>().fetchBloodRequestStatus();
     super.initState();
   }
 

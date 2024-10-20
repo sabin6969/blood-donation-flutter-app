@@ -30,18 +30,8 @@ class _NotificationsConfigurationViewState
     size = MediaQuery.sizeOf(context);
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.red,
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
         title: const Text(
           "Manage Notifications",
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 17,
-          ),
         ),
       ),
       body: SingleChildScrollView(
