@@ -30,9 +30,9 @@ class CampaingsViewState extends State<CampaingsView> {
               );
             },
           ),
-          bottom: const  TabBar(
+          bottom: const TabBar(
             indicatorWeight: 5,
-            tabs:  [
+            tabs: [
               Text(
                 "Active",
                 style: TextStyle(
@@ -41,9 +41,9 @@ class CampaingsViewState extends State<CampaingsView> {
               ),
               Text(
                 "Near me",
-              style: TextStyle(
-                color: Colors.white,
-              ),
+                style: TextStyle(
+                  color: Colors.white,
+                ),
               ),
             ],
           ),

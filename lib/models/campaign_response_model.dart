@@ -1,155 +1,125 @@
-class CampaignResponse {
-  int? statusCode;
-  String? message;
-  bool? sucess;
-  List<Data>? data;
+class CampaignResponseModel {
+    CampaignResponseModel({
+        required this.statusCode,
+        required this.message,
+        required this.sucess,
+        required this.data,
+    });
 
-  CampaignResponse({this.statusCode, this.message, this.sucess, this.data});
+    final int? statusCode;
+    final String? message;
+    final bool? sucess;
+    final List<Datum> data;
 
-  CampaignResponse.fromJson(Map<String, dynamic> json) {
-    statusCode = json['statusCode'];
-    message = json['message'];
-    sucess = json['sucess'];
-    if (json['data'] != null) {
-      data = <Data>[];
-      json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
-      });
+    factory CampaignResponseModel.fromJson(Map<String, dynamic> json){ 
+        return CampaignResponseModel(
+            statusCode: json["statusCode"],
+            message: json["message"],
+            sucess: json["sucess"],
+            data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+        );
     }
-  }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
-    data['statusCode'] = statusCode;
-    data['message'] = message;
-    data['sucess'] = sucess;
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
 }
 
-class Data {
-  String? sId;
-  String? campaignName;
-  String? date;
-  String? time;
-  bool? isCampaignActive;
-  CampaignOrganizedBy? campaignOrganizedBy;
-  Location? location;
-  String? createdAt;
-  String? updatedAt;
-  int? iV;
+class Datum {
+    Datum({
+        required this.id,
+        required this.campaignName,
+        required this.date,
+        required this.time,
+        required this.isCampaignActive,
+        required this.campaignOrganizedBy,
+        required this.location,
+        required this.createdAt,
+        required this.updatedAt,
+        required this.v,
+        required this.noOfParticipants,
+        required this.isAlreadyRegistered,
+    });
 
-  Data(
-      {this.sId,
-      this.campaignName,
-      this.date,
-      this.time,
-      this.isCampaignActive,
-      this.campaignOrganizedBy,
-      this.location,
-      this.createdAt,
-      this.updatedAt,
-      this.iV});
+    final String? id;
+    final String? campaignName;
+    final String? date;
+    final String? time;
+    final bool? isCampaignActive;
+    final CampaignOrganizedBy? campaignOrganizedBy;
+    final Location? location;
+    final DateTime? createdAt;
+    final DateTime? updatedAt;
+    final int? v;
+    final int? noOfParticipants;
+    final bool? isAlreadyRegistered;
 
-  Data.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    campaignName = json['campaignName'];
-    date = json['date'];
-    time = json['time'];
-    isCampaignActive = json['isCampaignActive'];
-    campaignOrganizedBy = json['campaignOrganizedBy'] != null
-        ? CampaignOrganizedBy.fromJson(json['campaignOrganizedBy'])
-        : null;
-    location =
-        json['location'] != null ? Location.fromJson(json['location']) : null;
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    iV = json['__v'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
-    data['_id'] = sId;
-    data['campaignName'] = campaignName;
-    data['date'] = date;
-    data['time'] = time;
-    data['isCampaignActive'] = isCampaignActive;
-    if (campaignOrganizedBy != null) {
-      data['campaignOrganizedBy'] = campaignOrganizedBy!.toJson();
+    factory Datum.fromJson(Map<String, dynamic> json){ 
+        return Datum(
+            id: json["_id"],
+            campaignName: json["campaignName"],
+            date: json["date"],
+            time: json["time"],
+            isCampaignActive: json["isCampaignActive"],
+            campaignOrganizedBy: json["campaignOrganizedBy"] == null ? null : CampaignOrganizedBy.fromJson(json["campaignOrganizedBy"]),
+            location: json["location"] == null ? null : Location.fromJson(json["location"]),
+            createdAt: DateTime.tryParse(json["createdAt"] ?? ""),
+            updatedAt: DateTime.tryParse(json["updatedAt"] ?? ""),
+            v: json["__v"],
+            noOfParticipants: json["noOfParticipants"],
+            isAlreadyRegistered: json["isAlreadyRegistered"],
+        );
     }
-    if (location != null) {
-      data['location'] = location!.toJson();
-    }
-    data['createdAt'] = createdAt;
-    data['updatedAt'] = updatedAt;
-    data['__v'] = iV;
-    return data;
-  }
+
 }
 
 class CampaignOrganizedBy {
-  String? fullName;
-  String? email;
-  String? phoneNumber;
-  String? bloodGroup;
-  String? role;
-  String? imageUrl;
-  bool? isAvailableForDonation;
-  int? iV;
+    CampaignOrganizedBy({
+        required this.fullName,
+        required this.email,
+        required this.phoneNumber,
+        required this.bloodGroup,
+        required this.role,
+        required this.imageUrl,
+        required this.isAvailableForDonation,
+        required this.v,
+    });
 
-  CampaignOrganizedBy(
-      {this.fullName,
-      this.email,
-      this.phoneNumber,
-      this.bloodGroup,
-      this.role,
-      this.imageUrl,
-      this.isAvailableForDonation,
-      this.iV});
+    final String? fullName;
+    final String? email;
+    final String? phoneNumber;
+    final String? bloodGroup;
+    final String? role;
+    final String? imageUrl;
+    final bool? isAvailableForDonation;
+    final int? v;
 
-  CampaignOrganizedBy.fromJson(Map<String, dynamic> json) {
-    fullName = json['fullName'];
-    email = json['email'];
-    phoneNumber = json['phoneNumber'];
-    bloodGroup = json['bloodGroup'];
-    role = json['role'];
-    imageUrl = json['imageUrl'];
-    isAvailableForDonation = json['isAvailableForDonation'];
-    iV = json['__v'];
-  }
+    factory CampaignOrganizedBy.fromJson(Map<String, dynamic> json){ 
+        return CampaignOrganizedBy(
+            fullName: json["fullName"],
+            email: json["email"],
+            phoneNumber: json["phoneNumber"],
+            bloodGroup: json["bloodGroup"],
+            role: json["role"],
+            imageUrl: json["imageUrl"],
+            isAvailableForDonation: json["isAvailableForDonation"],
+            v: json["__v"],
+        );
+    }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
-    data['fullName'] = fullName;
-    data['email'] = email;
-    data['phoneNumber'] = phoneNumber;
-    data['bloodGroup'] = bloodGroup;
-    data['role'] = role;
-    data['imageUrl'] = imageUrl;
-    data['isAvailableForDonation'] = isAvailableForDonation;
-    data['__v'] = iV;
-    return data;
-  }
 }
 
 class Location {
-  String? type;
-  List<double>? coordinates;
+    Location({
+        required this.type,
+        required this.coordinates,
+    });
 
-  Location({this.type, this.coordinates});
+    final String? type;
+    final List<double> coordinates;
 
-  Location.fromJson(Map<String, dynamic> json) {
-    type = json['type'];
-    coordinates = json['coordinates'].cast<double>();
-  }
+    factory Location.fromJson(Map<String, dynamic> json){ 
+        return Location(
+            type: json["type"],
+            coordinates: json["coordinates"] == null ? [] : List<double>.from(json["coordinates"]!.map((x) => x)),
+        );
+    }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
-    data['type'] = type;
-    data['coordinates'] = coordinates;
-    return data;
-  }
 }

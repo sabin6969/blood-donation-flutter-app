@@ -1,9 +1,7 @@
-import 'package:blood_donation_flutter_app/controllers/blood_request_controller.dart';
 import 'package:blood_donation_flutter_app/views/blood_request_status/approved_request_status_view.dart';
 import 'package:blood_donation_flutter_app/views/blood_request_status/pending_request_status_view.dart';
 import 'package:blood_donation_flutter_app/views/blood_request_status/rejected_requested_status_view.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class BloodRequestStatusView extends StatefulWidget {
   const BloodRequestStatusView({super.key});

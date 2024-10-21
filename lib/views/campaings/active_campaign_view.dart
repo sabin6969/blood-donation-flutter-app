@@ -2,7 +2,6 @@ import 'package:blood_donation_flutter_app/constants/app_lottie_animations.dart'
 import 'package:blood_donation_flutter_app/constants/app_routes.dart';
 import 'package:blood_donation_flutter_app/controllers/campaign_controller.dart';
 import 'package:blood_donation_flutter_app/main.dart';
-import 'package:blood_donation_flutter_app/utils/widgets/custom_auth_button.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -28,12 +27,12 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
               child:
                   Lottie.asset(AppLottieAnimations.loadingLottieAnimationPath),
             );
-          } else if (controller.isAllCampaignLoaded.value) {
+          } else if (controller.campaignResponse != null) {
             return RefreshIndicator(
               onRefresh: () async {
                 controller.fetchActiveCampaign();
               },
-              child: controller.campaignResponse.data!.isEmpty
+              child: controller.campaignResponse!.data.isEmpty
                   ? ListView(
                       children: [
                         Lottie.asset(
@@ -54,7 +53,7 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                       ],
                     )
                   : ListView.builder(
-                      itemCount: controller.campaignResponse.data!.length,
+                      itemCount: controller.campaignResponse!.data.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: EdgeInsets.symmetric(
@@ -67,7 +66,7 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                   Expanded(
                                     child: ListTile(
                                       title: Text(
-                                        controller.campaignResponse.data![index]
+                                        controller.campaignResponse!.data[index]
                                                 .campaignName ??
                                             "Campaign Name",
                                         style: const TextStyle(
@@ -92,7 +91,7 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                       Icons.date_range,
                                     ),
                                     Text(
-                                      controller.campaignResponse.data![index]
+                                      controller.campaignResponse!.data[index]
                                               .date ??
                                           "Date",
                                       style: const TextStyle(
@@ -113,7 +112,7 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                       Icons.schedule,
                                     ),
                                     Text(
-                                      controller.campaignResponse.data![index]
+                                      controller.campaignResponse!.data[index]
                                               .time ??
                                           "Date",
                                       style: const TextStyle(
@@ -125,6 +124,20 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                 ),
                                 const SizedBox(
                                   height: 10,
+                                ),
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    controller.campaignResponse!.data[index]
+                                                .noOfParticipants ==
+                                            0
+                                        ? "Be first to Participate"
+                                        : "${controller.campaignResponse!.data[index].noOfParticipants} Participant[s] already registered",
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -140,7 +153,7 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                     CircleAvatar(
                                       backgroundImage:
                                           CachedNetworkImageProvider(
-                                        controller.campaignResponse.data![index]
+                                        controller.campaignResponse!.data[index]
                                             .campaignOrganizedBy!.imageUrl!,
                                       ),
                                     ),
@@ -155,7 +168,7 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                   children: [
                                     const Icon(Icons.person_outline),
                                     Text(
-                                      controller.campaignResponse.data![index]
+                                      controller.campaignResponse!.data[index]
                                               .campaignOrganizedBy!.fullName ??
                                           "Organizer's Name",
                                       style: const TextStyle(
@@ -173,7 +186,7 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                   children: [
                                     const Icon(Icons.email_outlined),
                                     Text(
-                                      controller.campaignResponse.data![index]
+                                      controller.campaignResponse!.data[index]
                                               .campaignOrganizedBy!.email ??
                                           "Email address",
                                       style: const TextStyle(
@@ -192,8 +205,8 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                     const Icon(Icons.phone_outlined),
                                     Text(
                                       controller
-                                              .campaignResponse
-                                              .data![index]
+                                              .campaignResponse!
+                                              .data[index]
                                               .campaignOrganizedBy!
                                               .phoneNumber ??
                                           "Phone Number",
@@ -206,37 +219,74 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                CustomAuthButton(
-                                  buttonColor: Colors.red.shade400,
-                                  onPressed: () {
-                                    Get.toNamed(
-                                      AppRoutes.gooleMapView,
-                                      arguments: {
-                                        "lat": controller
-                                            .campaignResponse
-                                            .data![index]
-                                            .location!
-                                            .coordinates!
-                                            .first,
-                                        "lng": controller
-                                            .campaignResponse
-                                            .data![index]
-                                            .location!
-                                            .coordinates![1],
-                                      },
-                                    );
-                                  },
-                                  child: const Text(
-                                    "View Location on Map",
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    TextButton(
+                                      onPressed: controller.campaignResponse!
+                                              .data[index].isAlreadyRegistered!
+                                          ? null
+                                          : () {
+                                              controller.particupateInCampaign(
+                                                campaignId: controller
+                                                    .campaignResponse!
+                                                    .data[index]
+                                                    .id!,
+                                              );
+                                            },
+                                      style: ButtonStyle(
+                                        backgroundColor: WidgetStatePropertyAll(
+                                          controller
+                                                  .campaignResponse!
+                                                  .data[index]
+                                                  .isAlreadyRegistered!
+                                              ? Colors.grey
+                                              : Colors.green,
+                                        ),
+                                      ),
+                                      child: const Text(
+                                        "Register",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Get.toNamed(
+                                          AppRoutes.gooleMapView,
+                                          arguments: {
+                                            "lat": controller
+                                                .campaignResponse!
+                                                .data[index]
+                                                .location!
+                                                .coordinates
+                                                .first,
+                                            "lng": controller
+                                                .campaignResponse!
+                                                .data[index]
+                                                .location!
+                                                .coordinates[1],
+                                          },
+                                        );
+                                      },
+                                      style: const ButtonStyle(
+                                        backgroundColor: WidgetStatePropertyAll(
+                                          Colors.blue,
+                                        ),
+                                      ),
+                                      child: const Text(
+                                        "View in Map",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    )
+                                  ],
                                 ),
                                 const SizedBox(
-                                  height: 20,
+                                  height: 5,
                                 ),
                               ],
                             ),

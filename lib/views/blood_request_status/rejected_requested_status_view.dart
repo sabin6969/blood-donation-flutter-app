@@ -12,9 +12,7 @@ class RejectedRequestedStatusView extends StatefulWidget {
 
 class _RejectedRequestedStatusViewState
     extends State<RejectedRequestedStatusView> {
-
-
-      @override
+  @override
   void initState() {
     Get.find<BloodRequestController>().fetchRejectedBloodRequest();
     super.initState();
@@ -45,8 +43,12 @@ class _RejectedRequestedStatusViewState
                     itemCount:
                         controller.rejectedBloodRequestModel!.data.length,
                     itemBuilder: (context, index) {
-                      DateTime requestedDateTime = controller.rejectedBloodRequestModel!.data[index].createdAt!.toLocal();
-                      DateTime rejectedDateTime = controller.rejectedBloodRequestModel!.data[index].updatedAt!.toLocal();
+                      DateTime requestedDateTime = controller
+                          .rejectedBloodRequestModel!.data[index].createdAt!
+                          .toLocal();
+                      DateTime rejectedDateTime = controller
+                          .rejectedBloodRequestModel!.data[index].updatedAt!
+                          .toLocal();
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 10,
@@ -64,30 +66,48 @@ class _RejectedRequestedStatusViewState
                           ),
                           children: [
                             ListTile(
-                              title:const Text("Requested Hospital"),
-                              subtitle: Text(controller.rejectedBloodRequestModel!.data[index].hospital ?? "N/A",),
+                              title: const Text("Requested Hospital"),
+                              subtitle: Text(
+                                controller.rejectedBloodRequestModel!
+                                        .data[index].hospital ??
+                                    "N/A",
+                              ),
                               leading: const Icon(Icons.local_hospital),
                             ),
                             ListTile(
                               title: const Text("Requested Blood Group"),
-                              subtitle: Text(controller.rejectedBloodRequestModel!.data[index].requestedBloodGroup ?? "N/A"),
+                              subtitle: Text(
+                                controller.rejectedBloodRequestModel!
+                                        .data[index].requestedBloodGroup ??
+                                    "N/A",
+                              ),
                               leading: const Icon(Icons.bloodtype),
                             ),
                             ListTile(
-                                title: const Text("Requested City"),
-                                leading: const Icon(Icons.location_city,),
-                                subtitle: Text(controller.rejectedBloodRequestModel!.data[index].city ?? "N/A",),
+                              title: const Text("Requested City"),
+                              leading: const Icon(
+                                Icons.location_city,
+                              ),
+                              subtitle: Text(
+                                controller.rejectedBloodRequestModel!
+                                        .data[index].city ??
+                                    "N/A",
+                              ),
                             ),
                             ListTile(
                               title: const Text("Requested At"),
                               leading: const Icon(Icons.date_range),
-                              subtitle: Text("${requestedDateTime.year}-${requestedDateTime.month}-${requestedDateTime.day} ${requestedDateTime.hour}:${requestedDateTime.minute}"),
+                              subtitle: Text(
+                                "${requestedDateTime.year}-${requestedDateTime.month}-${requestedDateTime.day} ${requestedDateTime.hour}:${requestedDateTime.minute}",
+                              ),
                             ),
                             ListTile(
                               title: const Text("Rejected At"),
                               leading: const Icon(Icons.date_range),
-                              subtitle: Text("${rejectedDateTime.year}-${rejectedDateTime.month}-${rejectedDateTime.day} ${rejectedDateTime.hour}:${rejectedDateTime.minute}"),
-                            ) 
+                              subtitle: Text(
+                                "${rejectedDateTime.year}-${rejectedDateTime.month}-${rejectedDateTime.day} ${rejectedDateTime.hour}:${rejectedDateTime.minute}",
+                              ),
+                            )
                           ],
                         ),
                       );
