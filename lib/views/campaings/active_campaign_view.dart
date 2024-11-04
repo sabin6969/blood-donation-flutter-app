@@ -4,7 +4,6 @@ import 'package:blood_donation_flutter_app/controllers/campaign_controller.dart'
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
@@ -16,6 +15,126 @@ class ActiveCampaingView extends StatefulWidget {
 }
 
 class _ActiveCampaingViewState extends State<ActiveCampaingView> {
+  void _displayOrganizersDetails({
+    required String name,
+    required String email,
+    required String phoneNumber,
+    required String imageUrl,
+  }) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25),
+          ),
+          elevation: 3,
+          title: const Text("Organizer's Details"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircleAvatar(
+                radius: 30,
+                backgroundImage: CachedNetworkImageProvider(
+                  imageUrl,
+                ),
+              ),
+              _organizersDetailRow(
+                data: name,
+                icon: Icons.person,
+              ),
+              _organizersDetailRow(
+                data: email,
+                icon: Icons.email,
+                onPressed: () {},
+              ),
+              _organizersDetailRow(
+                data: phoneNumber,
+                icon: Icons.call,
+                onPressed: () {},
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Row _organizersDetailRow({
+    required String data,
+    required IconData icon,
+    void Function()? onPressed,
+  }) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        IconButton(
+          onPressed: onPressed,
+          icon: Icon(icon),
+          disabledColor: Colors.black,
+        ),
+        Text(data),
+      ],
+    );
+  }
+
+  void _askForCampaignParticipationConfirmation(
+      {required CampaingController controller, required int index}) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Participation Confirmation"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Get.back();
+                controller.particupateInCampaign(
+                  campaignId: controller.campaignResponse!.data[index].id!,
+                );
+              },
+              style: const ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(
+                  Colors.green,
+                ),
+              ),
+              child: const Text(
+                "Yes",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Get.back();
+              },
+              style: const ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(
+                  Colors.red,
+                ),
+              ),
+              child: const Text(
+                "No",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            )
+          ],
+          content: const Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                  "Are you sure you want to participate in this blood donation campaign? Once registered, you cannot unregister")
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
@@ -57,167 +176,136 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: EdgeInsets.symmetric(
-                            horizontal: size.width * 0.02,
+                            horizontal: size.width * 0.03,
+                            vertical: size.height * 0.01,
                           ),
-                          child: Card(
-                            child: ExpansionTile(
-                              title: Row(
-                                children: [
-                                  Expanded(
-                                    child: ListTile(
-                                      title: Text(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: size.width * 0.04,
+                              vertical: size.height * 0.01,
+                            ),
+                            height: size.height * 0.3,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFFFE082),
+                              // color: Colors.green,
+                              borderRadius: BorderRadius.circular(
+                                20,
+                              ),
+                              border: const Border(
+                                top: BorderSide(
+                                  color: Colors.black,
+                                  width: 2,
+                                ),
+                                right: BorderSide(
+                                  color: Colors.black,
+                                  width: 2,
+                                ),
+                                left: BorderSide(
+                                  width: 2,
+                                  color: Colors.black,
+                                ),
+                                bottom: BorderSide(
+                                  width: 4,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
                                         controller.campaignResponse!.data[index]
                                                 .campaignName ??
-                                            "Campaign Name",
+                                            "",
                                         style: const TextStyle(
-                                          fontSize: 16,
+                                          fontSize: 15,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              childrenPadding: EdgeInsets.symmetric(
-                                horizontal: size.width * 0.05,
-                              ),
-                              expandedAlignment: Alignment.topLeft,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Icon(
-                                      Icons.date_range,
-                                    ),
-                                    Text(
-                                      controller.campaignResponse!.data[index]
-                                              .date ??
-                                          "Date",
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Icon(
-                                      Icons.schedule,
-                                    ),
-                                    Text(
-                                      controller.campaignResponse!.data[index]
-                                              .time ??
-                                          "Date",
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    controller.campaignResponse!.data[index]
-                                                .noOfParticipants ==
-                                            0
-                                        ? "Be first to Participate"
-                                        : "${controller.campaignResponse!.data[index].noOfParticipants} Participant[s] already registered",
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      "Organizer's Detail",
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    CircleAvatar(
-                                      backgroundImage:
-                                          CachedNetworkImageProvider(
-                                        controller.campaignResponse!.data[index]
-                                            .campaignOrganizedBy!.imageUrl!,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Icon(Icons.person_outline),
-                                    Text(
-                                      controller.campaignResponse!.data[index]
-                                              .campaignOrganizedBy!.fullName ??
-                                          "Organizer's Name",
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Icon(Icons.email_outlined),
-                                    Text(
-                                      controller.campaignResponse!.data[index]
-                                              .campaignOrganizedBy!.email ??
-                                          "Email address",
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Icon(Icons.phone_outlined),
-                                    Text(
-                                      controller
+                                    IconButton(
+                                      onPressed: () {
+                                        _displayOrganizersDetails(
+                                          name: controller
                                               .campaignResponse!
                                               .data[index]
                                               .campaignOrganizedBy!
-                                              .phoneNumber ??
-                                          "Phone Number",
+                                              .fullName!,
+                                          email: controller
+                                              .campaignResponse!
+                                              .data[index]
+                                              .campaignOrganizedBy!
+                                              .email!,
+                                          phoneNumber: controller
+                                              .campaignResponse!
+                                              .data[index]
+                                              .campaignOrganizedBy!
+                                              .phoneNumber!,
+                                          imageUrl: controller
+                                              .campaignResponse!
+                                              .data[index]
+                                              .campaignOrganizedBy!
+                                              .imageUrl!,
+                                        );
+                                      },
+                                      icon: const Icon(
+                                        Icons.info,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Icon(Icons.date_range),
+                                    Text(
+                                      controller
+                                          .campaignResponse!.data[index].date!,
                                       style: const TextStyle(
+                                        fontSize: 14,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     )
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 20,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Icon(Icons.schedule),
+                                    Text(
+                                      controller
+                                          .campaignResponse!.data[index].time!,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Icon(
+                                      Icons.group,
+                                    ),
+                                    Text(
+                                      controller.campaignResponse!.data[index]
+                                                  .noOfParticipants ==
+                                              0
+                                          ? "Be first to Participate"
+                                          : "${controller.campaignResponse!.data[index].noOfParticipants} Participants",
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -228,11 +316,9 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                               .data[index].isAlreadyRegistered!
                                           ? null
                                           : () {
-                                              controller.particupateInCampaign(
-                                                campaignId: controller
-                                                    .campaignResponse!
-                                                    .data[index]
-                                                    .id!,
+                                              _askForCampaignParticipationConfirmation(
+                                                controller: controller,
+                                                index: index,
                                               );
                                             },
                                       style: ButtonStyle(
@@ -242,13 +328,14 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                                   .data[index]
                                                   .isAlreadyRegistered!
                                               ? Colors.grey
-                                              : Colors.green,
+                                              : Colors.blue,
                                         ),
                                       ),
                                       child: const Text(
-                                        "Register",
+                                        "Participate",
                                         style: TextStyle(
                                           color: Colors.white,
+                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     ),
@@ -280,14 +367,12 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                         "View in Map",
                                         style: TextStyle(
                                           color: Colors.white,
+                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                    )
+                                    ),
                                   ],
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
+                                )
                               ],
                             ),
                           ),
