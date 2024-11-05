@@ -49,25 +49,27 @@ class MyApp extends StatelessWidget {
       getPages: pages,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          fontFamily: "Poppins",
-          tabBarTheme: const TabBarTheme(
-            indicatorColor: Colors.purple,
-            indicatorSize: TabBarIndicatorSize.tab,
-            labelPadding: EdgeInsets.only(
-              bottom: 10,
-            ),
-            labelColor: Colors.white,
-            unselectedLabelColor: Colors.white,
+        fontFamily: "Poppins",
+        tabBarTheme: const TabBarTheme(
+          indicatorColor: Colors.purple,
+          indicatorSize: TabBarIndicatorSize.tab,
+          labelPadding: EdgeInsets.only(
+            bottom: 10,
           ),
-          appBarTheme: AppBarTheme(
-              centerTitle: true,
-              iconTheme: const IconThemeData(color: Colors.white),
-              backgroundColor: Colors.red.shade400,
-              titleTextStyle: const TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ))),
+          labelColor: Colors.white,
+          unselectedLabelColor: Colors.white,
+        ),
+        appBarTheme: AppBarTheme(
+          centerTitle: true,
+          iconTheme: const IconThemeData(color: Colors.white),
+          backgroundColor: Colors.red.shade400,
+          titleTextStyle: const TextStyle(
+            fontSize: 17,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
     );
   }
 }

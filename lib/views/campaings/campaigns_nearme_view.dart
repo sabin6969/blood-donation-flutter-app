@@ -57,7 +57,7 @@ class CampaignNearMeViewState extends State<CampaignNearMe> {
               onRefresh: () async {
                 controller.fetchNearestCampaign();
               },
-              child: controller.nearestCampaignResponse.data!.isEmpty
+              child: controller.nearestCampaignResponse.data.isEmpty
                   ? ListView(
                       children: [
                         Lottie.asset(
@@ -79,8 +79,7 @@ class CampaignNearMeViewState extends State<CampaignNearMe> {
                       ],
                     )
                   : ListView.builder(
-                      itemCount:
-                          controller.nearestCampaignResponse.data!.length,
+                      itemCount: controller.nearestCampaignResponse.data.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: EdgeInsets.symmetric(
@@ -94,7 +93,7 @@ class CampaignNearMeViewState extends State<CampaignNearMe> {
                                     child: ListTile(
                                       title: Text(
                                         controller.nearestCampaignResponse
-                                                .data![index].campaignName ??
+                                                .data[index].campaignName ??
                                             "Campaign Name",
                                         style: const TextStyle(
                                           fontSize: 16,
@@ -119,7 +118,7 @@ class CampaignNearMeViewState extends State<CampaignNearMe> {
                                     ),
                                     Text(
                                       controller.nearestCampaignResponse
-                                              .data![index].date ??
+                                              .data[index].date ??
                                           "Date",
                                       style: const TextStyle(
                                         fontSize: 14,
@@ -140,7 +139,7 @@ class CampaignNearMeViewState extends State<CampaignNearMe> {
                                     ),
                                     Text(
                                       controller.nearestCampaignResponse
-                                              .data![index].time ??
+                                              .data[index].time ??
                                           "Date",
                                       style: const TextStyle(
                                         fontSize: 14,
@@ -168,7 +167,7 @@ class CampaignNearMeViewState extends State<CampaignNearMe> {
                                           CachedNetworkImageProvider(
                                         controller
                                             .nearestCampaignResponse
-                                            .data![index]
+                                            .data[index]
                                             .campaignOrganizedBy!
                                             .imageUrl!,
                                       ),
@@ -186,7 +185,7 @@ class CampaignNearMeViewState extends State<CampaignNearMe> {
                                     Text(
                                       controller
                                               .nearestCampaignResponse
-                                              .data![index]
+                                              .data[index]
                                               .campaignOrganizedBy!
                                               .fullName ??
                                           "Organizer's Name",
@@ -207,7 +206,7 @@ class CampaignNearMeViewState extends State<CampaignNearMe> {
                                     Text(
                                       controller
                                               .nearestCampaignResponse
-                                              .data![index]
+                                              .data[index]
                                               .campaignOrganizedBy!
                                               .email ??
                                           "Email address",
@@ -228,7 +227,7 @@ class CampaignNearMeViewState extends State<CampaignNearMe> {
                                     Text(
                                       controller
                                               .nearestCampaignResponse
-                                              .data![index]
+                                              .data[index]
                                               .campaignOrganizedBy!
                                               .phoneNumber ??
                                           "Phone Number",
@@ -249,15 +248,15 @@ class CampaignNearMeViewState extends State<CampaignNearMe> {
                                       arguments: {
                                         "lat": controller
                                             .nearestCampaignResponse
-                                            .data![index]
+                                            .data[index]
                                             .location!
-                                            .coordinates!
+                                            .coordinates
                                             .first,
                                         "lng": controller
                                             .nearestCampaignResponse
-                                            .data![index]
+                                            .data[index]
                                             .location!
-                                            .coordinates![1],
+                                            .coordinates[1],
                                       },
                                     );
                                   },

@@ -1,8 +1,6 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:blood_donation_flutter_app/constants/image_path.dart';
 import 'package:blood_donation_flutter_app/main.dart';
-import 'package:blood_donation_flutter_app/utils/ask_for_notifications.dart';
-import 'package:blood_donation_flutter_app/utils/widgets/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';

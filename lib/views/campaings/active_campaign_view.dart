@@ -2,10 +2,12 @@ import 'package:blood_donation_flutter_app/constants/app_lottie_animations.dart'
 import 'package:blood_donation_flutter_app/constants/app_routes.dart';
 import 'package:blood_donation_flutter_app/controllers/campaign_controller.dart';
 import 'package:blood_donation_flutter_app/main.dart';
+import 'package:blood_donation_flutter_app/utils/widgets/toast_message.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ActiveCampaingView extends StatefulWidget {
   const ActiveCampaingView({super.key});
@@ -46,12 +48,33 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
               _organizersDetailRow(
                 data: email,
                 icon: Icons.email,
-                onPressed: () {},
+                onPressed: () async {
+                  Uri emailUri = Uri.parse(
+                      "mailto:$email?subject=Assistance with Blood Donation Campaign");
+                  try {
+                    if (await canLaunchUrl(emailUri)) {
+                      launchUrl(emailUri);
+                    }
+                  } catch (e) {
+                    showToastMessage(message: "Failed to redirect to gmail");
+                  }
+                },
               ),
               _organizersDetailRow(
                 data: phoneNumber,
                 icon: Icons.call,
-                onPressed: () {},
+                onPressed: () async {
+                  try {
+                    Uri uri = Uri.parse("tel:+977 $phoneNumber");
+                    if (await canLaunchUrl(uri)) {
+                      await launchUrl(uri);
+                    }
+                  } catch (e) {
+                    showToastMessage(
+                      message: "Failed to redirect to phone call",
+                    );
+                  }
+                },
               )
             ],
           ),
@@ -66,14 +89,19 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
     void Function()? onPressed,
   }) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         IconButton(
           onPressed: onPressed,
           icon: Icon(icon),
           disabledColor: Colors.black,
         ),
-        Text(data),
+        Text(
+          data,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ],
     );
   }
@@ -184,7 +212,9 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                               horizontal: size.width * 0.04,
                               vertical: size.height * 0.01,
                             ),
-                            height: size.height * 0.3,
+                            constraints: BoxConstraints(
+                              minHeight: size.height * 0.3,
+                            ),
                             decoration: BoxDecoration(
                               color: const Color(0xFFFFE082),
                               // color: Colors.green,
@@ -194,18 +224,18 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                               border: const Border(
                                 top: BorderSide(
                                   color: Colors.black,
-                                  width: 2,
+                                  width: 3,
                                 ),
                                 right: BorderSide(
                                   color: Colors.black,
-                                  width: 2,
+                                  width: 3,
                                 ),
                                 left: BorderSide(
-                                  width: 2,
+                                  width: 3,
                                   color: Colors.black,
                                 ),
                                 bottom: BorderSide(
-                                  width: 4,
+                                  width: 6,
                                   color: Colors.black,
                                 ),
                               ),
@@ -220,6 +250,7 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                         controller.campaignResponse!.data[index]
                                                 .campaignName ??
                                             "",
+                                        textAlign: TextAlign.left,
                                         style: const TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.bold,
