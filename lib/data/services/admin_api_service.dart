@@ -18,7 +18,7 @@ class AdminApiService {
       );
       return AdminsResponse.fromJson(getJsonResponse(response: _response));
     } catch (e) {
-      return Future.error(e);
+      return Future.error(e); 
     }
   }
 }
