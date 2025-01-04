@@ -1,4 +1,4 @@
-import 'package:blood_donation_flutter_app/constants/image_path.dart';
+import 'package:blood_donation_flutter_app/core/static/image_path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -7,7 +7,7 @@ void handleOnAppExit({required BuildContext context}) {
     context: context,
     builder: (context) => AlertDialog(
       title: Image.asset(
-        ImagePath.appExitImage,
+        AppImagePath.appExitImage,
         height: 50,
         width: 50,
       ),

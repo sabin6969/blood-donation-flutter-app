@@ -1,4 +1,4 @@
-import 'package:blood_donation_flutter_app/constants/app_routes.dart';
+import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
 import 'package:blood_donation_flutter_app/controllers/search_donor_controller.dart';
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:blood_donation_flutter_app/utils/widgets/toast_message.dart';
@@ -55,7 +55,7 @@ class _DonorsViewState extends State<DonorsView> {
                   );
                 }
               } else {
-                Get.toNamed(AppRoutes.nearbyDonorView);
+                Get.toNamed(AppNamedRoute.nearbyDonorView);
               }
             },
             icon: const Icon(
@@ -81,9 +81,7 @@ class _DonorsViewState extends State<DonorsView> {
                     ),
                   ),
                 )
-              : const Text(
-                  "Find Donors"
-                ),
+              : const Text("Find Donors"),
         ),
         centerTitle: true,
       ),

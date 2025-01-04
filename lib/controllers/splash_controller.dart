@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:blood_donation_flutter_app/constants/app_routes.dart';
+import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
 import 'package:blood_donation_flutter_app/services/get_storage_service.dart';
 import 'package:blood_donation_flutter_app/data/services/user_api_service.dart';
 import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
@@ -30,22 +30,22 @@ class SplashController extends GetxController {
         FlutterNativeSplash.remove();
         showToastMessage(message: message);
         await Future.delayed(const Duration(milliseconds: 100));
-        Get.offNamed(AppRoutes.landingView);
+        Get.offNamed(AppNamedRoute.landingView);
       } else {
         FlutterNativeSplash.remove();
         await Future.delayed(const Duration(milliseconds: 100));
         showToastMessage(message: "Welcome! Proceed with Login or Signup");
-        Get.offNamed(AppRoutes.loginView);
+        Get.offNamed(AppNamedRoute.loginView);
       }
     } on SocketException {
       showToastMessage(message: "No internet");
-      Get.offNamed(AppRoutes.noInternetView);
+      Get.offNamed(AppNamedRoute.noInternetView);
     } on ServerRequestTimeoutError {
       showToastMessage(message: "No internet");
-      Get.offNamed(AppRoutes.noInternetView);
+      Get.offNamed(AppNamedRoute.noInternetView);
     } on UnauthorizedException catch (e) {
       showToastMessage(message: e.errorMessage);
-      Get.offNamed(AppRoutes.loginView);
+      Get.offNamed(AppNamedRoute.loginView);
     } catch (e) {
       Get.snackbar("Error", "Something went wrong");
     } finally {

@@ -1,4 +1,4 @@
-class AppLottieAnimations {
+class AppLottieAnimationPath {
   static const String errorLottieAnimationPath =
       "assets/animations/error_lottie_animation.json";
   static const String loadingLottieAnimationPath =

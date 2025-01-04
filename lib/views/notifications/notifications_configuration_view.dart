@@ -1,5 +1,5 @@
 import 'package:app_settings/app_settings.dart';
-import 'package:blood_donation_flutter_app/constants/image_path.dart';
+import 'package:blood_donation_flutter_app/core/static/image_path.dart';
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -38,7 +38,7 @@ class _NotificationsConfigurationViewState
             SizedBox(
               width: size.width,
               child: Image.asset(
-                ImagePath.pushNotifications,
+                AppImagePath.pushNotifications,
                 height: size.height * 0.4,
                 fit: BoxFit.cover,
               ),

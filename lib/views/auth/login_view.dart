@@ -1,5 +1,5 @@
-import 'package:blood_donation_flutter_app/constants/app_routes.dart';
-import 'package:blood_donation_flutter_app/constants/image_path.dart';
+import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
+import 'package:blood_donation_flutter_app/core/static/image_path.dart';
 import 'package:blood_donation_flutter_app/controllers/login_controller.dart';
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:blood_donation_flutter_app/utils/widgets/custom_auth_button.dart';
@@ -36,7 +36,7 @@ class _LoginViewState extends State<LoginView> {
                       height: size.height * 0.05,
                     ),
                     Image.asset(
-                      ImagePath.loginImage,
+                      AppImagePath.loginImage,
                       width: size.width * 0.8,
                       fit: BoxFit.cover,
                     ),
@@ -117,7 +117,7 @@ class _LoginViewState extends State<LoginView> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Get.toNamed(AppRoutes.signupView);
+                            Get.toNamed(AppNamedRoute.signupView);
                           },
                           child: const Text(
                             "Register now",

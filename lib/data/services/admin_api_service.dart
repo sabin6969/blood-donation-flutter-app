@@ -1,4 +1,4 @@
-import 'package:blood_donation_flutter_app/constants/api_endpoint_constants.dart';
+import 'package:blood_donation_flutter_app/core/const/api_endpoint_constants.dart';
 import 'package:blood_donation_flutter_app/models/admin_response_model.dart';
 import 'package:blood_donation_flutter_app/utils/json_response.dart';
 import 'package:http/http.dart';
@@ -18,7 +18,7 @@ class AdminApiService {
       );
       return AdminsResponse.fromJson(getJsonResponse(response: _response));
     } catch (e) {
-      return Future.error(e); 
+      return Future.error(e);
     }
   }
 }

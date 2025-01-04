@@ -1,5 +1,5 @@
-import 'package:blood_donation_flutter_app/constants/app_routes.dart';
-import 'package:blood_donation_flutter_app/constants/image_path.dart';
+import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
+import 'package:blood_donation_flutter_app/core/static/image_path.dart';
 import 'package:blood_donation_flutter_app/controllers/home_controller.dart';
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:blood_donation_flutter_app/utils/widgets/custom_card_widget.dart';
@@ -16,9 +16,9 @@ class HomeView extends StatefulWidget {
 
 class _HomePageState extends State<HomeView> {
   List<String> carouselImagePath = [
-    ImagePath.bloodDonationImageOne,
-    ImagePath.bloodDonationImageTwo,
-    ImagePath.bloodDonationImageThree,
+    AppImagePath.bloodDonationImageOne,
+    AppImagePath.bloodDonationImageTwo,
+    AppImagePath.bloodDonationImageThree,
   ];
 
   @override
@@ -59,14 +59,14 @@ class _HomePageState extends State<HomeView> {
                 children: [
                   CustomCard(
                     title: "Find Donors",
-                    imageIconPath: ImagePath.searchBloodIcon,
+                    imageIconPath: AppImagePath.searchBloodIcon,
                     onTap: () {
-                      Get.toNamed(AppRoutes.donorsView);
+                      Get.toNamed(AppNamedRoute.donorsView);
                     },
                   ),
                   CustomCard(
                     title: "Donates",
-                    imageIconPath: ImagePath.donatesIcon,
+                    imageIconPath: AppImagePath.donatesIcon,
                     onTap: () {
                       Get.snackbar("Comming Soon",
                           "This feature will be available soon");
@@ -74,14 +74,14 @@ class _HomePageState extends State<HomeView> {
                   ),
                   CustomCard(
                     title: "Order Blood",
-                    imageIconPath: ImagePath.orderBloodIcon,
+                    imageIconPath: AppImagePath.orderBloodIcon,
                     onTap: () {
-                      Get.toNamed(AppRoutes.bloodRequestView);
+                      Get.toNamed(AppNamedRoute.bloodRequestView);
                     },
                   ),
                   CustomCard(
                     title: "Assistance",
-                    imageIconPath: ImagePath.assistanceIcon,
+                    imageIconPath: AppImagePath.assistanceIcon,
                     onTap: () {
                       Get.snackbar("Comming Soon",
                           "This feature will be available soon");
@@ -89,16 +89,16 @@ class _HomePageState extends State<HomeView> {
                   ),
                   CustomCard(
                     title: "Status",
-                    imageIconPath: ImagePath.reportIcon,
+                    imageIconPath: AppImagePath.reportIcon,
                     onTap: () {
-                      Get.toNamed(AppRoutes.bloodRequestStatusView);
+                      Get.toNamed(AppNamedRoute.bloodRequestStatusView);
                     },
                   ),
                   CustomCard(
                     title: "Campaigns",
-                    imageIconPath: ImagePath.campaignIcon,
+                    imageIconPath: AppImagePath.campaignIcon,
                     onTap: () {
-                      Get.toNamed(AppRoutes.campaignsView);
+                      Get.toNamed(AppNamedRoute.campaignsView);
                     },
                   ),
                 ],

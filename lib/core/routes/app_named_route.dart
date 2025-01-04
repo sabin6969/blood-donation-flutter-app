@@ -1,4 +1,4 @@
-class AppRoutes {
+class AppNamedRoute {
   static const String onboardingView = "/onboardingView";
   static const String loginSignupView = "/loginSignupView";
   static const String loginView = "/loginView";

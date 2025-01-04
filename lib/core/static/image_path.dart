@@ -1,4 +1,4 @@
-class ImagePath {
+class AppImagePath {
   static String onboardingFirstImagePath =
       "assets/images/onboarding_first_image.png";
   static String onboardingSecondImagePath =

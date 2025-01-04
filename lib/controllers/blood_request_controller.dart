@@ -1,4 +1,4 @@
-import 'package:blood_donation_flutter_app/constants/app_routes.dart';
+import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
 import 'package:blood_donation_flutter_app/data/services/bloods_api_service.dart';
 import 'package:blood_donation_flutter_app/services/get_storage_service.dart';
 import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
@@ -54,7 +54,7 @@ class BloodRequestController extends GetxController {
         showBloodOrderSucessDialog();
       } on UnauthorizedException catch (e) {
         Get.snackbar("Unauthorized", e.errorMessage);
-        Get.offAllNamed(AppRoutes.loginView);
+        Get.offAllNamed(AppNamedRoute.loginView);
       } on AppException catch (e) {
         Get.snackbar("Error", e.errorMessage);
       } catch (e) {
@@ -76,7 +76,7 @@ class BloodRequestController extends GetxController {
           await BloodServiceApi.getAllMyApprovedBloodRequests(
               accessToken: accessToken);
     } on UnauthorizedException catch (e) {
-      Get.offAllNamed(AppRoutes.loginView);
+      Get.offAllNamed(AppNamedRoute.loginView);
       Get.snackbar("Unauthorized Access", e.errorMessage);
     } on InternalServerException catch (e) {
       Get.snackbar("Internal server erro", e.errorMessage);
@@ -95,7 +95,7 @@ class BloodRequestController extends GetxController {
           await BloodServiceApi.getAllMyPendingBloodRequest(
               accessToken: accessToken);
     } on UnauthorizedException catch (e) {
-      Get.offAllNamed(AppRoutes.loginView);
+      Get.offAllNamed(AppNamedRoute.loginView);
       Get.snackbar("Unauthorized", e.errorMessage);
     } on AppException catch (e) {
       Get.snackbar("Error", e.errorMessage);
@@ -114,7 +114,7 @@ class BloodRequestController extends GetxController {
           await BloodServiceApi.getAllMyRejectedBloodRequests(
               accessToken: accessToken);
     } on UnauthorizedException catch (e) {
-      Get.offAllNamed(AppRoutes.loginView);
+      Get.offAllNamed(AppNamedRoute.loginView);
       Get.snackbar("Unauthorized", e.errorMessage);
     } on AppException catch (e) {
       Get.snackbar("Error", e.errorMessage);

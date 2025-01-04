@@ -1,6 +1,6 @@
 import 'package:app_settings/app_settings.dart';
-import 'package:blood_donation_flutter_app/constants/app_lottie_animations.dart';
-import 'package:blood_donation_flutter_app/constants/app_routes.dart';
+import 'package:blood_donation_flutter_app/core/static/app_lottie_animations.dart';
+import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
 import 'package:blood_donation_flutter_app/controllers/campaign_controller.dart';
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:blood_donation_flutter_app/utils/widgets/custom_auth_button.dart';
@@ -25,7 +25,7 @@ class CampaignNearMeViewState extends State<CampaignNearMe> {
           if (controller.isNearestCampaignLoading.value) {
             return Center(
               child: Lottie.asset(
-                AppLottieAnimations.loadingLottieAnimationPath,
+                AppLottieAnimationPath.loadingLottieAnimationPath,
               ),
             );
           } else if (controller.isLocactionDisabled.value) {
@@ -61,7 +61,7 @@ class CampaignNearMeViewState extends State<CampaignNearMe> {
                   ? ListView(
                       children: [
                         Lottie.asset(
-                            AppLottieAnimations.errorLottieAnimationPath),
+                            AppLottieAnimationPath.errorLottieAnimationPath),
                         const SizedBox(
                           height: 20,
                         ),
@@ -244,7 +244,7 @@ class CampaignNearMeViewState extends State<CampaignNearMe> {
                                   buttonColor: Colors.blue,
                                   onPressed: () {
                                     Get.toNamed(
-                                      AppRoutes.gooleMapView,
+                                      AppNamedRoute.gooleMapView,
                                       arguments: {
                                         "lat": controller
                                             .nearestCampaignResponse

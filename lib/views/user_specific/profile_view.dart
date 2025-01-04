@@ -1,5 +1,5 @@
-import 'package:blood_donation_flutter_app/constants/app_lottie_animations.dart';
-import 'package:blood_donation_flutter_app/constants/app_routes.dart';
+import 'package:blood_donation_flutter_app/core/static/app_lottie_animations.dart';
+import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
 import 'package:blood_donation_flutter_app/controllers/profile_controller.dart';
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -31,28 +31,28 @@ class _ProfilePageState extends State<ProfileView> {
         title: const Text("Profile"),
       ),
       body: GetX<ProfileController>(
-      builder: (controller) {
-        if (controller.isLoading.value) {
-          return buildProfileShimmer();
-        } else if (controller.hasError.value) {
-          return RefreshIndicator(
-            onRefresh: () async {
-              controller.fetchProfile();
-            },
-            child: ListView(
-              children: [
-                LottieBuilder.asset(
-                  AppLottieAnimations.errorLottieAnimationPath,
-                ),
-              ],
-            ),
-          );
-        } else if (controller.isLoading.value == false) {
-          return buildProfile(controller: controller);
-        }
-        return const SizedBox();
-      },
-    ),
+        builder: (controller) {
+          if (controller.isLoading.value) {
+            return buildProfileShimmer();
+          } else if (controller.hasError.value) {
+            return RefreshIndicator(
+              onRefresh: () async {
+                controller.fetchProfile();
+              },
+              child: ListView(
+                children: [
+                  LottieBuilder.asset(
+                    AppLottieAnimationPath.errorLottieAnimationPath,
+                  ),
+                ],
+              ),
+            );
+          } else if (controller.isLoading.value == false) {
+            return buildProfile(controller: controller);
+          }
+          return const SizedBox();
+        },
+      ),
     );
   }
 
@@ -198,9 +198,9 @@ class _ProfilePageState extends State<ProfileView> {
                     onTap: () async {
                       PermissionStatus status =
                           await Permission.notification.request();
-    
+
                       Get.toNamed(
-                        AppRoutes.notificationConfigurationView,
+                        AppNamedRoute.notificationConfigurationView,
                         arguments: status,
                       );
                     },
@@ -221,8 +221,7 @@ class _ProfilePageState extends State<ProfileView> {
                       title: const Text(
                         "Logout Confirmation",
                       ),
-                      content:
-                          const Text("Are you sure you want to log out?"),
+                      content: const Text("Are you sure you want to log out?"),
                       actions: [
                         TextButton(
                           onPressed: () {

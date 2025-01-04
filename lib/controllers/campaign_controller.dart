@@ -1,4 +1,4 @@
-import 'package:blood_donation_flutter_app/constants/app_routes.dart';
+import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
 import 'package:blood_donation_flutter_app/data/services/campaign_api_service.dart';
 import 'package:blood_donation_flutter_app/services/get_storage_service.dart';
 import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
@@ -73,7 +73,7 @@ class CampaingController extends GetxService {
       );
       Get.snackbar("Sucess", campaignResponse!.message ?? "");
     } on UnauthorizedException catch (e) {
-      Get.offAllNamed(AppRoutes.loginView);
+      Get.offAllNamed(AppNamedRoute.loginView);
       Get.snackbar("Unauthorized", e.errorMessage);
     } on AppException catch (e) {
       Get.snackbar("Error", e.errorMessage);

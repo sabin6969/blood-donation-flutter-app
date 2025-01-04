@@ -1,5 +1,5 @@
-import 'package:blood_donation_flutter_app/constants/app_routes.dart';
-import 'package:blood_donation_flutter_app/constants/image_path.dart';
+import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
+import 'package:blood_donation_flutter_app/core/static/image_path.dart';
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:blood_donation_flutter_app/utils/widgets/custom_auth_button.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,7 @@ class _LoginSignupViewState extends State<LoginSignupView> {
                 children: [
                   const Spacer(),
                   Image.asset(
-                    ImagePath.bloodImagePath,
+                    AppImagePath.bloodImagePath,
                   ),
                   const SizedBox(
                     height: 20,
@@ -75,7 +75,7 @@ class _LoginSignupViewState extends State<LoginSignupView> {
                       ),
                     ),
                     onPressed: () {
-                      Get.offNamed(AppRoutes.loginView);
+                      Get.offNamed(AppNamedRoute.loginView);
                     },
                   ),
                   SizedBox(
@@ -91,7 +91,7 @@ class _LoginSignupViewState extends State<LoginSignupView> {
                       ),
                     ),
                     onPressed: () {
-                      Get.offNamed(AppRoutes.signupView);
+                      Get.offNamed(AppNamedRoute.signupView);
                     },
                   )
                 ],

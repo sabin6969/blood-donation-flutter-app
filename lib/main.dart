@@ -1,4 +1,5 @@
-import 'package:blood_donation_flutter_app/constants/app_routes.dart';
+import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
+import 'package:blood_donation_flutter_app/core/theme/app_theme.dart';
 import 'package:blood_donation_flutter_app/firebase_options.dart';
 import 'package:blood_donation_flutter_app/services/local_notification_service.dart';
 import 'package:blood_donation_flutter_app/utils/pages.dart';
@@ -44,32 +45,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute: AppRoutes.splashView,
+      initialRoute: AppNamedRoute.splashView,
       defaultTransition: Transition.downToUp,
       getPages: pages,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: "Poppins",
-        tabBarTheme: const TabBarTheme(
-          indicatorColor: Colors.purple,
-          indicatorSize: TabBarIndicatorSize.tab,
-          labelPadding: EdgeInsets.only(
-            bottom: 10,
-          ),
-          labelColor: Colors.white,
-          unselectedLabelColor: Colors.white,
-        ),
-        appBarTheme: AppBarTheme(
-          centerTitle: true,
-          iconTheme: const IconThemeData(color: Colors.white),
-          backgroundColor: Colors.red.shade400,
-          titleTextStyle: const TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-      ),
+      theme: AppTheme.lightModeTheme,
+      darkTheme: AppTheme.darkModeTheme,
     );
   }
 }

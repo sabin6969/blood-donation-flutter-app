@@ -1,4 +1,4 @@
-import 'package:blood_donation_flutter_app/constants/app_lottie_animations.dart';
+import 'package:blood_donation_flutter_app/core/static/app_lottie_animations.dart';
 import 'package:blood_donation_flutter_app/controllers/splash_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,7 +19,7 @@ class _NoInternetViewState extends State<NoInternetView> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Lottie.asset(
-            AppLottieAnimations.errorLottieAnimationPath,
+            AppLottieAnimationPath.errorLottieAnimationPath,
           ),
           const Text(
             "Please check your internet connection",

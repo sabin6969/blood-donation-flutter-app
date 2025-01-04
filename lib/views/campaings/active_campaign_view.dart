@@ -1,5 +1,5 @@
-import 'package:blood_donation_flutter_app/constants/app_lottie_animations.dart';
-import 'package:blood_donation_flutter_app/constants/app_routes.dart';
+import 'package:blood_donation_flutter_app/core/static/app_lottie_animations.dart';
+import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
 import 'package:blood_donation_flutter_app/controllers/campaign_controller.dart';
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:blood_donation_flutter_app/utils/widgets/toast_message.dart';
@@ -171,8 +171,8 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
         builder: (controller) {
           if (controller.isActiveCampaignLoading.value) {
             return Center(
-              child:
-                  Lottie.asset(AppLottieAnimations.loadingLottieAnimationPath),
+              child: Lottie.asset(
+                  AppLottieAnimationPath.loadingLottieAnimationPath),
             );
           } else if (controller.campaignResponse != null) {
             return RefreshIndicator(
@@ -183,7 +183,7 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                   ? ListView(
                       children: [
                         Lottie.asset(
-                            AppLottieAnimations.errorLottieAnimationPath),
+                            AppLottieAnimationPath.errorLottieAnimationPath),
                         const SizedBox(
                           height: 20,
                         ),
@@ -373,7 +373,7 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                     TextButton(
                                       onPressed: () {
                                         Get.toNamed(
-                                          AppRoutes.gooleMapView,
+                                          AppNamedRoute.gooleMapView,
                                           arguments: {
                                             "lat": controller
                                                 .campaignResponse!

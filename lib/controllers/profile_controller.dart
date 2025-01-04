@@ -1,4 +1,4 @@
-import 'package:blood_donation_flutter_app/constants/app_routes.dart';
+import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
 import 'package:blood_donation_flutter_app/services/get_storage_service.dart';
 import 'package:blood_donation_flutter_app/data/services/user_api_service.dart';
 import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
@@ -29,7 +29,7 @@ class ProfileController extends GetxService {
           RxBool(response.data.first.isAvailableForDonation!);
     } on UnauthorizedException catch (e) {
       Get.snackbar("Unauthorized", e.errorMessage);
-      Get.offAllNamed(AppRoutes.loginView);
+      Get.offAllNamed(AppNamedRoute.loginView);
     } on AppException catch (e) {
       hasError.value = true;
       errorMessage = e.errorMessage;
@@ -47,11 +47,11 @@ class ProfileController extends GetxService {
       String accessToken = GetStorageService.getAccessToken() ?? "";
       String message = await UserApiService.logout(accessToken: accessToken);
       await GetStorageService.clearAccessToken();
-      Get.offAllNamed(AppRoutes.loginView);
+      Get.offAllNamed(AppNamedRoute.loginView);
       Get.snackbar("Sucess", message);
     } on UnauthorizedException catch (e) {
       Get.snackbar("Unauthorized", e.errorMessage);
-      Get.offAllNamed(AppRoutes.loginView);
+      Get.offAllNamed(AppNamedRoute.loginView);
     } on AppException catch (e) {
       Get.snackbar("Error", e.errorMessage);
     } catch (e) {
@@ -73,7 +73,7 @@ class ProfileController extends GetxService {
       Get.snackbar("Sucess", "Sucessfully updated Availability Status");
     } on UnauthorizedException catch (e) {
       Get.snackbar("Error", e.errorMessage);
-      Get.offAllNamed(AppRoutes.loginView);
+      Get.offAllNamed(AppNamedRoute.loginView);
     } on AppException catch (e) {
       Get.snackbar("Error", e.errorMessage);
     } catch (e) {

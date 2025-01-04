@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:animate_do/animate_do.dart';
-import 'package:blood_donation_flutter_app/constants/app_routes.dart';
-import 'package:blood_donation_flutter_app/constants/image_path.dart';
+import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
+import 'package:blood_donation_flutter_app/core/static/image_path.dart';
 import 'package:blood_donation_flutter_app/controllers/register_controller.dart';
 import 'package:blood_donation_flutter_app/utils/widgets/custom_auth_button.dart';
 import 'package:blood_donation_flutter_app/utils/widgets/custom_text_field.dart';
@@ -47,7 +47,7 @@ class _SignupViewState extends State<SignupView> {
                         CircleAvatar(
                           radius: size.width * 0.15,
                           backgroundImage: controller.imageFile.value == null
-                              ? AssetImage(ImagePath.profileAvatarPath)
+                              ? AssetImage(AppImagePath.profileAvatarPath)
                                   as ImageProvider
                               : FileImage(
                                   File(
@@ -198,7 +198,7 @@ class _SignupViewState extends State<SignupView> {
                     const Text("Already have an account?"),
                     TextButton(
                       onPressed: () {
-                        Get.offAllNamed(AppRoutes.loginView);
+                        Get.offAllNamed(AppNamedRoute.loginView);
                       },
                       child: const Text("Login"),
                     ),

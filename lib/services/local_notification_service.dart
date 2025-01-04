@@ -1,4 +1,4 @@
-import 'package:blood_donation_flutter_app/constants/app_routes.dart';
+import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 
@@ -43,7 +43,7 @@ class LocalNotificationService {
 void notificationTapBackground(NotificationResponse notificationResponse) {
   if (notificationResponse.payload == "Creation of new campaign") {
     // Navigating a user to campaign page if clicks on notification
-    Get.toNamed(AppRoutes.campaignsView);
+    Get.toNamed(AppNamedRoute.campaignsView);
   }
   // TODO: navigate user to different pages as per payload details
 }

@@ -1,4 +1,4 @@
-import 'package:blood_donation_flutter_app/constants/app_routes.dart';
+import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
 import 'package:blood_donation_flutter_app/controllers/blood_request_controller.dart';
 import 'package:blood_donation_flutter_app/controllers/campaign_controller.dart';
 import 'package:blood_donation_flutter_app/controllers/home_controller.dart';
@@ -25,7 +25,7 @@ import 'package:get/get.dart';
 
 List<GetPage> pages = [
   GetPage(
-    name: AppRoutes.onboardingView,
+    name: AppNamedRoute.onboardingView,
     page: () => const OnboardingView(),
     binding: BindingsBuilder(
       () {
@@ -36,11 +36,11 @@ List<GetPage> pages = [
     ),
   ),
   GetPage(
-    name: AppRoutes.loginSignupView,
+    name: AppNamedRoute.loginSignupView,
     page: () => const LoginSignupView(),
   ),
   GetPage(
-    name: AppRoutes.loginView,
+    name: AppNamedRoute.loginView,
     page: () => const LoginView(),
     binding: BindingsBuilder(
       () {
@@ -51,7 +51,7 @@ List<GetPage> pages = [
     ),
   ),
   GetPage(
-    name: AppRoutes.signupView,
+    name: AppNamedRoute.signupView,
     page: () => const SignupView(),
     binding: BindingsBuilder(
       () {
@@ -62,7 +62,7 @@ List<GetPage> pages = [
     ),
   ),
   GetPage(
-    name: AppRoutes.landingView,
+    name: AppNamedRoute.landingView,
     page: () => const LandingView(),
     binding: BindingsBuilder(
       () {
@@ -73,7 +73,7 @@ List<GetPage> pages = [
     ),
   ),
   GetPage(
-    name: AppRoutes.donorsView,
+    name: AppNamedRoute.donorsView,
     page: () => const DonorsView(),
     binding: BindingsBuilder(
       () {
@@ -84,7 +84,7 @@ List<GetPage> pages = [
     ),
   ),
   GetPage(
-    name: AppRoutes.bloodRequestView,
+    name: AppNamedRoute.bloodRequestView,
     page: () => const BloodRequestView(),
     binding: BindingsBuilder(
       () {
@@ -95,7 +95,7 @@ List<GetPage> pages = [
     ),
   ),
   GetPage(
-    name: AppRoutes.campaignsView,
+    name: AppNamedRoute.campaignsView,
     page: () => const CampaingsView(),
     binding: BindingsBuilder(
       () {
@@ -106,7 +106,7 @@ List<GetPage> pages = [
     ),
   ),
   GetPage(
-    name: AppRoutes.splashView,
+    name: AppNamedRoute.splashView,
     page: () => const SplashView(),
     binding: BindingsBuilder(
       () {
@@ -117,11 +117,11 @@ List<GetPage> pages = [
     ),
   ),
   GetPage(
-    name: AppRoutes.gooleMapView,
+    name: AppNamedRoute.gooleMapView,
     page: () => const GoogleMapView(),
   ),
   GetPage(
-    name: AppRoutes.noInternetView,
+    name: AppNamedRoute.noInternetView,
     page: () => const NoInternetView(),
     binding: BindingsBuilder(
       () {
@@ -130,18 +130,18 @@ List<GetPage> pages = [
     ),
   ),
   GetPage(
-    name: AppRoutes.bloodRequestStatusView,
+    name: AppNamedRoute.bloodRequestStatusView,
     page: () => const BloodRequestStatusView(),
     binding: BindingsBuilder(() {
       Get.lazyPut(() => BloodRequestController());
     }),
   ),
   GetPage(
-    name: AppRoutes.nearbyDonorView,
+    name: AppNamedRoute.nearbyDonorView,
     page: () => const NearbyDonorView(),
   ),
   GetPage(
-    name: AppRoutes.notificationConfigurationView,
+    name: AppNamedRoute.notificationConfigurationView,
     page: () => const NotificationsConfigurationView(),
   ),
 ];

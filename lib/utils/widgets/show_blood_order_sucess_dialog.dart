@@ -1,4 +1,4 @@
-import 'package:blood_donation_flutter_app/constants/image_path.dart';
+import 'package:blood_donation_flutter_app/core/static/image_path.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,7 +8,7 @@ void showBloodOrderSucessDialog() {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Image.asset(ImagePath.bloodRequestSucess),
+          Image.asset(AppImagePath.bloodRequestSucess),
           const SizedBox(
             height: 50,
           ),

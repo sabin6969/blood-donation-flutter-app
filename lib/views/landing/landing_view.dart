@@ -2,7 +2,7 @@ import './widgets/animated_icon.dart';
 
 import 'package:blood_donation_flutter_app/utils/ask_for_notifications.dart';
 import 'package:blood_donation_flutter_app/utils/handle_on_exit.dart';
-import 'package:blood_donation_flutter_app/views/home_view.dart';
+import 'package:blood_donation_flutter_app/views/home/home_view.dart';
 import 'package:blood_donation_flutter_app/views/user_specific/profile_view.dart';
 import 'package:blood_donation_flutter_app/views/admins_view.dart';
 import 'package:flutter/material.dart';

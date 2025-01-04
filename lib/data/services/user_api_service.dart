@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:blood_donation_flutter_app/constants/api_endpoint_constants.dart';
+import 'package:blood_donation_flutter_app/core/const/api_endpoint_constants.dart';
 import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
 import 'package:blood_donation_flutter_app/models/donors_response_model.dart';
 import 'package:blood_donation_flutter_app/models/nearby_donor_model.dart';
