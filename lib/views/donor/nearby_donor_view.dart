@@ -1,4 +1,5 @@
 import 'package:app_settings/app_settings.dart';
+import 'package:blood_donation_flutter_app/core/static/app_image_path.dart';
 import 'package:blood_donation_flutter_app/core/static/app_lottie_animations_path.dart';
 import 'package:blood_donation_flutter_app/controllers/search_donor_controller.dart';
 import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
@@ -92,8 +93,10 @@ class _NearbyDonorViewState extends State<NearbyDonorView>
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Lottie.asset(
-                          AppLottieAnimationPath.errorLottieAnimationPath,
+                        Image.asset(
+                          AppImagePath.emptyCartImage,
+                          height: size.height * 0.35,
+                          width: size.width,
                         ),
                         const SizedBox(
                           height: 20,
@@ -102,9 +105,23 @@ class _NearbyDonorViewState extends State<NearbyDonorView>
                           "No Donors Found",
                           style: TextStyle(
                             fontSize: 14,
-                            fontWeight: FontWeight.bold,
                           ),
                         ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            backgroundColor: Colors.grey.shade300,
+                            side: const BorderSide(
+                              color: Colors.black,
+                            ),
+                          ),
+                          onPressed: () {
+                            controller.fetchNearByDonors();
+                          },
+                          child: const Text("Refresh"),
+                        )
                       ],
                     )
                   : ListView.builder(
