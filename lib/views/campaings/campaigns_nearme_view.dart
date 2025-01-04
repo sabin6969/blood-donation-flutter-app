@@ -1,4 +1,5 @@
 import 'package:app_settings/app_settings.dart';
+import 'package:blood_donation_flutter_app/core/static/app_image_path.dart';
 import 'package:blood_donation_flutter_app/core/static/app_lottie_animations_path.dart';
 import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
 import 'package:blood_donation_flutter_app/controllers/campaign_controller.dart';
@@ -60,8 +61,11 @@ class CampaignNearMeViewState extends State<CampaignNearMe> {
               child: controller.nearestCampaignResponse.data.isEmpty
                   ? ListView(
                       children: [
-                        Lottie.asset(
-                            AppLottieAnimationPath.errorLottieAnimationPath),
+                        Image.asset(
+                          AppImagePath.emptyCartImage,
+                          width: size.width,
+                          height: size.height * 0.3,
+                        ),
                         const SizedBox(
                           height: 20,
                         ),
@@ -284,7 +288,18 @@ class CampaignNearMeViewState extends State<CampaignNearMe> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Image.asset(
+                    AppImagePath.errorIcon,
+                    width: size.width,
+                    height: size.height * 0.3,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   const Text("Something went wrong"),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   TextButton(
                     onPressed: () {
                       controller.fetchNearestCampaign();

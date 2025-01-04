@@ -1,6 +1,5 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:blood_donation_flutter_app/core/static/app_image_path.dart';
-import 'package:blood_donation_flutter_app/core/static/app_lottie_animations_path.dart';
 import 'package:blood_donation_flutter_app/controllers/search_donor_controller.dart';
 import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
 import 'package:blood_donation_flutter_app/main.dart';
@@ -9,7 +8,6 @@ import 'package:blood_donation_flutter_app/utils/widgets/user_loading_skeletoniz
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
 
 class NearbyDonorView extends StatefulWidget {
   const NearbyDonorView({super.key});
@@ -102,7 +100,8 @@ class _NearbyDonorViewState extends State<NearbyDonorView>
                           height: 20,
                         ),
                         const Text(
-                          "No Donors Found",
+                          "No donors found near your location.\n Try applying filter",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 14,
                           ),
