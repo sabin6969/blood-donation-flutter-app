@@ -1,4 +1,4 @@
-import 'package:blood_donation_flutter_app/core/static/image_path.dart';
+import 'package:blood_donation_flutter_app/core/static/app_image_path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

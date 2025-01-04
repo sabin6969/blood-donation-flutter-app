@@ -1,5 +1,5 @@
 import 'package:app_settings/app_settings.dart';
-import 'package:blood_donation_flutter_app/core/static/app_lottie_animations.dart';
+import 'package:blood_donation_flutter_app/core/static/app_lottie_animations_path.dart';
 import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
 import 'package:blood_donation_flutter_app/controllers/campaign_controller.dart';
 import 'package:blood_donation_flutter_app/main.dart';

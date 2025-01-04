@@ -1,4 +1,5 @@
-import 'package:blood_donation_flutter_app/core/static/app_lottie_animations.dart';
+import 'package:blood_donation_flutter_app/core/static/app_image_path.dart';
+import 'package:blood_donation_flutter_app/core/static/app_lottie_animations_path.dart';
 import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
 import 'package:blood_donation_flutter_app/controllers/campaign_controller.dart';
 import 'package:blood_donation_flutter_app/main.dart';
@@ -180,23 +181,30 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                 controller.fetchActiveCampaign();
               },
               child: controller.campaignResponse!.data.isEmpty
-                  ? ListView(
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Lottie.asset(
-                            AppLottieAnimationPath.errorLottieAnimationPath),
-                        const SizedBox(
-                          height: 20,
+                        Image.asset(
+                          AppImagePath.emptyCartImage,
+                          height: size.height * 0.35,
+                          width: size.width,
                         ),
-                        const Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            "There are no active campaings right now",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
+                        const Text(
+                          "There are no active campaings right now",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 16,
                           ),
                         ),
+                        TextButton(
+                          onPressed: () {
+                            controller.fetchActiveCampaign();
+                          },
+                          child: const Text(
+                            "Refresh",
+                          ),
+                        )
                       ],
                     )
                   : ListView.builder(

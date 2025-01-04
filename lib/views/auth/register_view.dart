@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:animate_do/animate_do.dart';
 import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
-import 'package:blood_donation_flutter_app/core/static/image_path.dart';
+import 'package:blood_donation_flutter_app/core/static/app_image_path.dart';
 import 'package:blood_donation_flutter_app/controllers/register_controller.dart';
 import 'package:blood_donation_flutter_app/utils/widgets/custom_auth_button.dart';
 import 'package:blood_donation_flutter_app/utils/widgets/custom_text_field.dart';

@@ -1,5 +1,5 @@
 import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
-import 'package:blood_donation_flutter_app/core/static/image_path.dart';
+import 'package:blood_donation_flutter_app/core/static/app_image_path.dart';
 import 'package:blood_donation_flutter_app/controllers/login_controller.dart';
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:blood_donation_flutter_app/utils/widgets/custom_auth_button.dart';

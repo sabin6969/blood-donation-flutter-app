@@ -1,4 +1,4 @@
-import 'package:blood_donation_flutter_app/core/static/app_lottie_animations.dart';
+import 'package:blood_donation_flutter_app/core/static/app_lottie_animations_path.dart';
 import 'package:blood_donation_flutter_app/controllers/splash_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

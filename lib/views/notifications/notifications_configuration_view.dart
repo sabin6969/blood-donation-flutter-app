@@ -1,5 +1,5 @@
 import 'package:app_settings/app_settings.dart';
-import 'package:blood_donation_flutter_app/core/static/image_path.dart';
+import 'package:blood_donation_flutter_app/core/static/app_image_path.dart';
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

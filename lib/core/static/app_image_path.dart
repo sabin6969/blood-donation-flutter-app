@@ -21,4 +21,5 @@ class AppImagePath {
       "assets/images/blood donation image three.jpg";
   static String loginImage = "assets/images/login_image.png";
   static String pushNotifications = "assets/images/push_notifications.png";
+  static String emptyCartImage = "assets/images/empty_cart_image.png";
 }
