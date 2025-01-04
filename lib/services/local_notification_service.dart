@@ -2,7 +2,7 @@ import 'package:blood_donation_flutter_app/constants/app_routes.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 
-class LocalNotification {
+class LocalNotificationService {
   static Future<void> initLocalNotifications() async {
     AndroidInitializationSettings androidInitializationSettings =
         const AndroidInitializationSettings(

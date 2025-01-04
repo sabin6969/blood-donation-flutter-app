@@ -62,7 +62,7 @@ class HomeViewState extends State<LandingView> {
                       currentIndex: value,
                       activationIndex: 0,
                       child: const Icon(
-                        Icons.home,
+                        Icons.home_outlined,
                       ),
                     ),
                     label: "Home",
@@ -72,7 +72,7 @@ class HomeViewState extends State<LandingView> {
                       currentIndex: value,
                       activationIndex: 1,
                       child: const Icon(
-                        Icons.admin_panel_settings,
+                        Icons.admin_panel_settings_outlined,
                       ),
                     ),
                     label: "Admins",

@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:blood_donation_flutter_app/constants/app_routes.dart';
-import 'package:blood_donation_flutter_app/data/services/get_storage_service.dart';
+import 'package:blood_donation_flutter_app/services/get_storage_service.dart';
 import 'package:blood_donation_flutter_app/data/services/user_api_service.dart';
 import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
 import 'package:blood_donation_flutter_app/utils/get_fcm_token.dart';

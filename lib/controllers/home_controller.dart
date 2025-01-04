@@ -1,4 +1,4 @@
-import 'package:blood_donation_flutter_app/data/services/get_storage_service.dart';
+import 'package:blood_donation_flutter_app/services/get_storage_service.dart';
 import 'package:blood_donation_flutter_app/data/services/user_api_service.dart';
 import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
 import 'package:blood_donation_flutter_app/models/top_blood_requestor_model.dart';

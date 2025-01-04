@@ -1,6 +1,6 @@
 import 'package:blood_donation_flutter_app/constants/app_routes.dart';
 import 'package:blood_donation_flutter_app/data/services/bloods_api_service.dart';
-import 'package:blood_donation_flutter_app/data/services/get_storage_service.dart';
+import 'package:blood_donation_flutter_app/services/get_storage_service.dart';
 import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
 import 'package:blood_donation_flutter_app/models/approved_blood_request_model.dart';
 import 'package:blood_donation_flutter_app/models/pending_blood_request_mode.dart';
@@ -110,7 +110,9 @@ class BloodRequestController extends GetxController {
     try {
       isRejectedBloodRequestLoading.value = true;
       String accessToken = GetStorageService.getAccessToken() ?? "";
-      rejectedBloodRequestModel = await BloodServiceApi.getAllMyRejectedBloodRequests(accessToken: accessToken);
+      rejectedBloodRequestModel =
+          await BloodServiceApi.getAllMyRejectedBloodRequests(
+              accessToken: accessToken);
     } on UnauthorizedException catch (e) {
       Get.offAllNamed(AppRoutes.loginView);
       Get.snackbar("Unauthorized", e.errorMessage);
