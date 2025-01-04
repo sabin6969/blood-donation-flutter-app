@@ -14,7 +14,7 @@ import 'package:blood_donation_flutter_app/views/blood_request_view.dart';
 import 'package:blood_donation_flutter_app/views/campaings/campaigns_view.dart';
 import 'package:blood_donation_flutter_app/views/donor/donors_view.dart';
 import 'package:blood_donation_flutter_app/views/donor/nearby_donor_view.dart';
-import 'package:blood_donation_flutter_app/views/landing_view.dart';
+import 'package:blood_donation_flutter_app/views/landing/landing_view.dart';
 import 'package:blood_donation_flutter_app/views/map/google_map_view.dart';
 import 'package:blood_donation_flutter_app/views/no_internet_view.dart';
 import 'package:blood_donation_flutter_app/views/notifications/notifications_configuration_view.dart';
