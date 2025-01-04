@@ -117,7 +117,7 @@ List<GetPage> pages = [
     ),
   ),
   GetPage(
-    name: AppNamedRoute.gooleMapView,
+    name: AppNamedRoute.googleMapView,
     page: () => const GoogleMapView(),
   ),
   GetPage(

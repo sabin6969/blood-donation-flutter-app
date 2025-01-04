@@ -244,7 +244,7 @@ class CampaignNearMeViewState extends State<CampaignNearMe> {
                                   buttonColor: Colors.blue,
                                   onPressed: () {
                                     Get.toNamed(
-                                      AppNamedRoute.gooleMapView,
+                                      AppNamedRoute.googleMapView,
                                       arguments: {
                                         "lat": controller
                                             .nearestCampaignResponse

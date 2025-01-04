@@ -381,7 +381,7 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                                     TextButton(
                                       onPressed: () {
                                         Get.toNamed(
-                                          AppNamedRoute.gooleMapView,
+                                          AppNamedRoute.googleMapView,
                                           arguments: {
                                             "lat": controller
                                                 .campaignResponse!
