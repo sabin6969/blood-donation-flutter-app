@@ -2,7 +2,6 @@ import 'package:app_settings/app_settings.dart';
 import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
 import 'package:blood_donation_flutter_app/services/get_storage_service.dart';
 import 'package:blood_donation_flutter_app/data/services/user_api_service.dart';
-import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
 import 'package:blood_donation_flutter_app/models/donors_response_model.dart';
 import 'package:blood_donation_flutter_app/models/nearby_donor_model.dart';
 import 'package:blood_donation_flutter_app/utils/determine_user_location.dart';
@@ -10,6 +9,8 @@ import 'package:blood_donation_flutter_app/utils/widgets/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+
+import '../data/exceptions/app_exceptions.dart';
 
 class SearchDonorController extends GetxService with WidgetsBindingObserver {
   @override

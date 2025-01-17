@@ -1,9 +1,10 @@
 import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
 import 'package:blood_donation_flutter_app/services/get_storage_service.dart';
 import 'package:blood_donation_flutter_app/data/services/user_api_service.dart';
-import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
 import 'package:blood_donation_flutter_app/models/profile_response_model.dart';
 import 'package:get/get.dart';
+
+import '../data/exceptions/app_exceptions.dart';
 
 class ProfileController extends GetxService {
   late RxBool _isAvailableForDonation;

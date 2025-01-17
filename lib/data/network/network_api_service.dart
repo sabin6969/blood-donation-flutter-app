@@ -1,8 +1,9 @@
 import 'dart:convert';
 
 import 'package:blood_donation_flutter_app/data/network/base_api_service.dart';
-import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
 import 'package:http/http.dart';
+
+import '../exceptions/app_exceptions.dart';
 
 class NetworkApiService extends BaseApiService {
   Response _getResponse({required Response response}) {

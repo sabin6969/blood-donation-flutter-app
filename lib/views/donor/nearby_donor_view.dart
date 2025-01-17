@@ -1,13 +1,14 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:blood_donation_flutter_app/core/static/app_image_path.dart';
 import 'package:blood_donation_flutter_app/controllers/search_donor_controller.dart';
-import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:blood_donation_flutter_app/utils/determine_user_location.dart';
 import 'package:blood_donation_flutter_app/utils/widgets/user_loading_skeletonizer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../data/exceptions/app_exceptions.dart';
 
 class NearbyDonorView extends StatefulWidget {
   const NearbyDonorView({super.key});

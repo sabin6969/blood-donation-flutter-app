@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:blood_donation_flutter_app/core/const/api_endpoint_constants.dart';
-import 'package:blood_donation_flutter_app/exceptions/app_exceptions.dart';
 import 'package:blood_donation_flutter_app/models/donors_response_model.dart';
 import 'package:blood_donation_flutter_app/models/nearby_donor_model.dart';
 import 'package:blood_donation_flutter_app/models/profile_response_model.dart';
@@ -13,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../exceptions/app_exceptions.dart';
 
 class UserApiService {
   static late Response _response;
