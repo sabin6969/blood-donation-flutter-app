@@ -32,7 +32,7 @@ class _NoInternetViewState extends State<NoInternetView> {
           ),
           TextButton(
             onPressed: () {
-              Get.find<SplashController>().verifyAuthToken();
+              // Get.find<SplashController>().verifyAuthToken();
             },
             child: const Text("Try Again"),
           )

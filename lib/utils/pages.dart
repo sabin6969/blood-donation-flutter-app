@@ -16,10 +16,9 @@ import 'package:blood_donation_flutter_app/views/donor/donors_view.dart';
 import 'package:blood_donation_flutter_app/views/donor/nearby_donor_view.dart';
 import 'package:blood_donation_flutter_app/views/landing/landing_view.dart';
 import 'package:blood_donation_flutter_app/views/map/google_map_view.dart';
-import 'package:blood_donation_flutter_app/views/no_internet_view.dart';
 import 'package:blood_donation_flutter_app/views/notifications/notifications_configuration_view.dart';
 import 'package:blood_donation_flutter_app/views/onboarding_view.dart';
-import 'package:blood_donation_flutter_app/views/splash_view.dart';
+import 'package:blood_donation_flutter_app/views/splash/splash_view.dart';
 import 'package:blood_donation_flutter_app/views/user_specific/blood_request_status_view.dart';
 import 'package:get/get.dart';
 
@@ -119,15 +118,6 @@ List<GetPage> pages = [
   GetPage(
     name: AppNamedRoute.googleMapView,
     page: () => const GoogleMapView(),
-  ),
-  GetPage(
-    name: AppNamedRoute.noInternetView,
-    page: () => const NoInternetView(),
-    binding: BindingsBuilder(
-      () {
-        Get.lazyPut(() => SplashController());
-      },
-    ),
   ),
   GetPage(
     name: AppNamedRoute.bloodRequestStatusView,

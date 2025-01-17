@@ -23,4 +23,5 @@ class AppImagePath {
   static String pushNotifications = "assets/images/push_notifications.png";
   static String emptyCartImage = "assets/images/empty_cart_image.png";
   static String errorIcon = "assets/icons/errorIcon.png";
+  static String bloodDonationIcon = "assets/icons/blood_donation_icon.png";
 }

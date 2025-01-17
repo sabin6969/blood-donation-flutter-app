@@ -1,56 +1,44 @@
-import 'dart:io';
+import 'dart:developer';
 
 import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
 import 'package:blood_donation_flutter_app/services/get_storage_service.dart';
-import 'package:blood_donation_flutter_app/data/services/user_api_service.dart';
-import 'package:blood_donation_flutter_app/utils/get_fcm_token.dart';
-import 'package:blood_donation_flutter_app/utils/widgets/toast_message.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
-
-import '../data/exceptions/app_exceptions.dart';
+import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 
 class SplashController extends GetxController {
-  RxBool isLoading = RxBool(false);
-
   @override
   void onInit() {
-    verifyAuthToken();
+    navigateUser();
     super.onInit();
   }
 
-  void verifyAuthToken() async {
-    try {
-      String? accessToken = GetStorageService.getAccessToken();
-      if (accessToken != null) {
-        String fcmToken = await getFcmToken() ?? "";
-        String message = await UserApiService.verifyAccessToken(
-          accessToken: accessToken,
-          fcmToken: fcmToken,
-        );
-        FlutterNativeSplash.remove();
-        showToastMessage(message: message);
-        await Future.delayed(const Duration(milliseconds: 100));
-        Get.offNamed(AppNamedRoute.landingView);
-      } else {
-        FlutterNativeSplash.remove();
-        await Future.delayed(const Duration(milliseconds: 100));
-        showToastMessage(message: "Welcome! Proceed with Login or Signup");
+  void navigateUser() async {
+    await Future.delayed(const Duration(seconds: 2));
+    bool isAlreadyOnboarded =
+        await GetStorageService.isAlreadyOnboarded() ?? false;
+    String? accessToken = GetStorageService.getAccessToken();
+    if (isAlreadyOnboarded) {
+      if (accessToken == null) {
         Get.offNamed(AppNamedRoute.loginView);
+        return;
       }
-    } on SocketException {
-      showToastMessage(message: "No internet");
-      Get.offNamed(AppNamedRoute.noInternetView);
-    } on ServerRequestTimeoutError {
-      showToastMessage(message: "No internet");
-      Get.offNamed(AppNamedRoute.noInternetView);
-    } on UnauthorizedException catch (e) {
-      showToastMessage(message: e.errorMessage);
-      Get.offNamed(AppNamedRoute.loginView);
-    } catch (e) {
-      Get.snackbar("Error", "Something went wrong");
-    } finally {
-      FlutterNativeSplash.remove();
+      try {
+        JWT.verify(
+          accessToken,
+          SecretKey(
+            "accessTokEnSecreT",
+          ),
+        );
+        Get.offNamed(AppNamedRoute.landingView);
+      } on JWTExpiredException {
+        Get.snackbar("Token expired", "Please login again");
+        Get.offNamed(AppNamedRoute.loginView);
+      } catch (e) {
+        log("Error is $e");
+        log("An error occured");
+      }
+    } else {
+      Get.offNamed(AppNamedRoute.onboardingView);
     }
   }
 }

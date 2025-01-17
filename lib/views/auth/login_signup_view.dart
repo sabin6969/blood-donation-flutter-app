@@ -17,58 +17,59 @@ class _LoginSignupViewState extends State<LoginSignupView> {
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            flex: 3,
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: size.width * 0.05,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Spacer(),
-                  Image.asset(
-                    AppImagePath.bloodImagePath,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text(
-                    "Dare to Donate",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+      body: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: size.width * 0.04,
+          vertical: size.height * 0.01,
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              flex: 3,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: size.width * 0.05,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Spacer(),
+                    Image.asset(
+                      AppImagePath.bloodImagePath,
                     ),
-                  ),
-                  const Spacer(),
-                  const Text(
-                    "You can donate for ones in need and request blood if you need.",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.normal,
+                    const SizedBox(
+                      height: 20,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const Spacer(),
-                ],
+                    const Text(
+                      "Dare to Donate",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const Spacer(),
+                    const Text(
+                      "You can donate for ones in need and request blood if you need.",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const Spacer(),
+                  ],
+                ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: size.width * 0.05,
-              ),
+            Expanded(
+              flex: 2,
               child: Column(
                 children: [
                   CustomAuthButton(
                     buttonColor: Colors.red.shade100,
                     child: const Text(
-                      "Log In",
+                      "Login",
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.black,
@@ -79,7 +80,7 @@ class _LoginSignupViewState extends State<LoginSignupView> {
                     },
                   ),
                   SizedBox(
-                    height: size.height * 0.02,
+                    height: size.height * 0.03,
                   ),
                   CustomAuthButton(
                     buttonColor: Colors.red,
@@ -96,9 +97,9 @@ class _LoginSignupViewState extends State<LoginSignupView> {
                   )
                 ],
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

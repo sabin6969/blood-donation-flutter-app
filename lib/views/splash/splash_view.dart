@@ -1,4 +1,6 @@
 import 'package:blood_donation_flutter_app/controllers/splash_controller.dart';
+import 'package:blood_donation_flutter_app/core/static/app_image_path.dart';
+import 'package:blood_donation_flutter_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,12 +14,21 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
-    Get.find<SplashController>();
+    Get.find<SplashController>().navigateUser();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    size = MediaQuery.sizeOf(context);
+    return Scaffold(
+      body: Center(
+        child: Image.asset(
+          AppImagePath.bloodDonationIcon,
+          height: size.height * 0.1,
+          width: size.width * 0.2,
+        ),
+      ),
+    );
   }
 }
