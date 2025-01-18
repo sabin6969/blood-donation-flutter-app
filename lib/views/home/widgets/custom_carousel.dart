@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
@@ -56,12 +55,24 @@ class _CustomCarouselState extends State<CustomCarousel> {
       controller: _pageController,
       itemCount: widget.imagePaths.length,
       itemBuilder: (context, index) {
-        return Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: NetworkImage(
-                widget.imagePaths[index],
+        return Padding(
+          padding: const EdgeInsets.all(
+            10,
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.circular(
+                15,
+              ),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(
+                  widget.imagePaths[index],
+                ),
+                onError: (exception, stackTrace) {
+                  return;
+                },
               ),
             ),
           ),
