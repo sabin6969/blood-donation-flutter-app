@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
 import 'package:blood_donation_flutter_app/services/get_storage_service.dart';
 import 'package:get/get.dart';
@@ -34,8 +32,7 @@ class SplashController extends GetxController {
         Get.snackbar("Token expired", "Please login again");
         Get.offNamed(AppNamedRoute.loginView);
       } catch (e) {
-        log("Error is $e");
-        log("An error occured");
+        Get.offAllNamed(AppNamedRoute.loginView);
       }
     } else {
       Get.offNamed(AppNamedRoute.onboardingView);

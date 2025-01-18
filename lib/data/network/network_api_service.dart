@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:blood_donation_flutter_app/data/network/base_api_service.dart';
 import 'package:http/http.dart';
@@ -40,8 +41,14 @@ class NetworkApiService extends BaseApiService {
       required Map<String, String> headers,
       required Map<String, dynamic> requestBody}) async {
     try {
-      Response response = await delete(url);
+      Response response = await delete(
+        url,
+        headers: headers,
+        body: jsonEncode(requestBody),
+      );
       return response;
+    } on SocketException {
+      throw CustomSocketException();
     } catch (e) {
       return Future.error(e);
     }
@@ -58,6 +65,8 @@ class NetworkApiService extends BaseApiService {
         headers: headers,
       );
       return _getResponse(response: response);
+    } on SocketException {
+      throw CustomSocketException();
     } catch (e) {
       return Future.error(e);
     }
@@ -75,6 +84,8 @@ class NetworkApiService extends BaseApiService {
         body: jsonEncode(requestBody),
       );
       return _getResponse(response: response);
+    } on SocketException {
+      throw CustomSocketException();
     } catch (e) {
       return Future.error(e);
     }
@@ -92,6 +103,8 @@ class NetworkApiService extends BaseApiService {
         body: jsonEncode(requestBody),
       );
       return _getResponse(response: response);
+    } on SocketException {
+      throw CustomSocketException();
     } catch (e) {
       return Future.error(e);
     }

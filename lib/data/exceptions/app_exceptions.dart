@@ -49,3 +49,8 @@ class LocationNotEnabledException extends AppException {
 class ServerRequestTimeoutError extends AppException {
   ServerRequestTimeoutError({required super.errorMessage});
 }
+
+class CustomSocketException extends AppException {
+  CustomSocketException(
+      {super.errorMessage = "Please check your internet connectivity"});
+}

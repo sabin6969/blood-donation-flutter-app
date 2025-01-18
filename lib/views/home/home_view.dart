@@ -1,3 +1,5 @@
+import 'package:blood_donation_flutter_app/controllers/banner_image/banner_image_controller.dart';
+import 'package:blood_donation_flutter_app/core/const/app_enums.dart';
 import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
 import 'package:blood_donation_flutter_app/core/static/app_image_path.dart';
 import 'package:blood_donation_flutter_app/controllers/home_controller.dart';
@@ -21,6 +23,14 @@ class _HomePageState extends State<HomeView> {
     AppImagePath.bloodDonationImageThree,
   ];
 
+  late BannerImageController _bannerImageController;
+
+  @override
+  void initState() {
+    _bannerImageController = Get.find<BannerImageController>();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
@@ -29,26 +39,38 @@ class _HomePageState extends State<HomeView> {
         length: 2,
         child: Column(
           children: [
-            SizedBox(
-              height: size.height * 0.25,
-              child: CarouselView(
-                itemExtent: size.width * 0.8,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 5,
-                ),
-                children: carouselImagePath
-                    .map(
-                      (image) => SizedBox(
-                        height: size.height * 0.3,
-                        width: size.width * 0.9,
-                        child: Image.asset(
-                          image,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    )
-                    .toList(),
-              ),
+            GetX<BannerImageController>(
+              builder: (controller) {
+                switch (controller.appViewState) {
+                  case AppViewState.loading:
+                    return const CircularProgressIndicator();
+                  case AppViewState.sucess:
+                    return _bannerImageController.bannerImagePaths.isEmpty
+                        ? const SizedBox.shrink()
+                        : Expanded(
+                            child: PageView.builder(
+                              itemCount: _bannerImageController
+                                  .bannerImagePaths.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(
+                                        _bannerImageController
+                                            .bannerImagePaths[index],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                  case AppViewState.error:
+                  case AppViewState.idel:
+                    return const SizedBox.shrink();
+                }
+              },
             ),
             Expanded(
               child: GridView.count(

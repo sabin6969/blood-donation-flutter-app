@@ -1,3 +1,6 @@
+import 'package:blood_donation_flutter_app/controllers/banner_image/banner_image_controller.dart';
+import 'package:get/get.dart';
+
 import './widgets/animated_icon.dart';
 
 import 'package:blood_donation_flutter_app/utils/ask_for_notifications.dart';
@@ -30,6 +33,7 @@ class HomeViewState extends State<LandingView> {
   @override
   void initState() {
     super.initState();
+    Get.find<BannerImageController>().getAllBannerImages();
     askPermissionForNotification();
   }
 

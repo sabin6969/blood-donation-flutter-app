@@ -22,12 +22,33 @@ class _SplashViewState extends State<SplashView> {
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
     return Scaffold(
-      body: Center(
-        child: Image.asset(
-          AppImagePath.bloodDonationIcon,
-          height: size.height * 0.1,
-          width: size.width * 0.2,
-        ),
+      body: Stack(
+        children: [
+          Center(
+            child: Image.asset(
+              AppImagePath.bloodDonationIcon,
+              height: size.height * 0.1,
+              width: size.width * 0.2,
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                bottom: 20,
+              ),
+              child: Theme(
+                data: ThemeData(
+                  platform: TargetPlatform.iOS,
+                ),
+                child: Transform.scale(
+                  scale: 1.5,
+                  child: const CircularProgressIndicator.adaptive(),
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
