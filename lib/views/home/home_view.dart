@@ -5,6 +5,7 @@ import 'package:blood_donation_flutter_app/core/static/app_image_path.dart';
 import 'package:blood_donation_flutter_app/controllers/home_controller.dart';
 import 'package:blood_donation_flutter_app/main.dart';
 import 'package:blood_donation_flutter_app/utils/widgets/custom_card_widget.dart';
+import 'package:blood_donation_flutter_app/views/home/widgets/custom_carousel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -48,22 +49,9 @@ class _HomePageState extends State<HomeView> {
                     return _bannerImageController.bannerImagePaths.isEmpty
                         ? const SizedBox.shrink()
                         : Expanded(
-                            child: PageView.builder(
-                              itemCount: _bannerImageController
-                                  .bannerImagePaths.length,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                        _bannerImageController
-                                            .bannerImagePaths[index],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
+                            child: CustomCarousel(
+                              imagePaths:
+                                  _bannerImageController.bannerImagePaths,
                             ),
                           );
                   case AppViewState.error:
