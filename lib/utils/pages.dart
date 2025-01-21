@@ -1,4 +1,5 @@
 import 'package:blood_donation_flutter_app/controllers/banner_image/banner_image_controller.dart';
+import 'package:blood_donation_flutter_app/controllers/campaign/campaign_controller.dart';
 import 'package:blood_donation_flutter_app/core/routes/app_named_route.dart';
 import 'package:blood_donation_flutter_app/controllers/blood_request_controller.dart';
 import 'package:blood_donation_flutter_app/controllers/campaign_controller.dart';
@@ -9,6 +10,7 @@ import 'package:blood_donation_flutter_app/controllers/register_controller.dart'
 import 'package:blood_donation_flutter_app/controllers/search_donor_controller.dart';
 import 'package:blood_donation_flutter_app/controllers/splash_controller.dart';
 import 'package:blood_donation_flutter_app/repository/banner_image/banner_image_repository.dart';
+import 'package:blood_donation_flutter_app/repository/campaign/campaign_repository.dart';
 import 'package:blood_donation_flutter_app/views/auth/login_signup_view.dart';
 import 'package:blood_donation_flutter_app/views/auth/login_view.dart';
 import 'package:blood_donation_flutter_app/views/auth/register_view.dart';
@@ -106,7 +108,9 @@ List<GetPage> pages = [
     binding: BindingsBuilder(
       () {
         Get.lazyPut(
-          () => CampaingController(),
+          () => CampaignController(
+            campaignRepository: CampaignRepository(),
+          ),
         );
       },
     ),
