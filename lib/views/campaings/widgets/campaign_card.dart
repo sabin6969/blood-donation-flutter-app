@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:blood_donation_flutter_app/controllers/campaign/campaign_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,8 +11,13 @@ import '../../../models/campaign/campaign_response_model.dart';
 class CampaignCard extends StatelessWidget {
   final CampaignResponse campaignResponse;
   final int index;
-  const CampaignCard(
-      {super.key, required this.campaignResponse, required this.index});
+  final CampaignController campaignController;
+  const CampaignCard({
+    super.key,
+    required this.campaignResponse,
+    required this.index,
+    required this.campaignController,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -122,20 +130,45 @@ class CampaignCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TextButton(
-                  onPressed: () {},
-                  style: const ButtonStyle(
-                    backgroundColor: WidgetStatePropertyAll(
-                      Colors.blue,
-                    ),
-                  ),
-                  child: const Text(
-                    "Participate",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                GetBuilder<CampaignController>(
+                  id: campaignResponse.data[index].id,
+                  builder: (controller) {
+                    log("The button has rebuilt");
+                    log(campaignController
+                        .isLoadingMap[campaignResponse.data[index].id]
+                        .toString());
+                    return TextButton(
+                      onPressed:
+                          campaignResponse.data[index].isAlreadyParticipated ??
+                                  false
+                              ? null
+                              : () {
+                                  campaignController.participateInCampaign(
+                                    campaignId:
+                                        campaignResponse.data[index].id ?? "",
+                                  );
+                                },
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStatePropertyAll(
+                          campaignResponse.data[index].isAlreadyParticipated ??
+                                  false
+                              ? Colors.grey[500]
+                              : Colors.blue,
+                        ),
+                      ),
+                      child: campaignController.isLoadingMap[
+                                  campaignResponse.data[index].id] ??
+                              false
+                          ? const CircularProgressIndicator()
+                          : const Text(
+                              "Participate",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                    );
+                  },
                 ),
                 TextButton(
                   onPressed: () {

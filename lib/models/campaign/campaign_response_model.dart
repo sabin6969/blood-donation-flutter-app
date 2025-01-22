@@ -50,7 +50,7 @@ class Datum {
   final DateTime? updatedAt;
   final int? v;
   final Organizer? organizer;
-  final bool? isAlreadyParticipated;
+  bool? isAlreadyParticipated;
 
   factory Datum.fromJson(Map<String, dynamic> json) {
     return Datum(

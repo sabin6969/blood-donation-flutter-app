@@ -214,6 +214,7 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                           return CampaignCard(
                             index: index,
                             campaignResponse: controller.campaignResponse,
+                            campaignController: controller,
                           );
                         },
                       ),
