@@ -39,7 +39,7 @@ class CampaignController extends GetxController with WidgetsBindingObserver {
 
   CampaignResponse get campaignResponse => _campaignResponse;
 
-  void getCampaign() async {
+  void getCampaign({bool isRefreshed = false}) async {
     try {
       _appViewState.value = AppViewState.loading;
       String? accessToken = GetStorageService.getAccessToken();
@@ -68,31 +68,20 @@ class CampaignController extends GetxController with WidgetsBindingObserver {
 
   void participateInCampaign({required String campaignId}) async {
     try {
-      _isLoadingMap[campaignId] = true;
-      update([campaignId]);
+      _appViewState.value = AppViewState.loading;
       String? accessToken = GetStorageService.getAccessToken();
-      await campaignRepository.participateInCampaign(
+      _campaignResponse = await campaignRepository.participateInCampaign(
           accessToken: accessToken ?? "", campaignId: campaignId);
-      var data = campaignResponse.data
-          .where((element) => element.id == campaignId)
-          .toList();
-      data.first.isAlreadyParticipated = true;
       _appViewState.value = AppViewState.sucess;
-      _isLoadingMap[campaignId] = false;
-      update([campaignId]);
     } on UnauthorizedException catch (e) {
       Get.snackbar("Unauthorized", e.errorMessage);
       Get.offAllNamed(AppNamedRoute.loginView);
     } on AppException catch (e) {
-      _isLoadingMap[campaignId] = false;
-      update([campaignId]);
       _errorMessage = e.errorMessage;
       _appViewState.value = AppViewState.error;
     } catch (e) {
-      _isLoadingMap[campaignId] = false;
-      _appViewState.value = AppViewState.error;
       _errorMessage = "Something went wrong";
-      update([campaignId]);
+      _appViewState.value = AppViewState.error;
     }
   }
 }

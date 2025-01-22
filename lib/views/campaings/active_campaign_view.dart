@@ -206,7 +206,9 @@ class _ActiveCampaingViewState extends State<ActiveCampaingView> {
                     )
                   : RefreshIndicator(
                       onRefresh: () async {
-                        controller.getCampaign();
+                        controller.getCampaign(
+                          isRefreshed: true,
+                        );
                       },
                       child: ListView.builder(
                         itemCount: controller.campaignResponse.data.length,

@@ -130,45 +130,31 @@ class CampaignCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                GetBuilder<CampaignController>(
-                  id: campaignResponse.data[index].id,
-                  builder: (controller) {
-                    log("The button has rebuilt");
-                    log(campaignController
-                        .isLoadingMap[campaignResponse.data[index].id]
-                        .toString());
-                    return TextButton(
-                      onPressed:
-                          campaignResponse.data[index].isAlreadyParticipated ??
-                                  false
-                              ? null
-                              : () {
-                                  campaignController.participateInCampaign(
-                                    campaignId:
-                                        campaignResponse.data[index].id ?? "",
-                                  );
-                                },
-                      style: ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(
-                          campaignResponse.data[index].isAlreadyParticipated ??
-                                  false
-                              ? Colors.grey[500]
-                              : Colors.blue,
-                        ),
-                      ),
-                      child: campaignController.isLoadingMap[
-                                  campaignResponse.data[index].id] ??
+                TextButton(
+                  onPressed: campaignResponse
+                              .data[index].isAlreadyParticipated ??
+                          false
+                      ? null
+                      : () {
+                          campaignController.participateInCampaign(
+                            campaignId: campaignResponse.data[index].id ?? "",
+                          );
+                        },
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(
+                      campaignResponse.data[index].isAlreadyParticipated ??
                               false
-                          ? const CircularProgressIndicator()
-                          : const Text(
-                              "Participate",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                    );
-                  },
+                          ? Colors.grey[500]
+                          : Colors.blue,
+                    ),
+                  ),
+                  child: const Text(
+                    "Participate",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
                 TextButton(
                   onPressed: () {
