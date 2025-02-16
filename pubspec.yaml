@@ -33,6 +33,8 @@ dependencies:
   firebase_remote_config: ^5.1.3
   url_launcher: ^6.3.1
   dart_jsonwebtoken: ^2.14.2
+  animated_button:
+    git: https://github.com/sabin6969/Animated-Button
 
 dev_dependencies:
   flutter_test:

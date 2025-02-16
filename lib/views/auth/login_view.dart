@@ -6,6 +6,7 @@ import 'package:blood_donation_flutter_app/utils/widgets/custom_auth_button.dart
 import 'package:blood_donation_flutter_app/utils/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:animated_button/animated_button.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -88,25 +89,19 @@ class _LoginViewState extends State<LoginView> {
                       height: size.height * 0.02,
                     ),
                     GetX<LoginController>(builder: (controller) {
-                      return CustomAuthButton(
-                        buttonColor: Colors.red,
-                        child: controller.isLoading.value
-                            ? const CircularProgressIndicator(
-                                color: Colors.white,
-                              )
-                            : const Text(
-                                "Log In",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                ),
-                              ),
-                        onPressed: () {
+                      return AnimatedButton(
+                        isLoading: controller.isLoading.value,
+                        color: Colors.red,
+                        onTap: () {
                           loginController.login(
                             email: loginController.emailController.text,
                             password: loginController.passwordController.text,
                           );
                         },
+                        buttonName: "Log In",
+                        height: size.height * 0.07,
+                        radius: BorderRadius.circular(20),
+                        width: size.width,
                       );
                     }),
                     Row(

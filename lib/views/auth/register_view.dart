@@ -8,6 +8,7 @@ import 'package:blood_donation_flutter_app/utils/widgets/custom_text_field.dart'
 import 'package:blood_donation_flutter_app/utils/image_picker_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:animated_button/animated_button.dart';
 
 class SignupView extends StatefulWidget {
   const SignupView({super.key});
@@ -175,20 +176,18 @@ class _SignupViewState extends State<SignupView> {
                 ),
                 GetX<RegisterController>(
                   builder: (controller) {
-                    return CustomAuthButton(
-                      onPressed: () {
+                    return AnimatedButton(
+                      isLoading: controller.isLoading.value,
+                      color: Colors.red,
+                      radius: BorderRadius.circular(
+                        25,
+                      ),
+                      onTap: () {
                         registerController.registerUser();
                       },
-                      buttonColor: Colors.red,
-                      child: controller.isLoading.value
-                          ? const CircularProgressIndicator(
-                              color: Colors.white,
-                            )
-                          : const Text(
-                              "Register",
-                              style:
-                                  TextStyle(fontSize: 16, color: Colors.white),
-                            ),
+                      buttonName: "Register",
+                      height: size.height * 0.07,
+                      width: size.width,
                     );
                   },
                 ),
