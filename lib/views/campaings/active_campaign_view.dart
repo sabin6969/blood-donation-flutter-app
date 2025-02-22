@@ -1,6 +1,6 @@
 import 'package:blood_donation_flutter_app/core/const/app_enums.dart';
 import 'package:blood_donation_flutter_app/core/static/app_image_path.dart';
-import 'package:blood_donation_flutter_app/main.dart';
+import 'package:blood_donation_flutter_app/main.dart' show size;
 import 'package:blood_donation_flutter_app/utils/widgets/toast_message.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';

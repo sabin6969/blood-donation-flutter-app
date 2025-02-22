@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../core/static/app_image_path.dart';
+import '../../main.dart' show size;
+
 class ApprovedRequestStatusView extends StatefulWidget {
   const ApprovedRequestStatusView({super.key});
 
@@ -39,8 +42,13 @@ class _ApprovedRequestStatusViewState extends State<ApprovedRequestStatusView> {
               ? Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Lottie.asset(
-                        AppLottieAnimationPath.errorLottieAnimationPath),
+                    Center(
+                      child: Image.asset(
+                        AppImagePath.emptyCartImage,
+                        height: size.height * 0.35,
+                        width: size.width * 0.6,
+                      ),
+                    ),
                     const Text(
                       "You don't have any approved blood requests yet",
                       style: TextStyle(

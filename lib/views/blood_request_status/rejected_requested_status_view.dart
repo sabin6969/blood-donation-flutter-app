@@ -2,6 +2,9 @@ import 'package:blood_donation_flutter_app/controllers/blood_request_controller.
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../core/static/app_image_path.dart';
+import '../../main.dart';
+
 class RejectedRequestedStatusView extends StatefulWidget {
   const RejectedRequestedStatusView({super.key});
 
@@ -32,6 +35,13 @@ class _RejectedRequestedStatusViewState
                 ? Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      Center(
+                        child: Image.asset(
+                          AppImagePath.emptyCartImage,
+                          height: size.height * 0.35,
+                          width: size.width * 0.6,
+                        ),
+                      ),
                       const Text("No any rejected blood requests yet"),
                       TextButton(
                         onPressed: () {},

@@ -1,4 +1,6 @@
 import 'package:blood_donation_flutter_app/controllers/blood_request_controller.dart';
+import 'package:blood_donation_flutter_app/core/static/app_image_path.dart';
+import 'package:blood_donation_flutter_app/main.dart' show size;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -29,7 +31,15 @@ class _PendingRequestStatusViewState extends State<PendingRequestStatusView> {
           return controller.pendingBloodRequestModel!.data.isEmpty
               ? Column(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    Center(
+                      child: Image.asset(
+                        AppImagePath.emptyCartImage,
+                        height: size.height * 0.35,
+                        width: size.width * 0.6,
+                      ),
+                    ),
                     const Text("No pending Blood Requests"),
                     TextButton(
                       onPressed: () {
